@@ -1,30 +1,20 @@
-import './App.css';
-import {useEffect, useState} from "react";
+import React from "react";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import Test2 from "./components/Test2";
+import Test1 from "./components/Test1";
+
 import axios from "axios";
-
-const instance = axios.create({
-  baseURL: 'https://collections-server.vercel.app', // Your default base URL here
-});
-
+axios.defaults.baseURL = "https://collections-server.vercel.app";
 function App() {
-  const [data, setData] = useState(null);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await instance.get('/');
-        console.log(response)
-        setData(response.data)
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
   return (
-    <div className="App">
-      {data && data}
-    </div>
+      <BrowserRouter>
+            <div>
+                <Routes>
+                    <Route path="/" element={<Test1 />}></Route>
+                    <Route path="/test2" element={<Test2 />}></Route>
+                </Routes>
+            </div>
+      </BrowserRouter>
   );
 }
 

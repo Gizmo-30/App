@@ -1,17 +1,19 @@
 import './App.css';
 import {useEffect, useState} from "react";
+import axios from "axios";
+
+const instance = axios.create({
+  baseURL: 'https://collections-server.vercel.app', // Your default base URL here
+});
 
 function App() {
   const [data, setData] = useState(null);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://app-ryx4.vercel.app');
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const result = await response.json();
-        setData(result);
+        const response = await instance.get('/');
+        console.log(response)
+        setData(response.data)
       } catch (error) {
         console.error('Error fetching data:', error);
       }

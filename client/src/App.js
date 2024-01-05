@@ -1,4 +1,5 @@
 import React from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Registration from "./components/Registration";
 import LogIn from "./components/LogIn";
@@ -9,7 +10,7 @@ axios.defaults.baseURL = "https://collections-server.vercel.app";
 function App() {
   return (
       <BrowserRouter>
-            <div>
+            <div className="d-flex align-items-center justify-content-center vh-100 mx-auto vw-70 p-2" style={{maxWidth: '1100px'}}>
                 <Routes>
                     <Route path="/" element={<LogIn />}></Route>
                     <Route path="/registration" element={<Registration />}></Route>

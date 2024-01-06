@@ -1,25 +1,26 @@
 import React, {useState} from "react";
-import {Form, Alert, Button} from "react-bootstrap";
+import {Alert, Button, Form} from "react-bootstrap";
 import {NavLink} from "react-router-dom";
-import Handlers from "../methods/Handlers";
 import validation from "../methods/validation";
 import {Input} from "./Input";
 import {FormProvider, useForm} from "react-hook-form";
+import {useDispatch, useSelector} from "react-redux";
+import {setPassword, setUsername} from "../state/slices/userSlice";
 
 const LogIn = () => {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+    const userInfo = useSelector((state) => state.userInfo)
+    const dispatch = useDispatch()
+
     const [error, setError] = useState("");
     const [reset, setReset] = useState(false);
     const [success, setSuccess] = useState(false);
-    const handler = new Handlers(setUsername, setPassword)
 
     function handleReset() {
         setError("")
         setReset(false)
-        setUsername("")
-        setPassword("")
     }
+
+    const handleInput = (method, e) => dispatch(method(e.target.value))
 
     const methods = useForm()
     const onSubmit = methods.handleSubmit(data => {
@@ -28,10 +29,22 @@ const LogIn = () => {
     return (
         <FormProvider {...methods}>
             <Form style={{width: '450px'}} className="border border-primary px-4 py-5 rounded-4" onSubmit={onSubmit}>
-                <Input type="text" label="username" id="username" value={username} onChange={handler.handleUsername} validation={validation.username}/>
-                <Input type="password" label="Password" id="password" value={password} onChange={handler.handlePassword} validation={validation.password}/>
+                <Input type="text"
+                       label="username or email"
+                       id="username"
+                       value={userInfo.username}
+                       onChange={(e) => handleInput(setUsername, e)}
+                       validation={validation.username}
+                />
+                <Input
+                    type="password"
+                    label="Password"
+                    id="password"
+                    value={userInfo.password}
+                    onChange={(e) => handleInput(setPassword, e)}
+                    validation={validation.password}/>
 
-                {/*status messsage*/}
+                {/*status message*/}
                 {error && <Alert variant="danger">{error}</Alert>}
                 {success && <Alert variant="success">User log in successfully</Alert>}
 

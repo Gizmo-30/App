@@ -5,6 +5,7 @@ const router = require("./routes/router");
 const app = express()
 const db = require("./models")
 const {Users} = require("./models")
+const {Sequelize} = require("sequelize");
 
 require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 const PORT = process.env.PORT || 4000;
@@ -14,6 +15,8 @@ const PORT = process.env.PORT || 4000;
 //
 app.use(cors())
 app.use('/users', router)
+
+
 app.get('/', (req,res) => {
     res.send(`<div>
        hello world  
@@ -24,8 +27,8 @@ app.get('/', (req,res) => {
 app.get('/test', async (req,res) => {
     try {
         await Users.create({
-            username: 'adsdf',
-            email: 'asdffsdff@gmail.com',
+            username: 'HEY',
+            email: 'HEY@gmail.com',
             password: '123',
             role: 'user',
             status: 'active',

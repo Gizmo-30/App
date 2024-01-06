@@ -1,4 +1,15 @@
-const {DataTypes} = require("sequelize");
+const {Sequelize} = require("sequelize");
+const path = require("path");
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
+const sequelize = new Sequelize({
+    dialect: 'mysql',
+    host: process.env.DB_HOST,
+    port: process.env.PORT,
+    username: process.env.USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
+});
+
 module.exports = (sequelize, DataTypes) => {
     const Users = sequelize.define("Users", {
         username: {

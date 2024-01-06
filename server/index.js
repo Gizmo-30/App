@@ -23,13 +23,13 @@ app.get('/', (req,res) => {
 })
 app.get('/test', async (req,res) => {
     try {
-        // await Users.create({
-        //     username: 'adsdf',
-        //     email: 'asdffsdff@gmail.com',
-        //     password: '123',
-        //     role: 'user',
-        //     status: 'active',
-        // })
+        await Users.create({
+            username: 'adsdf',
+            email: 'asdffsdff@gmail.com',
+            password: '123',
+            role: 'user',
+            status: 'active',
+        })
         res.send('its working')
     } catch (err) {
         console.log(err)

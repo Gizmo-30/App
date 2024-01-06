@@ -1,17 +1,23 @@
 import React from "react";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
-import Test2 from "./components/Test2";
-import Test1 from "./components/Test1";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {BrowserRouter, NavLink, Route, Routes} from "react-router-dom";
+import Registration from "./components/Registration";
+import LogIn from "./components/LogIn";
+import Test from "./components/Test";
 
 import axios from "axios";
-axios.defaults.baseURL = "https://collections-server.vercel.app";
+// axios.defaults.baseURL = "https://collections-server.vercel.app";
+axios.defaults.baseURL = "http://localhost:3001";
+
 function App() {
   return (
       <BrowserRouter>
-            <div>
+            <div className="d-flex align-items-center justify-content-center vh-100 mx-auto vw-70 p-2" style={{maxWidth: '1100px'}}>
+                <NavLink to="/test">test</NavLink>
                 <Routes>
-                    <Route path="/" element={<Test1 />}></Route>
-                    <Route path="/test2" element={<Test2 />}></Route>
+                    <Route path="/test" element={<Test />}></Route>
+                    <Route path="/" element={<LogIn />}></Route>
+                    <Route path="/registration" element={<Registration />}></Route>
                 </Routes>
             </div>
       </BrowserRouter>

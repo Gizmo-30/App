@@ -6,6 +6,7 @@ import {Input} from "./Input";
 import {FormProvider, useForm} from "react-hook-form";
 import {useDispatch, useSelector} from "react-redux";
 import {setPassword, setUsername} from "../state/slices/userSlice";
+import Registration from "./Registration";
 
 const LogIn = () => {
     const userInfo = useSelector((state) => state.userInfo)
@@ -53,7 +54,7 @@ const LogIn = () => {
                 <Button variant="primary" className="mt-3 mb-4 w-100" type="submit">Sign in</Button>
 
                 <Form.Group className="text-center">
-                    <p>Not a member? <NavLink to="/signup">Register</NavLink></p>
+                    <p>Not a member? <NavLink to="/registration">Register</NavLink></p>
                 </Form.Group>
             </Form>
         </FormProvider>

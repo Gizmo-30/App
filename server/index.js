@@ -5,7 +5,6 @@ const router = require("./routes/router");
 const app = express()
 const db = require("./models")
 const {Users} = require("./models")
-console.log(Users)
 
 require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 const PORT = process.env.PORT || 4000;

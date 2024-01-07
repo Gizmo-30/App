@@ -16,11 +16,11 @@ const PORT = process.env.PORT || 4000;
 //
 app.use(cors())
 app.use('/users', router)
-// sequelize.authenticate().then(() => {
-//     console.log('Connection has been established successfully.');
-// }).catch((error) => {
-//     console.error('Unable to connect to the database: ', error);
-// });
+sequelize.authenticate().then(() => {
+    console.log('Connection has been established successfully.');
+}).catch((error) => {
+    console.error('Unable to connect to the database: ', error);
+});
 
 app.get('/', (req,res) => {
     res.send(`<div>
@@ -32,8 +32,8 @@ app.get('/', (req,res) => {
 app.get('/test', async (req,res) => {
     try {
         await Users.create({
-            username: 'HEY',
-            email: 'HEY@gmail.com',
+            username: 'success',
+            email: 'success@gmail.com',
             password: '123',
             role: 'user',
             status: 'active',
@@ -43,9 +43,9 @@ app.get('/test', async (req,res) => {
         console.log(err)
     }
 })
-db.sequelize.sync().then((req) => {
-    app.listen(PORT, (req,res) => {
-        console.log(`Server running at http://localhost:${PORT}`)
-    })
+app.listen(PORT, (req,res) => {
+    console.log(`Server running at http://localhost:${PORT}`)
 })
+// db.sequelize.sync().then((req) => {
+// })
 

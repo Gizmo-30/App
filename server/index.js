@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 4000;
 //
 app.use(cors())
 app.use('/users', router)
-// sequelize.sync()
+sequelize.sync().then(res => console.log('synced'))
 
 app.get('/', (req,res) => {
     res.send(`<div>

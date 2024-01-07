@@ -30,7 +30,6 @@ module.exports = (sequelize, DataTypes) => {
             defaultValue: "active",
         },
     })
-    // Users.sync({ alter: true })
     return Users
 }
 

@@ -5,8 +5,11 @@ export const api = createApi({
     baseQuery: fetchBaseQuery({baseUrl: "http://localhost:3001"}),
     endpoints: (builder) => ({
         dbData: builder.query({
-            query: () => "test",
+            query: () => "users",
         }),
+        sendLoginData: builder.query({
+            query: () => "login"
+        })
     })
 })
 export const { useDbDataQuery } = api;

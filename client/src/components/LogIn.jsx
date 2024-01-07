@@ -25,7 +25,7 @@ const LogIn = () => {
 
     const methods = useForm()
     const onSubmit = methods.handleSubmit(data => {
-        console.log(data)
+
     })
     return (
         <FormProvider {...methods}>

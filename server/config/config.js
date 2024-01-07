@@ -12,9 +12,6 @@ module.exports = {
     dialectModule: mysql2,
     dialectOptions: {
       bigNumberStrings: true,
-      ssl: {
-        ca: fs.readFileSync(__dirname + '../mysql-ca-main.crt')
-      }
     }
   },
   test: {
@@ -36,9 +33,6 @@ module.exports = {
     dialectModule: mysql2,
     dialectOptions: {
       bigNumberStrings: true,
-      ssl: {
-        ca: fs.readFileSync(__dirname + '../mysql-ca-main.crt')
-      }
     }
   }
 }

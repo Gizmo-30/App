@@ -4,23 +4,20 @@
     "password": "ywk.MSZ6$!GqFq.b#k@#Lf",
     "database": "collections-app",
     "host": "127.0.0.1",
-    "dialect": "mysql",
-    "dialectModule": "mysql2"
+    "dialect": "mysql"
   },
   "test": {
     "username": "root",
     "password": "ywk.MSZ6$!GqFq.b#k@#Lf",
     "database": "collections-app",
     "host": "127.0.0.1",
-    "dialect": "mysql",
-    "dialectModule": "mysql2"
+    "dialect": "mysql"
   },
   "production": {
     "username": "root",
     "password": "ywk.MSZ6$!GqFq.b#k@#Lf",
     "database": "collections-app",
     "host": "127.0.0.1",
-    "dialect": "mysql",
-    "dialectModule": "mysql2"
+    "dialect": "mysql"
   }
 }

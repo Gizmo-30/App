@@ -1,12 +1,9 @@
 module.exports = (sequelize, DataTypes) => {
-    const Users = sequelize.define("Users", {
+    return sequelize.define("Users", {
         username: {
             type: DataTypes.STRING(100),
             allowNull: false,
-            unique: {
-                arguments: true,
-                message: "duplicate"
-            },
+            unique: true,
             defaultValue: '',
         },
         email: {
@@ -30,6 +27,5 @@ module.exports = (sequelize, DataTypes) => {
             defaultValue: "active",
         },
     })
-    return Users
 }
 

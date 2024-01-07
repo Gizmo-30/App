@@ -16,11 +16,7 @@ const PORT = process.env.PORT || 4000;
 //
 app.use(cors())
 app.use('/users', router)
-// sequelize.authenticate().then(() => {
-//     console.log('Connection has been established successfully.');
-// }).catch((error) => {
-//     console.error('Unable to connect to the database: ', error);
-// });
+// sequelize.sync()
 
 app.get('/', (req,res) => {
     res.send(`<div>
@@ -30,24 +26,26 @@ app.get('/', (req,res) => {
        </div>`)
 })
 app.get('/test', async (req,res) => {
-    try {
-        await Users.create({
-            username: 'bbbbb',
-            email: 'bbbbb@gmail.com',
-            password: '123',
-            role: 'user',
-            status: 'active',
+
+    await Users.create({
+        username: 'asdfasfd',
+        email: 'aaaasdfasfda@gmail.com',
+        password: '123',
+        role: 'user',
+        status: 'active',
+    })
+        .then(result => res.send('its working'))
+        .catch(err => {
+            if(err) {
+                console.error("Error creating user")
+                res.send(err.original.sqlMessage)
+            }
         })
-        res.send('its working')
-    } catch (err) {
-        console.log(err)
-    }
 })
 
-app.listen(PORT, (req,res) => {
-    console.log(`Server running at http://localhost:${PORT}`)
+db.sequelize.sync().then((req) => {
+    app.listen(PORT, (req,res) => {
+        console.log(`Server running at http://localhost:${PORT}`)
+    })
 })
-// db.sequelize.sync().then((req) => {
-//
-// })
 

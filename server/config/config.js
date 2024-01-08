@@ -1,6 +1,5 @@
 const path = require("path");
 const mysql2 = require("mysql2");
-const fs = require('fs');
 require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
 module.exports = {
   development: {
@@ -10,9 +9,6 @@ module.exports = {
     host: process.env.DB_HOST,
     dialect: "mysql",
     dialectModule: mysql2,
-    dialectOptions: {
-      bigNumberStrings: true,
-    }
   },
   test: {
     username: process.env.DB_USER,
@@ -21,9 +17,6 @@ module.exports = {
     host: process.env.DB_HOST,
     dialect: "mysql",
     dialectModule: mysql2,
-    dialectOptions: {
-      bigNumberStrings: true
-    }
   },
   production: {
     username: process.env.DB_USER,
@@ -31,9 +24,6 @@ module.exports = {
     database: process.env.DB_DATABASE,
     host: process.env.DB_HOST,
     dialect: "mysql",
-    // dialectModule: mysql2,
-    dialectOptions: {
-      bigNumberStrings: true,
-    }
+    dialectModule: mysql2,
   }
 }

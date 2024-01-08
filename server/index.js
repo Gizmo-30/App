@@ -19,16 +19,16 @@ app.use(cors())
 app.use(bodyParser.json());
 
 try{
-    db.sequelize.sync(
-        app.listen(PORT, (req,res) => {
-            console.log(`Server running at http://localhost:${PORT}`)
-        })
-    )
+    db.sequelize.sync({alter: true})
 } catch (e) {
     console.error('Unable to connect to the database --->', e);
 }
 
 app.use('/', router)
+
+app.listen(PORT, (req,res) => {
+    console.log(`Server running at http://localhost:${PORT}`)
+})
 
 
 

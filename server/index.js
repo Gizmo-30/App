@@ -19,7 +19,7 @@ app.use(cors())
 app.use(bodyParser.json());
 
 try{
-    sequelize.authenticate()
+    // sequelize.authenticate()
     app.listen(PORT, (req,res) => {
         console.log(`Server running at http://localhost:${PORT}`)
     })

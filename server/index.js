@@ -3,7 +3,7 @@ const cors = require('cors');
 const path = require('path');
 const router = require("./routes/router");
 const bodyParser = require('body-parser');
-const {sequelize, User} = require("./models");
+const {db, User} = require("./models");
 const {Sequelize} = require("sequelize");
 const mysql2 = require('mysql2');
 // const db = require("./db");
@@ -19,7 +19,7 @@ app.use(cors())
 app.use(bodyParser.json());
 
 try{
-    // sequelize.authenticate()
+    db.sequelize.sync()
     app.listen(PORT, (req,res) => {
         console.log(`Server running at http://localhost:${PORT}`)
     })

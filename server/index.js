@@ -18,11 +18,11 @@ const app = express()
 app.use(cors())
 app.use(bodyParser.json());
 
-try{
-    db.sequelize.sync({alter: true})
-} catch (e) {
-    console.error('Unable to connect to the database --->', e);
-}
+// try{
+//     db.sequelize.sync({alter: true})
+// } catch (e) {
+//     console.error('Unable to connect to the database --->', e);
+// }
 
 app.use('/', router)
 

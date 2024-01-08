@@ -19,10 +19,10 @@ const app = express()
 app.use(cors())
 app.use(bodyParser.json());
 app.use('/', router)
-
-sequelize.sync({alter: true}).then((req) => {
-    app.listen(PORT, (req,res) => {
-        console.log(`Server running at http://localhost:${PORT}`)
-    })
+app.listen(PORT, (req,res) => {
+    console.log(`Server running at http://localhost:${PORT}`)
 })
+// sequelize.sync({alter: true}).then((req) => {
+//
+// })
 

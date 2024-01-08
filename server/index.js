@@ -14,15 +14,20 @@ const PORT = process.env.PORT || 4000;
 //
 //
 //
-
 const app = express()
 app.use(cors())
 app.use(bodyParser.json());
+
+try{
+    sequelize.authenticate()
+    app.listen(PORT, (req,res) => {
+        console.log(`Server running at http://localhost:${PORT}`)
+    })
+} catch (e) {
+    console.error('Unable to connect to the database --->', e);
+}
+
 app.use('/', router)
-app.listen(PORT, (req,res) => {
-    console.log(`Server running at http://localhost:${PORT}`)
-})
-// sequelize.sync({alter: true}).then((req) => {
-//
-// })
+
+
 

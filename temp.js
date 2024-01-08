@@ -1,7 +1,7 @@
 const { DataTypes} = require("sequelize");
 const sequelize = require('./server/db')
 
-const Users = sequelize.define("Users", {
+const Temp = sequelize.define("Users", {
     username: {
         type: DataTypes.STRING(100),
         allowNull: false,
@@ -29,6 +29,6 @@ const Users = sequelize.define("Users", {
         defaultValue: "active",
     }
 })
-await Users.sync({ alter: true })
-module.exports = Users
+await Temp.sync({ alter: true })
+module.exports = Temp
 

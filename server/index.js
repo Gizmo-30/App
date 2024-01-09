@@ -17,7 +17,6 @@ app.use(cors())
 app.use(bodyParser.json());
 
 app.use('/', router)
-
 app.listen(PORT, (req,res) => {
     console.log(`Server running at http://localhost:${PORT}`)
 })

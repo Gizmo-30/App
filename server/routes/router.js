@@ -3,10 +3,7 @@ const router = express.Router()
 const {User} = require("../models");
 
 router.get('/', (req,res) => {
-    res.send(`<div>
-       hello world  
-       <a href="/users">users</a>
-       </div>`)
+    res.send(`<div>hello world  <a href="/users">users</a></div>`)
 })
 
 router.get('/users', async (req,res) => {

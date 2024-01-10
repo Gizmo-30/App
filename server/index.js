@@ -17,13 +17,6 @@ app.use(cors())
 app.use(bodyParser.json());
 
 app.use('/', router)
-try {
-    db.sequelize.authenticate();
-    db.sequelize.sync();
-    console.log('yes')
-} catch (e) {
-    console.log('xxxxxxxxxxxxxxxxxxxxxxxxx',e)
-}
 app.listen(PORT, (req,res) => {
     console.log(`Server running at http://localhost:${PORT}`)
 })

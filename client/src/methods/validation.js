@@ -38,6 +38,9 @@ const validation = {
             value: true,
             message: 'required',
         },
+        validate: (value, values) => {
+            return value === values.password || "Passwords do not match"
+        },
     }
 }
 

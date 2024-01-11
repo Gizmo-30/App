@@ -14,6 +14,7 @@ const LogIn = () => {
     const userInfo = useSelector((state) => state.userInfo)
     const status = useSelector((state) => state.status)
     const dispatch = useDispatch()
+    // can be called in app and passed through props
 
     function handleReset() {
         dispatch(setUsername(""))
@@ -22,9 +23,12 @@ const LogIn = () => {
         dispatch(setReset())
     }
 
+    // can be exported from another file and given names of methods
+
     const handleInput = (method, e) => {
         dispatch(method(e.target.value))
     }
+    //     can be exported
 
     const methods = useForm()
     const onSubmit = methods.handleSubmit( async (data) => {

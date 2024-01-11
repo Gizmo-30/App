@@ -68,7 +68,7 @@ const Registration = () => {
                 />
                 <Input
                     type="password"
-                    label="confirmPassword"
+                    label="confirm password"
                     id="confirmPassword"
                     value={userInfo.confirmPassword}
                     onChange={(e) => handleInput(setConfirmPassword, e)}

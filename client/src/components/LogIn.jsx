@@ -14,10 +14,13 @@ const LogIn = () => {
     const userInfo = useSelector((state) => state.userInfo)
     const statuses = useSelector((state) => state.status)
     const dispatch = useDispatch()
-    // function handleReset() {
-    //     setErrors("")
-    //     setReset(false)
-    // }
+    const [reset, setReset] = useState(false)
+
+    function handleReset() {
+        dispatch(setUsername(""))
+        dispatch(setPassword(""))
+        dispatch(errors(""))
+    }
 
     const handleInput = (method, e) => {
         dispatch(method(e.target.value))
@@ -30,6 +33,10 @@ const LogIn = () => {
             await dispatch(success('Login successfully'))
         } catch (e) {
             console.log('Error posting user data ------>', e)
+            if(e.response.status === 401) {
+                dispatch(errors(e.response.data))
+            } else dispatch(errors("Something went wrong :("))
+            setReset(true)
         }
     })
 
@@ -52,12 +59,12 @@ const LogIn = () => {
                     validation={validation.password}/>
 
                 {/*status message*/}
-                {/*{errors && <Alert variant="danger">{errors}</Alert>}*/}
-                {statuses.status && <Alert variant="success">{statuses.message}</Alert>}
+                {statuses.status === "error" && <Alert variant="danger" className="mt-2">{statuses.message}</Alert>}
+                {statuses.status === "success" && <Alert variant="success" className="mt-2">{statuses.message}</Alert>}
 
                 {/*buttons*/}
-                {/*{reset && <Button id="resetButton" variant="primary" className="mt-3 mb-1 w-100 " type="reset" onClick={handleReset}>Reset</Button>}*/}
-                <Button variant="primary" className="mt-5 mb-4 w-100" type="submit">Sign in</Button>
+                {reset && <Button id="resetButton" variant="primary" className="mt-3 mb-1 w-100 " type="reset" onClick={handleReset}>Reset</Button>}
+                <Button variant="primary" className="mt-2 mb-4 w-100" type="submit">Sign in</Button>
 
                 <Form.Group className="text-center">
                     <p>Not a member? <NavLink to="/registration">Register</NavLink></p>

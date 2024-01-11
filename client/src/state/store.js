@@ -2,7 +2,8 @@ import {configureStore} from "@reduxjs/toolkit";
 import counterSlice from "./slices/counterSlice";
 import statusSlice from "./slices/statusSlice";
 import userSlice from "./slices/userSlice";
-import {api} from "./slices/fetchUsers";
+import {api} from "./slices/api";
+import {setupListeners} from "@reduxjs/toolkit/query";
 
 export const store = configureStore({
     reducer: {
@@ -11,6 +12,8 @@ export const store = configureStore({
         userInfo: userSlice,
         [api.reducerPath]: api.reducer,
     },
-    middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(api.middleware),
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false}).concat(api.middleware),
+
 })
+setupListeners(store.dispatch);
+

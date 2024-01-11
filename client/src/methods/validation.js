@@ -13,6 +13,16 @@ const validation = {
             message: "Only alphabets are allowed"
         },
     },
+    email: {
+        required: {
+            value: true,
+            message: 'required',
+        },
+        pattern: {
+            value: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/,
+            message: 'Invalid email address',
+        },
+    },
     password: {
         required: {
             value: true,

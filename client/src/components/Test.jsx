@@ -3,13 +3,18 @@ import {decrement, increment} from "../state/slices/counterSlice";
 import React from "react";
 import {errors, success} from "../state/slices/statusSlice";
 import {setConfirmPassword, setEmail, setPassword, setUsername} from "../state/slices/userSlice";
-import {useDbDataQuery} from "../state/slices/fetchUsers";
+import {useGetUsersQuery, useSendUsersQuery} from "../state/slices/api";
+
+export const CreateUser = ({ visible, onClose }) => {
+    // component logic here
+};
 const Test = () => {
     const counter = useSelector((state) => state.counter.value)
     const status = useSelector((state) => state.status)
     const userInfo = useSelector((state) => state.userInfo)
-    const {data, error, isLoading} = useDbDataQuery()
-    console.log(error)
+    const { data, isLoading } = useGetUsersQuery();
+
+    console.log(data)
     const dispatch = useDispatch()
     return (
         <div>
@@ -40,15 +45,6 @@ const Test = () => {
                 <h1>email {userInfo.email}</h1>
             </div>
             <div>
-                {error ? (
-                    <>Oh no, there was an error</>
-                ) : isLoading ? (
-                    <>Loading...</>
-                ) : data ? (
-                    <>
-                        <h3>{data.message}</h3>
-                    </>
-                ) : null}
             </div>
         </div>
     )

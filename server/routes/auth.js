@@ -28,4 +28,9 @@ auth.post('/login', async (req, res) => {
     res.sendStatus(200)
 })
 
+auth.post('/registration', async(req,res) => {
+    const {username, email, password} = req.body
+    console.log(username, email, password)
+})
+
 module.exports = auth

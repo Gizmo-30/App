@@ -16,7 +16,7 @@ function App() {
                 <NavLink to="/test">test</NavLink>
                 <Routes>
                     <Route path="/test" element={<Test />}></Route>
-                    <Route path="/" element={<LogIn />}></Route>
+                    <Route path="/login" element={<LogIn />}></Route>
                     <Route path="/registration" element={<Registration />}></Route>
                 </Routes>
             </div>

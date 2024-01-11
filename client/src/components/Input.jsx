@@ -12,7 +12,7 @@ export const Input = ({label, type, id, value, onChange, validation}) => {
     const inputError = findInputError(errors, label);
     const isInvalid = isFormInvalid(inputError);
     return (
-        <Form.Group className="form-outline mb-3" >
+        <Form.Group className="form-outline mb-1" >
             <div className="d-flex justify-content-between align-items-center ">
                 <Form.Label htmlFor={id}>{label}</Form.Label>
 

@@ -57,7 +57,7 @@ const LogIn = () => {
 
                 {/*buttons*/}
                 {/*{reset && <Button id="resetButton" variant="primary" className="mt-3 mb-1 w-100 " type="reset" onClick={handleReset}>Reset</Button>}*/}
-                <Button variant="primary" className="mt-3 mb-4 w-100" type="submit">Sign in</Button>
+                <Button variant="primary" className="mt-5 mb-4 w-100" type="submit">Sign in</Button>
 
                 <Form.Group className="text-center">
                     <p>Not a member? <NavLink to="/registration">Register</NavLink></p>

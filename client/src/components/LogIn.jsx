@@ -5,7 +5,7 @@ import validation from "../methods/validation";
 import {Input} from "./Input";
 import {FormProvider, useForm} from "react-hook-form";
 import {useDispatch, useSelector} from "react-redux";
-import {setPassword, setUsername} from "../state/slices/user";
+import {setConfirmPassword, setEmail, setPassword, setUsername} from "../state/slices/user";
 import {setError, setSuccess, setReset} from "../state/slices/status";
 import Registration from "./Registration";
 import axios from "axios";
@@ -16,7 +16,13 @@ const LogIn = () => {
     const status = useSelector((state) => state.status)
     const dispatch = useDispatch()
 
-    //     can be exported
+    function handleReset() {
+        dispatch(setUsername(""))
+        dispatch(setPassword(""))
+        dispatch(setError(""))
+        dispatch(setSuccess(""))
+        dispatch(setReset())
+    }
 
     const methods = useForm()
     const onSubmit = methods.handleSubmit( async (data) => {
@@ -68,7 +74,7 @@ const LogIn = () => {
                 <Button variant="primary" className="mt-2 mb-4 w-100" type="submit">Sign in</Button>
 
                 <Form.Group className="text-center">
-                    <p>Not a member? <NavLink to="/registration">Register</NavLink></p>
+                    <p>Not a member? <NavLink to="/registration" onClick={() => handleReset(dispatch, [setError, setSuccess])}>Register</NavLink></p>
                 </Form.Group>
             </Form>
         </FormProvider>

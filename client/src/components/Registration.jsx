@@ -8,11 +8,21 @@ import {FormProvider, useForm} from "react-hook-form";
 import axios from "axios";
 import {setSuccess, setError, setReset} from "../state/slices/status";
 import {useDispatch, useSelector} from "react-redux";
-import {handleInput, handleReset} from "../methods/handlers";
+import {handleInput} from "../methods/handlers";
 const Registration = () => {
     const userInfo = useSelector((state) => state.userInfo)
     const status = useSelector((state) => state.status)
     const dispatch = useDispatch()
+
+    function handleReset() {
+        dispatch(setUsername(""))
+        dispatch(setEmail(""))
+        dispatch(setPassword(""))
+        dispatch(setConfirmPassword(""))
+        dispatch(setError(""))
+        dispatch(setSuccess(""))
+        dispatch(setReset())
+    }
 
     const methods = useForm()
     const onSubmit = methods.handleSubmit( async (data) => {
@@ -20,11 +30,12 @@ const Registration = () => {
             await axios.post('/registration', data)
             await dispatch(setSuccess('Registered successfully'))
         } catch (e) {
-            console.log('Error posting user data ------>', e)
             console.error('Error posting user data ------>', e)
-            if(e.response.status === 401) {
+            try {
                 dispatch(setError(e.response.data))
-            } else dispatch(setError("Something went wrong :("))
+            } catch (e) {
+                dispatch(setError("Something went wrong :("))
+            }
             dispatch(setReset())
         }
     })
@@ -74,13 +85,13 @@ const Registration = () => {
                         variant="primary"
                         className="mt-3 mb-1 w-100 "
                         type="reset"
-                        onClick={() => handleReset(dispatch, [setUsername, setEmail, setPassword, setConfirmPassword, setError])}>
+                        onClick={handleReset}>
                         Reset
                     </Button>}
                 <Button variant="primary" className="mt-3 mb-4 w-100" type="submit">Sign in</Button>
 
                 <Form.Group className="text-center">
-                    <p>Already have account ? <NavLink to="/login">Log in</NavLink></p>
+                    <p>Already have account ? <NavLink to="/login" onClick={handleReset}>Log in</NavLink></p>
                 </Form.Group>
             </Form>
         </FormProvider>

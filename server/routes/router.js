@@ -20,7 +20,12 @@ router.get('/users', async (req,res) => {
 })
 
 router.post('/login', async (req,res) => {
-    res.send(req.body)
+    const {username, password} = req.body
+    const searchResult = await User.findAll({where: {username: username}})
+
+    if(!searchResult.length) return res.status(401).send('Invalid username')
+    if (searchResult[0].password !== password) return res.status(401).send('Invalid password')
+    res.sendStatus(200)
 })
 
 module.exports = router

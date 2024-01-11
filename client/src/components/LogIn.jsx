@@ -9,25 +9,13 @@ import {setPassword, setUsername} from "../state/slices/user";
 import {setError, setSuccess, setReset} from "../state/slices/status";
 import Registration from "./Registration";
 import axios from "axios";
+import {handleInput, handleReset} from "../methods/handlers";
 
 const LogIn = () => {
     const userInfo = useSelector((state) => state.userInfo)
     const status = useSelector((state) => state.status)
     const dispatch = useDispatch()
-    // can be called in app and passed through props
 
-    function handleReset() {
-        dispatch(setUsername(""))
-        dispatch(setPassword(""))
-        dispatch(setError(""))
-        dispatch(setReset())
-    }
-
-    // can be exported from another file and given names of methods
-
-    const handleInput = (method, e) => {
-        dispatch(method(e.target.value))
-    }
     //     can be exported
 
     const methods = useForm()
@@ -51,7 +39,7 @@ const LogIn = () => {
                        label="username"
                        id="username"
                        value={userInfo.username}
-                       onChange={(e) => handleInput(setUsername, e)}
+                       onChange={(e) => handleInput(dispatch, setUsername, e)}
                        validation={validation.username}
                 />
                 <Input
@@ -59,7 +47,7 @@ const LogIn = () => {
                     label="password"
                     id="password"
                     value={userInfo.password}
-                    onChange={(e) => handleInput(setPassword, e)}
+                    onChange={(e) => handleInput(dispatch, setPassword, e)}
                     validation={validation.password}/>
 
                 {/*status message*/}
@@ -67,7 +55,16 @@ const LogIn = () => {
                 {status.success && <Alert variant="success" className="mt-2">{status.success}</Alert>}
 
                 {/*buttons*/}
-                {status.reset && <Button id="resetButton" variant="primary" className="mt-3 mb-1 w-100 " type="reset" onClick={handleReset}>Reset</Button>}
+                {status.reset &&
+                    <Button
+                        id="resetButton"
+                        variant="primary"
+                        className="mt-3 mb-1 w-100 "
+                        type="reset"
+                        onClick={() => handleReset(dispatch, [setError, setPassword, setUsername])}>
+                        Reset
+                    </Button>
+                }
                 <Button variant="primary" className="mt-2 mb-4 w-100" type="submit">Sign in</Button>
 
                 <Form.Group className="text-center">

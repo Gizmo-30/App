@@ -8,29 +8,17 @@ import {FormProvider, useForm} from "react-hook-form";
 import axios from "axios";
 import {setSuccess, setError, setReset} from "../state/slices/status";
 import {useDispatch, useSelector} from "react-redux";
+import {handleInput, handleReset} from "../methods/handlers";
 const Registration = () => {
     const userInfo = useSelector((state) => state.userInfo)
     const status = useSelector((state) => state.status)
     const dispatch = useDispatch()
 
-    function handleReset() {
-        dispatch(setUsername(""))
-        dispatch(setEmail(""))
-        dispatch(setPassword(""))
-        dispatch(setConfirmPassword(""))
-        dispatch(setError(""))
-        dispatch(setReset())
-    }
-
-    const handleInput = (method, e) => {
-        dispatch(method(e.target.value))
-    }
-
     const methods = useForm()
     const onSubmit = methods.handleSubmit( async (data) => {
         try {
             await axios.post('/registration', data)
-
+            await dispatch(setSuccess('Registered successfully'))
         } catch (e) {
             console.log('Error posting user data ------>', e)
             console.error('Error posting user data ------>', e)
@@ -48,14 +36,14 @@ const Registration = () => {
                        label="username"
                        id="username"
                        value={userInfo.username}
-                       onChange={(e) => handleInput(setUsername, e)}
+                       onChange={(e) => handleInput(dispatch, setUsername, e)}
                        validation={validation.username}
                 />
                 <Input type="email"
                        label="email"
                        id="email"
                        value={userInfo.email}
-                       onChange={(e) => handleInput(setEmail, e)}
+                       onChange={(e) => handleInput(dispatch, setEmail, e)}
                        validation={validation.email}
                 />
                 <Input
@@ -63,7 +51,7 @@ const Registration = () => {
                     label="password"
                     id="password"
                     value={userInfo.password}
-                    onChange={(e) => handleInput(setPassword, e)}
+                    onChange={(e) => handleInput(dispatch, setPassword, e)}
                     validation={validation.password}
                 />
                 <Input
@@ -71,7 +59,7 @@ const Registration = () => {
                     label="confirm password"
                     id="confirmPassword"
                     value={userInfo.confirmPassword}
-                    onChange={(e) => handleInput(setConfirmPassword, e)}
+                    onChange={(e) => handleInput(dispatch, setConfirmPassword, e)}
                     validation={validation.confirmPassword}
                 />
 
@@ -80,7 +68,15 @@ const Registration = () => {
                 {status.success && <Alert variant="success" className="mt-2">{status.success}</Alert>}
 
                 {/*buttons*/}
-                {status.reset && <Button id="resetButton" variant="primary" className="mt-3 mb-1 w-100 " type="reset" onClick={handleReset}>Reset</Button>}
+                {status.reset &&
+                    <Button
+                        id="resetButton"
+                        variant="primary"
+                        className="mt-3 mb-1 w-100 "
+                        type="reset"
+                        onClick={() => handleReset(dispatch, [setUsername, setEmail, setPassword, setConfirmPassword, setError])}>
+                        Reset
+                    </Button>}
                 <Button variant="primary" className="mt-3 mb-4 w-100" type="submit">Sign in</Button>
 
                 <Form.Group className="text-center">

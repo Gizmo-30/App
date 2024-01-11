@@ -1,8 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
-import {decrement, increment} from "../state/slices/counterSlice";
+import {decrement, increment} from "../state/slices/counter";
 import React from "react";
-import {errors, success} from "../state/slices/statusSlice";
-import {setConfirmPassword, setEmail, setPassword, setUsername} from "../state/slices/userSlice";
+import {setConfirmPassword, setEmail, setPassword, setUsername} from "../state/slices/user";
 import {useGetUsersQuery, useSendUsersQuery} from "../state/slices/api";
 
 export const CreateUser = ({ visible, onClose }) => {
@@ -24,10 +23,6 @@ const Test = () => {
                 <h1>{counter}</h1>
             </div>
             <div>
-                <button onClick={() => dispatch(errors("error"))}>error</button>
-                <button onClick={() => dispatch(success("success"))}>success</button>
-                <h1>status {status.status}</h1>
-                <h1>message {status.message}</h1>
             </div>
             <div>
                 <button onClick={() => dispatch(setUsername("Anvar"))}>setUsername</button>

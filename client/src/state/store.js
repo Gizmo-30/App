@@ -1,7 +1,7 @@
 import {configureStore} from "@reduxjs/toolkit";
-import counterSlice from "./slices/counterSlice";
-import statusSlice from "./slices/statusSlice";
-import userSlice from "./slices/userSlice";
+import counterSlice from "./slices/counter";
+import statusSlice from "./slices/status";
+import userSlice from "./slices/user";
 import {api} from "./slices/api";
 import {setupListeners} from "@reduxjs/toolkit/query";
 

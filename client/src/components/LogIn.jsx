@@ -1,25 +1,25 @@
-import React, {useState} from "react";
+import React from "react";
 import {Alert, Button, Form} from "react-bootstrap";
 import {NavLink} from "react-router-dom";
 import validation from "../methods/validation";
 import {Input} from "./Input";
 import {FormProvider, useForm} from "react-hook-form";
 import {useDispatch, useSelector} from "react-redux";
-import {setPassword, setUsername} from "../state/slices/userSlice";
-import {errors, success} from "../state/slices/statusSlice";
+import {setPassword, setUsername} from "../state/slices/user";
+import {setError, setSuccess, setReset} from "../state/slices/status";
 import Registration from "./Registration";
 import axios from "axios";
 
 const LogIn = () => {
     const userInfo = useSelector((state) => state.userInfo)
-    const statuses = useSelector((state) => state.status)
+    const status = useSelector((state) => state.status)
     const dispatch = useDispatch()
-    const [reset, setReset] = useState(false)
 
     function handleReset() {
         dispatch(setUsername(""))
         dispatch(setPassword(""))
-        dispatch(errors(""))
+        dispatch(setError(""))
+        dispatch(setReset())
     }
 
     const handleInput = (method, e) => {
@@ -30,13 +30,13 @@ const LogIn = () => {
     const onSubmit = methods.handleSubmit( async (data) => {
         try {
             await axios.post('/login', data)
-            await dispatch(success('Login successfully'))
+            await dispatch(setSuccess('Login successfully'))
         } catch (e) {
-            console.log('Error posting user data ------>', e)
+            console.error('Error posting user data ------>', e)
             if(e.response.status === 401) {
-                dispatch(errors(e.response.data))
-            } else dispatch(errors("Something went wrong :("))
-            setReset(true)
+                dispatch(setError(e.response.data))
+            } else dispatch(setError("Something went wrong :("))
+            dispatch(setReset())
         }
     })
 
@@ -59,11 +59,11 @@ const LogIn = () => {
                     validation={validation.password}/>
 
                 {/*status message*/}
-                {statuses.status === "error" && <Alert variant="danger" className="mt-2">{statuses.message}</Alert>}
-                {statuses.status === "success" && <Alert variant="success" className="mt-2">{statuses.message}</Alert>}
+                {status.error && <Alert variant="danger" className="mt-2">{status.error}</Alert>}
+                {status.success && <Alert variant="success" className="mt-2">{status.success}</Alert>}
 
                 {/*buttons*/}
-                {reset && <Button id="resetButton" variant="primary" className="mt-3 mb-1 w-100 " type="reset" onClick={handleReset}>Reset</Button>}
+                {status.reset && <Button id="resetButton" variant="primary" className="mt-3 mb-1 w-100 " type="reset" onClick={handleReset}>Reset</Button>}
                 <Button variant="primary" className="mt-2 mb-4 w-100" type="submit">Sign in</Button>
 
                 <Form.Group className="text-center">

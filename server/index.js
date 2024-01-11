@@ -1,7 +1,7 @@
 const express = require('express')
 const cors = require('cors');
 const path = require('path');
-const router = require("./routes/router");
+const auth = require("./routes/auth");
 const bodyParser = require('body-parser');
 const db = require("./models");
 const {User} = require("./models");
@@ -16,7 +16,7 @@ const app = express()
 app.use(cors())
 app.use(bodyParser.json());
 
-app.use('/', router)
+app.use('/', auth)
 app.listen(PORT, (req,res) => {
     console.log(`Server running at http://localhost:${PORT}`)
 })

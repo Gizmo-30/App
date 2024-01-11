@@ -1,15 +1,15 @@
 const express = require('express')
-const router = express.Router()
+const auth = express.Router()
 const {User} = require("../models");
 
-router.get('/', (req,res) => {
+auth.get('/', (req, res) => {
     res.send(`<div>hello world  
         <a href="/users">users</a>
         <a href="/login">login</a>
         </div>`)
 })
 
-router.get('/users', async (req,res) => {
+auth.get('/users', async (req, res) => {
     try{
         const data = await User.findAll()
         res.json(data)
@@ -19,7 +19,7 @@ router.get('/users', async (req,res) => {
     }
 })
 
-router.post('/login', async (req,res) => {
+auth.post('/login', async (req, res) => {
     const {username, password} = req.body
     const searchResult = await User.findAll({where: {username: username}})
 
@@ -28,4 +28,4 @@ router.post('/login', async (req,res) => {
     res.sendStatus(200)
 })
 
-module.exports = router
+module.exports = auth

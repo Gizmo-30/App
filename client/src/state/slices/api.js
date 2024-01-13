@@ -13,6 +13,12 @@ export const api = createApi({
                 method: 'Get',
             })
         }),
+        getUser: builder.query({
+            query: () => ({
+                url: '/login',
+                method: 'Get',
+            })
+        }),
         sendUsers: builder.mutation({
             query: (body) => ({
                 url: '/login/',
@@ -22,4 +28,4 @@ export const api = createApi({
         })
     })
 })
-export const { useGetUsersQuery, useSendUsersQuery } = api;
+export const { useGetUsersQuery, useSendUsersQuery, useGetUserQuery} = api;

@@ -4,13 +4,6 @@ const auth = express.Router()
 const {User} = require("../models");
 const bcrypt = require("bcrypt");
 
-auth.get('/', (req, res) => {
-    res.send(`<div>hello world  
-        <a href="/users">users</a>
-        <a href="/login">login</a>
-        </div>`)
-})
-
 auth.get('/users', async (req, res) => {
     try{
         const data = await User.findAll()
@@ -30,7 +23,7 @@ auth.post('/login', async (req, res) => {
     let match = await bcrypt.compare(password, searchResult[0].password)
 
     if (!match) return res.status(401).send('Invalid password')
-    res.sendStatus(200)
+    res.status(200).send(searchResult);
 })
 
 auth.post('/registration', async(req,res) => {
@@ -46,7 +39,8 @@ auth.post('/registration', async(req,res) => {
 
     try {
         await User.create({username, email, password: hashedPassword,})
-        res.sendStatus(200)
+        const searchResult = await User.findAll({where: {username, email,}})
+        res.status(200).send(searchResult)
     } catch (e) {
         console.error("Error creating user ----->",e)
         res.status(500).send("Internal server error")

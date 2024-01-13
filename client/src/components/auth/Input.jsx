@@ -2,7 +2,7 @@ import Form from "react-bootstrap/Form";
 import React from "react";
 import {AnimatePresence, motion} from 'framer-motion';
 import {useFormContext} from 'react-hook-form'
-import {findInputError, isFormInvalid} from '../methods/findInputError'
+import {findInputError, isFormInvalid} from '../../methods/findInputError'
 
 export const Input = ({label, type, id, value, onChange, validation}) => {
     const {

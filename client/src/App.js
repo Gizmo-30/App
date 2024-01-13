@@ -1,8 +1,8 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter, NavLink, Route, Routes} from "react-router-dom";
-import Registration from "./components/Registration";
-import LogIn from "./components/LogIn";
+import Registration from "./components/auth/Registration";
+import LogIn from "./components/auth/LogIn";
 import Test from "./components/Test";
 
 import axios from "axios";

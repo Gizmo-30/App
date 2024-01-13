@@ -1,18 +1,21 @@
-import React from "react";
+import React, {useState} from "react";
 import {Alert, Button, Form} from "react-bootstrap";
 import {Input} from "./Input";
-import {setConfirmPassword, setEmail, setPassword, setUsername} from "../state/slices/user";
-import validation from "../methods/validation";
+import {setConfirmPassword, setEmail, setPassword, setUsername} from "../../state/slices/user";
+import validation from "../../methods/validation";
 import {NavLink} from "react-router-dom";
 import {FormProvider, useForm} from "react-hook-form";
 import axios from "axios";
-import {setSuccess, setError, setReset} from "../state/slices/status";
+import {setSuccess, setError, setReset} from "../../state/slices/status";
 import {useDispatch, useSelector} from "react-redux";
-import {handleInput} from "../methods/handlers";
+import {handleInput} from "../../methods/handlers";
+import Status from "./Status";
 const Registration = () => {
     const userInfo = useSelector((state) => state.userInfo)
     const status = useSelector((state) => state.status)
     const dispatch = useDispatch()
+
+    const [reset, setReset] = useState(false)
 
     function handleReset() {
         dispatch(setUsername(""))
@@ -21,7 +24,7 @@ const Registration = () => {
         dispatch(setConfirmPassword(""))
         dispatch(setError(""))
         dispatch(setSuccess(""))
-        dispatch(setReset())
+        setReset(false)
     }
 
     const methods = useForm()
@@ -36,7 +39,7 @@ const Registration = () => {
             } catch (e) {
                 dispatch(setError("Something went wrong :("))
             }
-            dispatch(setReset())
+            setReset(true)
         }
     })
 
@@ -74,12 +77,10 @@ const Registration = () => {
                     validation={validation.confirmPassword}
                 />
 
-                {/*status message*/}
-                {status.error && <Alert variant="danger" className="mt-2">{status.error}</Alert>}
-                {status.success && <Alert variant="success" className="mt-2">{status.success}</Alert>}
+                <Status/>
 
                 {/*buttons*/}
-                {status.reset &&
+                {reset &&
                     <Button
                         id="resetButton"
                         variant="primary"

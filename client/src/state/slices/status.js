@@ -1,21 +1,20 @@
 import {createSlice} from "@reduxjs/toolkit";
 
-const initialState = {error: "", success: "", reset: false}
+const initialState = {name: "", message: ""}
 export const status = createSlice({
     name: 'error',
     initialState,
     reducers: {
         setError: (state, action) => {
-            state.error = action.payload
+            state.name = "error"
+            state.message = action.payload
         },
         setSuccess: (state, action) => {
-            state.success = action.payload
-        },
-        setReset: (state) => {
-            state.reset = !state.reset
+            state.name = "success"
+            state.message = action.payload
         },
     }
 })
 
-export const {setError,setSuccess, setReset} = status.actions
+export const {setError,setSuccess} = status.actions
 export default status.reducer

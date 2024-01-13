@@ -1,27 +1,28 @@
-import React from "react";
+import React, {useState} from "react";
 import {Alert, Button, Form} from "react-bootstrap";
 import {NavLink} from "react-router-dom";
-import validation from "../methods/validation";
+import validation from "../../methods/validation";
 import {Input} from "./Input";
 import {FormProvider, useForm} from "react-hook-form";
 import {useDispatch, useSelector} from "react-redux";
-import {setConfirmPassword, setEmail, setPassword, setUsername} from "../state/slices/user";
-import {setError, setSuccess, setReset} from "../state/slices/status";
-import Registration from "./Registration";
+import {setConfirmPassword, setEmail, setPassword, setUsername} from "../../state/slices/user";
+import {setError, setSuccess} from "../../state/slices/status";
 import axios from "axios";
-import {handleInput, handleReset} from "../methods/handlers";
+import {handleInput} from "../../methods/handlers";
+import Status from "./Status";
 
 const LogIn = () => {
     const userInfo = useSelector((state) => state.userInfo)
     const status = useSelector((state) => state.status)
     const dispatch = useDispatch()
+    const [reset, setReset] = useState(false)
 
     function handleReset() {
         dispatch(setUsername(""))
         dispatch(setPassword(""))
-        dispatch(setError(""))
-        dispatch(setSuccess(""))
-        dispatch(setReset())
+        dispatch(setError())
+        dispatch(setSuccess())
+        setReset(false)
     }
 
     const methods = useForm()
@@ -34,7 +35,7 @@ const LogIn = () => {
             if(e.response.status === 401) {
                 dispatch(setError(e.response.data))
             } else dispatch(setError("Something went wrong :("))
-            dispatch(setReset())
+            setReset(true)
         }
     })
 
@@ -57,11 +58,11 @@ const LogIn = () => {
                     validation={validation.password}/>
 
                 {/*status message*/}
-                {status.error && <Alert variant="danger" className="mt-2">{status.error}</Alert>}
-                {status.success && <Alert variant="success" className="mt-2">{status.success}</Alert>}
-
+                {/*{status.name === "error" &&  status.message? <Alert variant="danger" className="mt-2">{status.message}</Alert>: null}*/}
+                {/*{status.name === "success" && status.message? <Alert variant="success" className="mt-2">{status.message}</Alert>: null}*/}
+                <Status />
                 {/*buttons*/}
-                {status.reset &&
+                {reset &&
                     <Button
                         id="resetButton"
                         variant="primary"
@@ -74,7 +75,7 @@ const LogIn = () => {
                 <Button variant="primary" className="mt-2 mb-4 w-100" type="submit">Sign in</Button>
 
                 <Form.Group className="text-center">
-                    <p>Not a member? <NavLink to="/registration" onClick={() => handleReset(dispatch, [setError, setSuccess])}>Register</NavLink></p>
+                    <p>Not a member? <NavLink to="/registration" onClick={() => handleReset()}>Register</NavLink></p>
                 </Form.Group>
             </Form>
         </FormProvider>

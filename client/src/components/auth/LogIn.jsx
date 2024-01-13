@@ -16,6 +16,7 @@ const LogIn = () => {
     const status = useSelector((state) => state.status)
     const dispatch = useDispatch()
     const [reset, setReset] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     function handleReset() {
         dispatch(setUsername(""))
@@ -28,6 +29,7 @@ const LogIn = () => {
     const methods = useForm()
     const onSubmit = methods.handleSubmit( async (data) => {
         try {
+            setLoading(true)
             await axios.post('/login', data)
             await dispatch(setSuccess('Login successfully'))
         } catch (e) {
@@ -36,6 +38,8 @@ const LogIn = () => {
                 dispatch(setError(e.response.data))
             } else dispatch(setError("Something went wrong :("))
             setReset(true)
+        }finally {
+            setLoading(false)
         }
     })
 
@@ -57,9 +61,6 @@ const LogIn = () => {
                     onChange={(e) => handleInput(dispatch, setPassword, e)}
                     validation={validation.password}/>
 
-                {/*status message*/}
-                {/*{status.name === "error" &&  status.message? <Alert variant="danger" className="mt-2">{status.message}</Alert>: null}*/}
-                {/*{status.name === "success" && status.message? <Alert variant="success" className="mt-2">{status.message}</Alert>: null}*/}
                 <Status />
                 {/*buttons*/}
                 {reset &&
@@ -72,7 +73,7 @@ const LogIn = () => {
                         Reset
                     </Button>
                 }
-                <Button variant="primary" className="mt-2 mb-4 w-100" type="submit">Sign in</Button>
+                <Button variant="primary" className="mt-2 mb-4 w-100" type="submit">{loading ? 'Loading ...': 'Sign in'}</Button>
 
                 <Form.Group className="text-center">
                     <p>Not a member? <NavLink to="/registration" onClick={() => handleReset()}>Register</NavLink></p>

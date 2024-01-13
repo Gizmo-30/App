@@ -8,7 +8,7 @@ import {FormProvider, useForm} from "react-hook-form";
 import axios from "axios";
 import {setSuccess, setError, setReset} from "../../state/slices/status";
 import {useDispatch, useSelector} from "react-redux";
-import {handleInput} from "../../methods/handlers";
+import {handleInput, handleSubmit} from "../../methods/handlers";
 import Status from "./Status";
 const Registration = () => {
     const userInfo = useSelector((state) => state.userInfo)
@@ -16,6 +16,7 @@ const Registration = () => {
     const dispatch = useDispatch()
 
     const [reset, setReset] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     function handleReset() {
         dispatch(setUsername(""))
@@ -30,7 +31,8 @@ const Registration = () => {
     const methods = useForm()
     const onSubmit = methods.handleSubmit( async (data) => {
         try {
-            await axios.post('/registration', data)
+            setLoading(true)
+            setTimeout(await axios.post('/registration', data), 5000)
             await dispatch(setSuccess('Registered successfully'))
         } catch (e) {
             console.error('Error posting user data ------>', e)
@@ -40,6 +42,8 @@ const Registration = () => {
                 dispatch(setError("Something went wrong :("))
             }
             setReset(true)
+        } finally {
+            setLoading(false)
         }
     })
 
@@ -89,7 +93,7 @@ const Registration = () => {
                         onClick={handleReset}>
                         Reset
                     </Button>}
-                <Button variant="primary" className="mt-3 mb-4 w-100" type="submit">Sign in</Button>
+                <Button variant="primary" className="mt-3 mb-4 w-100" type="submit">{loading ? 'loading...': 'Sign in'}</Button>
 
                 <Form.Group className="text-center">
                     <p>Already have account ? <NavLink to="/login" onClick={handleReset}>Log in</NavLink></p>

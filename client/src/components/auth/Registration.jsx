@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Alert, Button, Form} from "react-bootstrap";
+import {Alert, Button, Form, Spinner} from "react-bootstrap";
 import {Input} from "./Input";
 import {setConfirmPassword, setEmail, setPassword, setUsername} from "../../state/slices/user";
 import validation from "../../methods/validation";
@@ -32,7 +32,7 @@ const Registration = () => {
     const onSubmit = methods.handleSubmit( async (data) => {
         try {
             setLoading(true)
-            setTimeout(await axios.post('/registration', data), 5000)
+            await axios.post('/registration', data)
             await dispatch(setSuccess('Registered successfully'))
         } catch (e) {
             console.error('Error posting user data ------>', e)
@@ -93,7 +93,9 @@ const Registration = () => {
                         onClick={handleReset}>
                         Reset
                     </Button>}
-                <Button variant="primary" className="mt-3 mb-4 w-100" type="submit">{loading ? 'loading...': 'Sign in'}</Button>
+                <Button variant="primary" className="mt-3 mb-4 w-100" disabled={loading} type="submit">{
+                    loading ? <Spinner animation="border" variant="primary" />: 'Sign in'
+                }</Button>
 
                 <Form.Group className="text-center">
                     <p>Already have account ? <NavLink to="/login" onClick={handleReset}>Log in</NavLink></p>

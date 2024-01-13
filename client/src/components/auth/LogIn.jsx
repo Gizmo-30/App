@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Alert, Button, Form} from "react-bootstrap";
+import {Alert, Button, Form, Spinner} from "react-bootstrap";
 import {NavLink} from "react-router-dom";
 import validation from "../../methods/validation";
 import {Input} from "./Input";
@@ -73,7 +73,9 @@ const LogIn = () => {
                         Reset
                     </Button>
                 }
-                <Button variant="primary" className="mt-2 mb-4 w-100" type="submit">{loading ? 'Loading ...': 'Sign in'}</Button>
+                <Button variant="primary" className="mt-3 mb-4 w-100" disabled={loading} type="submit">{
+                    loading ? <Spinner animation="border" variant="primary" />: 'Sign in'
+                }</Button>
 
                 <Form.Group className="text-center">
                     <p>Not a member? <NavLink to="/registration" onClick={() => handleReset()}>Register</NavLink></p>

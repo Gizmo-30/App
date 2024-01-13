@@ -48,7 +48,7 @@ auth.post('/registration', async(req,res) => {
         await User.create({username, email, password: hashedPassword,})
         res.sendStatus(200)
     } catch (e) {
-        console.log("Error creating user ----->",e)
+        console.error("Error creating user ----->",e)
         res.status(500).send("Internal server error")
     }
 })

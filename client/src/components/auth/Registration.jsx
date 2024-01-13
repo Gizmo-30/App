@@ -3,7 +3,7 @@ import {Alert, Button, Form, Spinner} from "react-bootstrap";
 import {Input} from "./Input";
 import {setConfirmPassword, setEmail, setPassword, setUsername} from "../../state/slices/user";
 import validation from "../../methods/validation";
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import {FormProvider, useForm} from "react-hook-form";
 import axios from "axios";
 import {setSuccess, setError, setReset} from "../../state/slices/status";
@@ -17,6 +17,7 @@ const Registration = () => {
 
     const [reset, setReset] = useState(false)
     const [loading, setLoading] = useState(false)
+    const navigate = useNavigate()
 
     function handleReset() {
         dispatch(setUsername(""))
@@ -32,8 +33,11 @@ const Registration = () => {
     const onSubmit = methods.handleSubmit( async (data) => {
         try {
             setLoading(true)
-            await axios.post('/registration', data)
+            const response =await axios.post('/registration', data)
             await dispatch(setSuccess('Registered successfully'))
+            const role = response.data[0].role
+            if(role === "admin") return navigate("/dashboard?role=admin")
+            return navigate("/dashboard?role=user")
         } catch (e) {
             console.error('Error posting user data ------>', e)
             try {

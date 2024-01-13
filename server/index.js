@@ -16,7 +16,15 @@ const app = express()
 app.use(cors())
 app.use(bodyParser.json());
 
+auth.get('/', (req, res) => {
+    res.send(`<div>hello world  
+        <a href="/users">users</a>
+        <a href="/login">login</a>
+        </div>`)
+})
+
 app.use('/', auth)
+
 app.listen(PORT, (req,res) => {
     console.log(`Server running at http://localhost:${PORT}`)
 })

@@ -26,9 +26,6 @@ const Dashboard = () => {
         )
     }
 
-
-
-    console.log(role)
     return (
         <div>
             {role === 'admin'? <Admins/>: <Users/>}

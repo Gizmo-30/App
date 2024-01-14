@@ -13,22 +13,10 @@ const Dashboard = () => {
     const location = useLocation();
     const role = new URLSearchParams(location.search).get('role');
 
-    if(!userInfo.username) {
-        return (
-            <div>
-                Wellcome to Colecctions App
-                <br/>
-                <NavLink to="/login">   Login  </NavLink>
-                <br/>
-                <NavLink to="/registration">  Register  </NavLink>
-            </div>
-
-        )
-    }
-
     return (
         <div>
             {role === 'admin'? <Admins/>: <Users/>}
+            dashboard
         </div>
     )
 }

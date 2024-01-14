@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {Alert, Button, Form, Spinner} from "react-bootstrap";
-import {Navigate, NavLink, useNavigate} from "react-router-dom";
+import {Navigate, NavLink, useLocation, useNavigate} from "react-router-dom";
 import validation from "../../methods/validation";
 import {Input} from "./Input";
 import {FormProvider, useForm} from "react-hook-form";
@@ -19,6 +19,8 @@ const LogIn = () => {
     const [loading, setLoading] = useState(false)
 
     const navigate = useNavigate()
+    const location = useLocation()
+    const from = location.state?.from?.pathname || "/"
 
     function handleReset() {
         dispatch(setUsername(""))
@@ -36,8 +38,8 @@ const LogIn = () => {
             const response = await axios.post('/login', data)
             await dispatch(setSuccess('Login successfully'))
             const role = response.data[0].role
-            if(role === "admin") return navigate("/dashboard?role=admin")
-            return navigate("/dashboard?role=user")
+            if(role === "admin") return navigate("/dashboard?role=admin", {replace: true})
+            return navigate("/dashboard?role=user", {replace: true})
         } catch (e) {
             console.error('Error posting user data ------>', e)
             try {

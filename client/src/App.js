@@ -8,8 +8,8 @@ import Test from "./components/Test";
 import axios from "axios";
 import Dashboard from "./components/dashboard/Dashboard";
 
-axios.defaults.baseURL = "https://collections-server.vercel.app";
-// axios.defaults.baseURL = "http://localhost:3001";
+// axios.defaults.baseURL = "https://collections-server.vercel.app";
+axios.defaults.baseURL = "http://localhost:3001";
 
 function App() {
   return (

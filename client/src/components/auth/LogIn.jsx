@@ -37,6 +37,8 @@ const LogIn = () => {
             setLoading(true)
             const response = await axios.post('/login', data)
             await dispatch(setSuccess('Login successfully'))
+
+            //
             const role = response.data[0].role
             if(role === "admin") return navigate("/dashboard?role=admin", {replace: true})
             return navigate("/dashboard?role=user", {replace: true})

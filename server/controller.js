@@ -16,7 +16,7 @@ exports.login = async (req,res) => {
     if (!match) return res.status(401).send('Invalid password')
 
     const token = await jwt.sign({username: username, role: searchResult[0].role}, privateKey, {expiresIn: '1h'})
-    res.status(200).json({token: token, username: username});
+    res.status(200).json({token: token});
 }
 
 exports.registration = async (req,res) => {
@@ -41,17 +41,14 @@ exports.registration = async (req,res) => {
 }
 
 exports.verifyToken = (req,res,next) => {
-    req.user = {username:null, verified:false}
-    const bearerHeader = req.headers['authorization']
-    console.log(bearerHeader)
-    if(typeof bearerHeader!=='undefined') {
-        const bearerToken = bearerHeader.split(' ')[1]
-        jwt.verify(bearerToken, privateKey, function (err,data){
-            if(! (err && typeof data=== 'undefined')) {
-                req.user = {username:data.username, verified:true}
-                next()
-            }
-        })
-    }
+    const token = req.headers['authorization']
+    if(!token) return res.sendStatus(401)
+
+    jwt.verify(token, privateKey, function (err,data){
+        if (err) return res.sendStatus(403);
+
+        req.data = data
+        next()
+    })
     return res.sendStatus(403)
 }

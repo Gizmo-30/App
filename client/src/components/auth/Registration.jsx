@@ -98,7 +98,7 @@ const Registration = () => {
                         Reset
                     </Button>}
                 <Button variant="primary" className="mt-3 mb-4 w-100" disabled={loading} type="submit">{
-                    loading ? <Spinner animation="border" variant="primary" />: 'Sign in'
+                    loading ? <Spinner animation="border" variant="light" />: 'Sign in'
                 }</Button>
 
                 <Form.Group className="text-center">

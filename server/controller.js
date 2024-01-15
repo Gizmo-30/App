@@ -44,10 +44,10 @@ exports.verifyToken = (req,res,next) => {
     const token = req.headers['authorization']
     if(!token) return res.sendStatus(401)
 
-    jwt.verify(token, privateKey, function (err,data){
+    jwt.verify(token, privateKey, function (err,user){
         if (err) return res.sendStatus(403);
 
-        req.data = data
+        req.data = user
         next()
     })
     return res.sendStatus(403)

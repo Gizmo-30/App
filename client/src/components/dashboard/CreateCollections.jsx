@@ -19,17 +19,18 @@ function CreateCollections(props) {
             <Modal.Body>
                 <Form>
                     <Form.Control type="text"></Form.Control>
+                    <Form.Group className="mb-3">
+                        <Form.Label>Name of collection</Form.Label>
+                        <Form.Control type="text" placeholder="name@example.com" />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                        <Form.Label>Example textarea</Form.Label>
+                        <Form.Control type="text" rows={3} />
+                    </Form.Group>
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Form.Group className="mb-3">
-                    <Form.Label>Name of collection</Form.Label>
-                    <Form.Control type="text" placeholder="name@example.com" />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                    <Form.Label>Example textarea</Form.Label>
-                    <Form.Control type="text" rows={3} />
-                </Form.Group>
+
             </Modal.Footer>
         </Modal>
     );

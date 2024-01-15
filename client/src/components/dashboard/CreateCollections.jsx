@@ -1,9 +1,38 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from "react-bootstrap/Form";
-import {FormSelect, FormText} from "react-bootstrap";
+import {useForm} from "react-hook-form";
+import {findInputError, isFormInvalid} from "../../methods/findInputError";
+import {AnimatePresence, motion} from "framer-motion";
+import React from "react";
+import validation from "../../methods/validation";
+import Errors from "../Errors";
+import axios from "axios";
 
 function CreateCollections(props) {
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        reset
+    } = useForm()
+
+    const inputError = findInputError(errors, "name");
+    const isInvalid = isFormInvalid(inputError);
+
+    const onSubmit = handleSubmit( async (data) => {
+        try {
+            const response = await axios.post('/createColl', data)
+        } catch (e) {
+            console.error("E creating coll ----->", e)
+        }
+    })
+
+    const onclose = () => {
+        props.onHide()
+        reset()
+    }
+
     return (
         <Modal
             {...props}
@@ -17,20 +46,32 @@ function CreateCollections(props) {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Form>
-                    <Form.Control type="text"></Form.Control>
-                    <Form.Group className="mb-3">
-                        <Form.Label>Name of collection</Form.Label>
-                        <Form.Control type="text" placeholder="name@example.com" />
+                <Form onSubmit={onSubmit} className="mx-2">
+                    <Form.Group className="mb-4">
+                        <Form.Label className="d-flex justify-content-between align-items-center  mb-2">
+                            Name
+                            <Errors isInvalid={isInvalid} inputError={inputError}/>
+                        </Form.Label>
+                        <Form.Control type="text" {...register('name', validation.collection.name)} />
                     </Form.Group>
                     <Form.Group className="mb-3">
-                        <Form.Label>Example textarea</Form.Label>
-                        <Form.Control type="text" rows={3} />
+                        <Form.Label className="d-flex justify-content-between ">
+                            Description
+                            <Errors isInvalid={isInvalid} inputError={inputError}/>
+                        </Form.Label>
+                        <Form.Control as="textarea" {...register('description', validation.collection.desc)} rows={2} />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                        <Form.Label>Category</Form.Label>
+                        <Form.Select aria-label="Default select example" className="mb-3">
+                            <option value="1">books</option>
+                        </Form.Select>
                     </Form.Group>
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-
+                <Button variant="success" onClick={onSubmit}>  Create  </Button>
+                <Button onClick={onclose}> Close </Button>
             </Modal.Footer>
         </Modal>
     );

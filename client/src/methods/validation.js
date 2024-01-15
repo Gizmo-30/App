@@ -41,6 +41,20 @@ const validation = {
         validate: (value, values) => {
             return value === values.password || "Passwords do not match"
         },
+    },
+    collection: {
+        name: {
+            required: {
+                value: true,
+                message: 'required',
+            },
+        },
+        desc: {
+            required: {
+                value: true,
+                message: 'required',
+            },
+        },
     }
 }
 

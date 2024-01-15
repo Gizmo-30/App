@@ -5,6 +5,7 @@ const initialState = {
     password: "",
     confirmPassword: "",
     email: "",
+    role: "",
 }
 export const user = createSlice({
     name: "userInfo",
@@ -22,9 +23,12 @@ export const user = createSlice({
         setEmail: (state, action) => {
             state.email = action.payload
         },
+        setRole: (state, action) => {
+            state.role = action.payload
+        }
     }
 })
 
 
-export const {setUsername, setPassword, setConfirmPassword, setEmail} = user.actions
+export const {setUsername, setPassword, setConfirmPassword, setEmail, setRole} = user.actions
 export default user.reducer

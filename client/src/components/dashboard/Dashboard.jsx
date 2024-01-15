@@ -1,22 +1,19 @@
 import {useDispatch, useSelector} from "react-redux";
 import {setSuccess} from "../../state/slices/status";
 import {NavLink, useLocation} from "react-router-dom";
-import Admins from "../Admins";
-import Users from "../Users";
+import Admins from "../roles/Admins";
+import Users from "../roles/Users";
 
 const Dashboard = () => {
     const userInfo = useSelector((state) => state.userInfo)
-    const status = useSelector((state) => state.status)
-    const dispatch = useDispatch()
-    dispatch(setSuccess(""))
-
-    const location = useLocation();
-    const role = new URLSearchParams(location.search).get('role');
-
+    console.log(userInfo.role)
     return (
         <div>
-            {role === 'admin'? <Admins/>: <Users/>}
-            dashboard
+            <header className="d-flex justify-content-between">
+                <h1>CollApp</h1>
+                <input type="search"/>
+            </header>
+            {userInfo.role === 'admin'? <Admins/>: <Users/>}
         </div>
     )
 }

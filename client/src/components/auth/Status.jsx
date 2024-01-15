@@ -11,12 +11,6 @@ const Status = () => {
                 <Alert variant="danger" className="mt-2">{status.message}</Alert>
             </div>
         )
-    } else if (status.name === "success" &&  status.message) {
-        return (
-            <div>
-                <Alert variant="success" className="mt-2">{status.message}</Alert>
-            </div>
-        )
     } else return null
 }
 

@@ -15,7 +15,7 @@ auth.get('/users', async (req, res) => {
     }
 })
 
-auth.post('/login', verifyToken, login )
+auth.post('/login', login )
 
 auth.post('/registration', registration)
 

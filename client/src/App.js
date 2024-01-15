@@ -7,11 +7,12 @@ import LogIn from "./components/auth/LogIn";
 import axios from "axios";
 import Dashboard from "./components/dashboard/Dashboard";
 import Layout from "./components/Layout";
-import Missing from "./components/Missing";
-import CheckAuth from "./components/CheckAuth";
-import Admins from "./components/Admins";
+import Missing from "./components/helpers/Missing";
+import CheckAuth from "./components/helpers/CheckAuth";
+import Admins from "./components/roles/Admins";
 import Main from "./components/Main";
 import Test from "./components/Test";
+import Container from "./components/Container";
 
 // axios.defaults.baseURL = "https://collections-server.vercel.app";
 axios.defaults.baseURL = "http://localhost:3001";
@@ -25,12 +26,12 @@ function App() {
                   <Route path="/test" element={<Test />}></Route>
                   <Route path="/login" element={<LogIn />}></Route>
                   <Route path="/registration" element={<Registration />}></Route>
-
-                  <Route element={<CheckAuth />}>
-                    <Route path="/dashboard" element={<Dashboard />}></Route>
+              </Route>
+              <Route element={<CheckAuth />}>
+                  <Route element={<Container />}>
+                      <Route path="/dashboard" element={<Dashboard />}></Route>
+                      <Route path="*" element={<Missing />}></Route>
                   </Route>
-
-                  <Route path="*" element={<Missing />}></Route>
               </Route>
           </Routes>
       </BrowserRouter>

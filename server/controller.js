@@ -16,7 +16,7 @@ exports.login = async (req,res) => {
     if (!match) return res.status(401).send('Invalid password')
 
     const token = await jwt.sign({username: username, role: searchResult[0].role}, privateKey, {expiresIn: '1h'})
-    res.status(200).json({token: token});
+    res.status(200).json({token: token, role: searchResult[0].role});
 }
 
 exports.registration = async (req,res) => {

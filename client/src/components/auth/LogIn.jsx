@@ -5,7 +5,7 @@ import validation from "../../methods/validation";
 import {Input} from "./Input";
 import {FormProvider, useForm} from "react-hook-form";
 import {useDispatch, useSelector} from "react-redux";
-import {setPassword, setUsername} from "../../state/slices/user";
+import {setPassword, setRole, setUsername} from "../../state/slices/user";
 import {setError, setSuccess} from "../../state/slices/status";
 import axios from "axios";
 import {handleInput} from "../../methods/handlers";
@@ -36,12 +36,12 @@ const LogIn = () => {
         try {
             setLoading(true)
             const response = await axios.post('/login', data)
-            await dispatch(setSuccess('Login successfully'))
 
             //
-            const role = response.data[0].role
-            if(role === "admin") return navigate("/dashboard?role=admin", {replace: true})
-            return navigate("/dashboard?role=user", {replace: true})
+            const role = response.data.role
+            dispatch(setRole(role))
+
+            navigate("/dashboard")
         } catch (e) {
             console.error('Error posting user data ------>', e)
             try {

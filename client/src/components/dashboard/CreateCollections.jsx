@@ -3,13 +3,14 @@ import Modal from 'react-bootstrap/Modal';
 import Form from "react-bootstrap/Form";
 import {useForm} from "react-hook-form";
 import {findInputError, isFormInvalid} from "../../methods/findInputError";
-import {AnimatePresence, motion} from "framer-motion";
 import React from "react";
 import validation from "../../methods/validation";
 import Errors from "../Errors";
 import axios from "axios";
+import {useSelector} from "react-redux";
 
 function CreateCollections(props) {
+    const userInfo = useSelector((state) => state.userInfo)
     const {
         register,
         handleSubmit,
@@ -22,7 +23,7 @@ function CreateCollections(props) {
 
     const onSubmit = handleSubmit( async (data) => {
         try {
-            const response = await axios.post('/createColl', data)
+            const response = await axios.post('/coll/create', {...data, user: userInfo.username})
         } catch (e) {
             console.error("E creating coll ----->", e)
         }
@@ -63,8 +64,8 @@ function CreateCollections(props) {
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label>Category</Form.Label>
-                        <Form.Select aria-label="Default select example" className="mb-3">
-                            <option value="1">books</option>
+                        <Form.Select aria-label="Default select example" className="mb-3" {...register('type')}>
+                            <option value="books">books</option>
                         </Form.Select>
                     </Form.Group>
                 </Form>

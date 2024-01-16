@@ -5,6 +5,7 @@ const auth = require("./routes/auth");
 const bodyParser = require('body-parser');
 const db = require("./models");
 const {User} = require("./models");
+const coll = require("./routes/coll");
 require('dotenv').config({ path: path.resolve(__dirname, './.env') });
 const PORT = process.env.PORT || 4000;
 
@@ -24,6 +25,7 @@ auth.get('/', (req, res) => {
 })
 
 app.use('/', auth)
+app.use('/', coll)
 
 app.listen(PORT, (req,res) => {
     console.log(`Server running at http://localhost:${PORT}`)

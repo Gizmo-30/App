@@ -3,7 +3,7 @@ const { Op } = require('sequelize');
 const auth = express.Router()
 const {User} = require("../models");
 const bcrypt = require("bcrypt");
-const {login, registration, verifyToken} = require("../controller");
+const {login, registration, verifyToken} = require("../controllers/auth");
 
 auth.get('/users', async (req, res) => {
     try{

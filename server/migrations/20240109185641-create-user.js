@@ -4,6 +4,12 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.createTable("User", {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER,
+      },
       username: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -37,7 +43,22 @@ module.exports = {
         type: Sequelize.DATE
       }
     })
+
+    await queryInterface.addConstraint('User', {
+      fields: ['userId'],
+      type: 'foreign key',
+      name: 'fk_user_collections',
+      references: {
+        table: 'Collections',
+        field: 'id',
+      },
+      onDelete: 'SET NULL',
+      onUpdate: 'cascade',
+    });
   },
+
+
+
 
   async down (queryInterface, Sequelize) {
      await queryInterface.dropTable('User');

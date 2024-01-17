@@ -65,7 +65,7 @@ function CreateCollections(props) {
                     <Form.Group className="mb-3">
                         <Form.Label>Category</Form.Label>
                         <Form.Select aria-label="Default select example" className="mb-3" {...register('type')}>
-                            <option value="books">books</option>
+                            <option value="book">books</option>
                         </Form.Select>
                     </Form.Group>
                 </Form>

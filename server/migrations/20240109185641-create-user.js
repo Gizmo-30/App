@@ -43,18 +43,6 @@ module.exports = {
         type: Sequelize.DATE
       }
     })
-
-    await queryInterface.addConstraint('User', {
-      fields: ['userId'],
-      type: 'foreign key',
-      name: 'fk_user_collections',
-      references: {
-        table: 'Collections',
-        field: 'id',
-      },
-      onDelete: 'SET NULL',
-      onUpdate: 'cascade',
-    });
   },
 
 

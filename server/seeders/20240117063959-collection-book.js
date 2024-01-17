@@ -8,7 +8,7 @@ module.exports = {
       name: "book collection",
       description: "its book collections",
       type: "book",
-      UserId: 14,
+      UserId: 1,
       updatedAt: new Date(),
       createdAt: new Date(),
     },
@@ -16,7 +16,7 @@ module.exports = {
         name: "movie collection",
         description: "its book movies",
         type: "movie",
-        UserId: 15,
+        UserId: 2,
         updatedAt: new Date(),
         createdAt: new Date(),
       }

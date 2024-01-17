@@ -12,7 +12,17 @@ module.exports = {
       status: 'active',
       updatedAt: new Date(),
       createdAt: new Date(),
-    }]);
+    },
+      {
+        username: 'Tim',
+        email: 'example2@example2.com',
+        password: await bcrypt.hash('123', 10),
+        role: 'admin',
+        status: 'active',
+        updatedAt: new Date(),
+        createdAt: new Date(),
+      },
+    ]);
   },
 
   async down (queryInterface, Sequelize) {

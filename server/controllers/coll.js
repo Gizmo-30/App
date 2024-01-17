@@ -4,6 +4,6 @@ exports.createColl = (req,res) => {
     console.log(name, description, type, user)
 }
 exports.getColl = async (req,res) => {
-    const response = await Collections.findAll({include: [User]})
+    const response = await User.findByPk(1,{include: [Collections]})
     res.json(response)
 }

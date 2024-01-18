@@ -15,9 +15,9 @@ auth.get('/users', async (req, res) => {
     }
 })
 
-auth.post('/login', login )
+auth.post('/api/auth/signin', login )
 
-auth.post('/registration', registration)
+auth.post('/api/auth/signup', registration)
 
 
 module.exports = auth

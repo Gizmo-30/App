@@ -35,7 +35,7 @@ const LogIn = () => {
     const onSubmit = methods.handleSubmit( async (data) => {
         try {
             setLoading(true)
-            const response = await axios.post('/login', data)
+            const response = await axios.post('/api/auth/signin', data)
 
             //
             const role = response.data.role

@@ -41,14 +41,13 @@ exports.registration = async (req,res) => {
 }
 
 exports.verifyToken = (req,res,next) => {
-    const token = req.headers['authorization']
-    if(!token) return res.sendStatus(401)
+    const token = req.headers['x-access-token']
+    if(!token) return res.sendStatus(403).send("No token provided")
 
-    jwt.verify(token, privateKey, function (err,user){
-        if (err) return res.sendStatus(403);
+    jwt.verify(token, privateKey, function (err,decoded){
+        if (err) return res.sendStatus(401).send("Unauthorized");
 
-        req.data = user
+        req.userId = decoded.id;
         next()
     })
-    return res.sendStatus(403)
 }

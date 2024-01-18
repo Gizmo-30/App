@@ -19,6 +19,12 @@ export const api = createApi({
                 method: 'Get',
             })
         }),
+        getCollections: builder.query({
+            query: () => ({
+                url: '/coll/get',
+                method: 'Get',
+            })
+        }),
         sendUsers: builder.mutation({
             query: (body) => ({
                 url: '/login/',

@@ -3,17 +3,30 @@ import {setSuccess} from "../../state/slices/status";
 import {NavLink, useLocation} from "react-router-dom";
 import Admins from "../roles/Admins";
 import Users from "../roles/Users";
+import React, {useEffect, useState} from "react";
+import {Spinner} from "react-bootstrap";
+import Header from "../Header";
 
 const Dashboard = () => {
-    const userInfo = useSelector((state) => state.userInfo)
-    console.log(userInfo.role)
+    const [user, setUser] = useState({})
+    const [loading, setLoading] = useState(true)
+    useEffect(() => {
+        setLoading(true)
+        const user = JSON.parse(localStorage.getItem("user"))
+        setUser(user || {})
+        setLoading(false)
+    }, []);
+
+    if(loading) {
+        return(
+            <div className="vw-100 vh-100 d-flex justify-content-center align-items-center">
+                <Spinner animation="border" role="loading"/>
+            </div>
+        )
+    }
     return (
         <div>
-            <header className="d-flex justify-content-between">
-                <h1>CollApp</h1>
-                <input type="search"/>
-            </header>
-            {userInfo.role === 'admin'? <Admins/>: <Users/>}
+            {user.role === 'admin'? <Admins/>: <Users/>}
         </div>
     )
 }

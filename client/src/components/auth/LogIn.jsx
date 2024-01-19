@@ -38,6 +38,9 @@ const LogIn = () => {
             const response = await axios.post('/api/auth/signin', data)
 
             //
+            if(response.data.accessToken){
+                localStorage.setItem("user", JSON.stringify(response.data))
+            }
             const role = response.data.role
             dispatch(setRole(role))
 

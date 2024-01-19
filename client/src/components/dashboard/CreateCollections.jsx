@@ -8,6 +8,7 @@ import validation from "../../methods/validation";
 import Errors from "../Errors";
 import axios from "axios";
 import {useSelector} from "react-redux";
+import authHeader from "../../methods/authHeader";
 
 function CreateCollections(props) {
     const userInfo = useSelector((state) => state.userInfo)
@@ -23,7 +24,8 @@ function CreateCollections(props) {
 
     const onSubmit = handleSubmit( async (data) => {
         try {
-            const response = await axios.post('/coll/create', {...data, user: userInfo.username})
+            console.log(data)
+            const response = await axios.post('/api/coll/create', data, {headers: authHeader()})
         } catch (e) {
             console.error("E creating coll ----->", e)
         }
@@ -66,6 +68,7 @@ function CreateCollections(props) {
                         <Form.Label>Category</Form.Label>
                         <Form.Select aria-label="Default select example" className="mb-3" {...register('type')}>
                             <option value="book">books</option>
+                            <option value="movie">movies</option>
                         </Form.Select>
                     </Form.Group>
                 </Form>

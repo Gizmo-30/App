@@ -5,7 +5,7 @@ import {useState} from "react";
 const Collections = () => {
     const [modalShow, setModalShow] = useState(false);
   return (
-      <div>
+      <div className="py-3">
           <h1>Collections</h1>
           <CreateCollections
               show={modalShow}

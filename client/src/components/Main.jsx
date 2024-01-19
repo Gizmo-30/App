@@ -1,9 +1,9 @@
 import {NavLink} from "react-router-dom";
+import Header from "./Header";
 
 const Main = () => {
     return (
         <div>
-            <h1>Hello world</h1>
             <NavLink to="/dashboard">dashboard</NavLink>
             <br/>
             <NavLink to="/login">login</NavLink>

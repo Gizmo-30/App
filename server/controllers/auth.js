@@ -8,15 +8,15 @@ const privateKey = process.env.PRIVATE_KEY
 
 exports.login = async (req,res) => {
     const {username, password} = req.body
-    const searchResult = await User.findAll({where: {username: username}})
+    const searchResult = await User.findOne({where: {username: username}})
 
-    if(!searchResult.length) return res.status(401).send('Invalid username')
+    if(!searchResult) return res.status(401).send('Invalid username')
 
-    let match = await bcrypt.compare(password, searchResult[0].password)
+    let match = await bcrypt.compare(password, searchResult.password)
     if (!match) return res.status(401).send('Invalid password')
 
-    const token = await jwt.sign({username: username, role: searchResult[0].role}, privateKey, {expiresIn: '1h'})
-    res.status(200).json({token: token, role: searchResult[0].role});
+    const token = await jwt.sign({username: username, role: searchResult.role}, privateKey, {expiresIn: '24h'})
+    res.status(200).json({accessToken: token, username: searchResult.username, role: searchResult.role});
 }
 
 exports.registration = async (req,res) => {
@@ -41,13 +41,13 @@ exports.registration = async (req,res) => {
 }
 
 exports.verifyToken = (req,res,next) => {
-    const token = req.headers['x-access-token']
-    if(!token) return res.sendStatus(403).send("No token provided")
+    const token = req.headers['authorization']
+    if(!token) return res.status(403).send("No token provided")
 
     jwt.verify(token, privateKey, function (err,decoded){
-        if (err) return res.sendStatus(401).send("Unauthorized");
+        if (err) return res.status(401).send("Unauthorized");
 
-        req.userId = decoded.id;
+        req.tokenData = decoded;
         next()
     })
 }

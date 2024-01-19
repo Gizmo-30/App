@@ -23,7 +23,7 @@ const Dashboard = () => {
     }
     return (
         <div className="my-3">
-            {user.role === 'admin'? <Admins/>: <Users/>}
+            {user.role === 'admin'? <Admins/>: <Users user={user}/>}
         </div>
     )
 }

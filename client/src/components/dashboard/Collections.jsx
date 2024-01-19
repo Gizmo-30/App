@@ -1,12 +1,13 @@
 import React, {useState} from "react";
-import { MdAdd } from "react-icons/md";
-import {Button, Card, Col, Container, Row} from "react-bootstrap";
+import {MdAdd, MdDelete, MdEdit} from "react-icons/md";
+import {Button, ButtonGroup, Card, Col, Container, Row} from "react-bootstrap";
 import CreateCollections from "./CreateCollections";
 import {useGetCollectionsQuery} from "../../state/slices/api";
 import Loading from "../Loading";
-const Collections = () => {
+const Collections = ({user}) => {
     const [modalShow, setModalShow] = useState(false);
     const {data, error, isLoading} = useGetCollectionsQuery()
+
     if (error) {
         return <p>Error: {error.message}</p>;
     }
@@ -26,18 +27,21 @@ const Collections = () => {
               <Col>
                 <h1>Collections</h1>
               </Col>
-              <Col className="d-flex justify-content-end align-items-center">
-                  <Button variant="primary" className="w-25" onClick={() => setModalShow(true)}>
-                      <MdAdd />
-                  </Button>
+              <Col>
+                  <p>signed in as {user.username}</p>
               </Col>
-
           </Row>
+          <hr/>
 
+          <ButtonGroup aria-label="Basic example">
+              <Button variant="outline-primary"><MdAdd /></Button>
+              <Button variant="outline-warning"><MdEdit /></Button>
+              <Button variant="outline-danger"><MdDelete /></Button>
+          </ButtonGroup>
 
           <Row className="my-3">
               {data.map((e, i) => (
-                  <Col key={i}>
+                  <Col key={i} xs={12} md={4} lg={4}>
                       <Card>
                           <Card.Body>
                               <Card.Title>{e.name}</Card.Title>

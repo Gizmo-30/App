@@ -8,7 +8,7 @@ const privateKey = process.env.PRIVATE_KEY
 
 exports.login = async (req,res) => {
     const {username, password} = req.body
-    const searchResult = await User.findOne({where: {username: username}})
+    const searchResult = await User.findOne({where: {username,}})
 
     if(!searchResult) return res.status(401).send('Invalid username')
 

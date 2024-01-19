@@ -7,7 +7,7 @@ import {NavLink} from "react-router-dom";
 const Header = () => {
     return (
         <headerd className="Header">
-            <Navbar expand="lg" className="bg-body-tertiary">
+            <Navbar expand="lg" bg="dark" data-bs-theme="dark" className="bg-body-tertiary">
                 <Container>
                     <Navbar.Brand href="/">ColAp</Navbar.Brand>
                     <Navbar.Toggle aria-controls="navbarScroll" />
@@ -41,6 +41,7 @@ const Header = () => {
                                 aria-label="Search"
                             />
                             <Button variant="outline-success">Search</Button>
+                            <Button onClick={() => localStorage.removeItem("user")}>clear</Button>
                         </Form>
                     </Navbar.Collapse>
                 </Container>

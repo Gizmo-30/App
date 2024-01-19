@@ -13,8 +13,8 @@ import Main from "./components/Main";
 import Container from "./components/ContainerLayout";
 import Header from "./components/Header";
 
-axios.defaults.baseURL = "https://collections-server.vercel.app";
-// axios.defaults.baseURL = "http://localhost:3001";
+// axios.defaults.baseURL = "https://collections-server.vercel.app";
+axios.defaults.baseURL = "http://localhost:3001";
 
 function App() {
   return (

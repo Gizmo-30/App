@@ -22,7 +22,7 @@ const Dashboard = () => {
         return <Loading />
     }
     return (
-        <div>
+        <div className="my-3">
             {user.role === 'admin'? <Admins/>: <Users/>}
         </div>
     )

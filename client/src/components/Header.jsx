@@ -8,7 +8,7 @@ const Header = () => {
     return (
         <headerd className="Header">
             <Navbar expand="lg" className="bg-body-tertiary">
-                <Container fluid>
+                <Container>
                     <Navbar.Brand href="/">ColAp</Navbar.Brand>
                     <Navbar.Toggle aria-controls="navbarScroll" />
                     <Navbar.Collapse id="navbarScroll">

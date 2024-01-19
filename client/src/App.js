@@ -10,7 +10,7 @@ import Auth from "./components/layouts/Auth";
 import Missing from "./components/helpers/Missing";
 import CheckAuth from "./components/helpers/CheckAuth";
 import Main from "./components/Main";
-import Container from "./components/Container";
+import Container from "./components/ContainerLayout";
 import Header from "./components/Header";
 
 axios.defaults.baseURL = "https://collections-server.vercel.app";

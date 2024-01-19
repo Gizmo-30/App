@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { MdAdd } from "react-icons/md";
-import {Button, Col, Container, Row} from "react-bootstrap";
+import {Button, Card, Col, Container, Row} from "react-bootstrap";
 import CreateCollections from "./CreateCollections";
 import {useGetCollectionsQuery} from "../../state/slices/api";
 import Loading from "../Loading";
@@ -15,30 +15,41 @@ const Collections = () => {
     }
 
   return (
-      <div className="py-3">
-          <h1>Collections</h1>
-          <Container fluid>
-              {data.map((e, i) => (
-                  <Row key={i} className="mb-3">
-                      <Col xs={12} md={4} lg={4}>
-                          <div>
-                              <p>{e.name}</p>
-                              <p>{e.description}</p>
-                              <p>{e.type}</p>
-                          </div>
-                      </Col>
-                  </Row>
-              ))}
-          </Container>
+      <section>
 
           <CreateCollections
               show={modalShow}
               onHide={() => setModalShow(false)}
           />
-          <Button variant="primary" onClick={() => setModalShow(true)}>
-              <MdAdd />
-          </Button>
-      </div>
+
+          <Row>
+              <Col>
+                <h1>Collections</h1>
+              </Col>
+              <Col className="d-flex justify-content-end align-items-center">
+                  <Button variant="primary" className="w-25" onClick={() => setModalShow(true)}>
+                      <MdAdd />
+                  </Button>
+              </Col>
+
+          </Row>
+
+
+          <Row className="my-3">
+              {data.map((e, i) => (
+                  <Col key={i}>
+                      <Card>
+                          <Card.Body>
+                              <Card.Title>{e.name}</Card.Title>
+                              <Card.Subtitle className="mb-2 text-muted">{e.type}</Card.Subtitle>
+                              <Card.Text>{e.description}</Card.Text>
+                              <Card.Link href="#">See items</Card.Link>
+                          </Card.Body>
+                      </Card>
+                  </Col>
+              ))}
+          </Row>
+      </section>
   )
 }
 

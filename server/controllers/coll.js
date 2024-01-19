@@ -17,7 +17,10 @@ exports.createColl = async (req,res) => {
 }
 
 
-exports.getColl = async (req,res) => {
-    const response = await User.findByPk(1,{include: [Collections]})
-    res.json(response)
+exports.getColls = async (req,res) => {
+    const tokenData = req.tokenData
+    const searchUserId = await User.findOne({attributes: ["id"], where: {username: tokenData.username}})
+
+    const response = await User.findByPk(searchUserId.id,{include: [Collections]})
+    res.json(response.Collections)
 }

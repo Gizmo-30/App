@@ -6,6 +6,7 @@ import Users from "../roles/Users";
 import React, {useEffect, useState} from "react";
 import {Spinner} from "react-bootstrap";
 import Header from "../Header";
+import Loading from "../Loading";
 
 const Dashboard = () => {
     const [user, setUser] = useState({})
@@ -18,11 +19,7 @@ const Dashboard = () => {
     }, []);
 
     if(loading) {
-        return(
-            <div className="vw-100 vh-100 d-flex justify-content-center align-items-center">
-                <Spinner animation="border" role="loading"/>
-            </div>
-        )
+        return <Loading />
     }
     return (
         <div>

@@ -1,4 +1,5 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
+import authHeader from "../../methods/authHeader";
 
 export const api = createApi({
     tagTypes: ['users'],
@@ -21,8 +22,9 @@ export const api = createApi({
         }),
         getCollections: builder.query({
             query: () => ({
-                url: '/coll/get',
+                url: '/api/coll/get/all',
                 method: 'Get',
+                headers: authHeader(),
             })
         }),
         sendUsers: builder.mutation({
@@ -34,4 +36,4 @@ export const api = createApi({
         })
     })
 })
-export const { useGetUsersQuery, useSendUsersQuery, useGetUserQuery} = api;
+export const { useGetUsersQuery, useSendUsersQuery, useGetUserQuery, useGetCollectionsQuery} = api;

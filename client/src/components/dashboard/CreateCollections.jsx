@@ -7,11 +7,16 @@ import React from "react";
 import validation from "../../methods/validation";
 import Errors from "../Errors";
 import axios from "axios";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import authHeader from "../../methods/authHeader";
+import {Alert, Col, Row} from "react-bootstrap";
+import {setError, setSuccess} from "../../state/slices/status";
+import Status from "../auth/Status";
 
 function CreateCollections(props) {
     const userInfo = useSelector((state) => state.userInfo)
+    const status = useSelector((state) => state.status)
+    const dispatch = useDispatch()
     const {
         register,
         handleSubmit,
@@ -26,14 +31,24 @@ function CreateCollections(props) {
         try {
             console.log(data)
             const response = await axios.post('/api/coll/create', data, {headers: authHeader()})
+            dispatch(setSuccess("Collection created successfully"))
+            setTimeout(() => onclose(), 3000)
         } catch (e) {
             console.error("E creating coll ----->", e)
+            try {
+                if(e.response.status) {
+                    dispatch(setError(e.response.data))
+                }
+            } catch (e) {
+                dispatch(setError("Something went wrong :("))
+            }
         }
     })
 
     const onclose = () => {
         props.onHide()
         reset()
+        dispatch(setError(""))
     }
 
     return (
@@ -73,9 +88,12 @@ function CreateCollections(props) {
                     </Form.Group>
                 </Form>
             </Modal.Body>
-            <Modal.Footer>
-                <Button variant="success" onClick={onSubmit}>  Create  </Button>
-                <Button onClick={onclose}> Close </Button>
+            <Modal.Footer className=" align-items-center">
+                <Status style={{"marginRight": "auto"}}/>
+                <div className="d-flex column-gap-3 justify-content-end">
+                    <Button variant="success" onClick={onSubmit} className="modal-button">  Create  </Button>
+                    <Button onClick={onclose} className="modal-button"> Close </Button>
+                </div>
             </Modal.Footer>
         </Modal>
     );

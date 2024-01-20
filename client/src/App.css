@@ -5,3 +5,7 @@
 .custom-dropdown-toggle::after, .custom-dropdown-toggle::before {
     display: none !important;
 }
+
+.modal-button {
+    width: 150px !important;
+}

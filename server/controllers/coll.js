@@ -4,6 +4,7 @@ exports.createColl = async (req,res) => {
     const tokenData = req.tokenData
 
     const searchResult = await Collections.findOne({where: {name,}})
+    console.log(searchResult)
     if(searchResult) return res.status(409).send("Database with such name already exists")
 
     const searchUserId = await User.findOne({attributes: ["id"], where: {username: tokenData.username}})

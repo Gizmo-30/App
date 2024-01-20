@@ -10,7 +10,7 @@ import "../../App.css";
 const Collections = ({user}) => {
     const [modalShow, setModalShow] = useState(false);
 
-    const {data, error, isLoading} = useGetCollectionsQuery()
+    const {data, error, isLoading} = useGetCollectionsQuery({}, {pollingInterval: 5000,})
 
     if (error) {
         return <p>Error: {error.message}</p>;

@@ -9,21 +9,25 @@ import {BsThreeDotsVertical} from "react-icons/bs";
 import "../../App.css";
 import {current} from "@reduxjs/toolkit";
 import axios from "axios";
+import {useDispatch, useSelector} from "react-redux";
+import {setError, setSuccess} from "../../state/slices/status";
+import {setMessage} from "../../state/slices/message";
 const Collections = ({user}) => {
-
+    const status = useSelector((state) => state.status)
+    const dispatch = useDispatch()
     async function handleDelete(e) {
         const name = e.target.parentElement.getAttribute('id')
         try {
             const response = await axios.post("/api/coll/delete", {name})
-            console.log(response)
+            dispatch(setMessage(response.data))
         } catch (e) {
             console.error("E deleting coll ---->", e)
+            dispatch(setMessage("Something went wrong :("))
         }
     }
     const [modalShow, setModalShow] = useState(false);
 
-    // const {data, error, isLoading} = useGetCollectionsQuery({}, {pollingInterval: 5000,})
-    const {data, error, isLoading} = useGetCollectionsQuery()
+    const {data, error, isLoading} = useGetCollectionsQuery({}, {pollingInterval: 5000,})
 
     if (error) {
         return <p>Error: {error.message}</p>;

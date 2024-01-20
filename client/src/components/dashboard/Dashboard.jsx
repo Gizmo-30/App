@@ -7,6 +7,7 @@ import React, {useEffect, useState} from "react";
 import {Spinner} from "react-bootstrap";
 import Header from "../Header";
 import Loading from "../Loading";
+import Message from "./Message";
 
 const Dashboard = () => {
     const [user, setUser] = useState({})
@@ -22,9 +23,10 @@ const Dashboard = () => {
         return <Loading />
     }
     return (
-        <div className="my-3">
+        <section className="my-3">
             {user.role === 'admin'? <Admins/>: <Users user={user}/>}
-        </div>
+            <Message />
+        </section>
     )
 }
 

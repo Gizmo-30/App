@@ -41,7 +41,6 @@ const Header = () => {
                                 aria-label="Search"
                             />
                             <Button variant="outline-success">Search</Button>
-                            <Button onClick={() => localStorage.removeItem("user")}>clear</Button>
                         </Form>
                     </Navbar.Collapse>
                 </Container>

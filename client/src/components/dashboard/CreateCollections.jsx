@@ -29,7 +29,6 @@ function CreateCollections(props) {
 
     const onSubmit = handleSubmit( async (data) => {
         try {
-            console.log(data)
             const response = await axios.post('/api/coll/create', data, {headers: authHeader()})
             dispatch(setSuccess("Collection created successfully"))
             setTimeout(() => onclose(), 3000)

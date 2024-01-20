@@ -7,6 +7,8 @@ import Loading from "../Loading";
 import {NavLink} from "react-router-dom";
 import {BsThreeDotsVertical} from "react-icons/bs";
 import "../../App.css";
+import {current} from "@reduxjs/toolkit";
+import {handleDelete} from "../handlers/handlers";
 const Collections = ({user}) => {
     const [modalShow, setModalShow] = useState(false);
 
@@ -47,13 +49,13 @@ const Collections = ({user}) => {
               </Col>
           </Row>
           <Row >
-              {data.map((e, i) => (
+              {data.map((elem, i) => (
                   <Col key={i} xs={12} md={4} lg={4} className="my-2">
                       <Card>
                           <Card.Body>
                               <Row>
                                   <Col>
-                                    <Card.Title>{e.name}</Card.Title>
+                                    <Card.Title>{elem.name}</Card.Title>
                                   </Col>
                                   <Col className="d-flex justify-content-end position-relative">
                                       <Dropdown align="end" >
@@ -61,15 +63,15 @@ const Collections = ({user}) => {
                                               <BsThreeDotsVertical  />
                                           </Dropdown.Toggle>
 
-                                          <Dropdown.Menu>
+                                          <Dropdown.Menu id={elem.name}>
                                               <Dropdown.Item href="#/action-1">edit</Dropdown.Item>
-                                              <Dropdown.Item href="#/action-2">delete</Dropdown.Item>
+                                              <Dropdown.Item onClick={(e) => handleDelete(e)}>delete</Dropdown.Item>
                                           </Dropdown.Menu>
                                       </Dropdown>
                                   </Col>
                               </Row>
-                              <Card.Subtitle className="mb-2 text-muted">{e.type}</Card.Subtitle>
-                              <Card.Text>{e.description}</Card.Text>
+                              <Card.Subtitle className="mb-2 text-muted">{elem.type}</Card.Subtitle>
+                              <Card.Text>{elem.description}</Card.Text>
                               <Card.Link href="#">See items</Card.Link>
                           </Card.Body>
                       </Card>

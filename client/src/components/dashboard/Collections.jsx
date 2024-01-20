@@ -8,11 +8,22 @@ import {NavLink} from "react-router-dom";
 import {BsThreeDotsVertical} from "react-icons/bs";
 import "../../App.css";
 import {current} from "@reduxjs/toolkit";
-import {handleDelete} from "../handlers/handlers";
+import axios from "axios";
 const Collections = ({user}) => {
+
+    async function handleDelete(e) {
+        const name = e.target.parentElement.getAttribute('id')
+        try {
+            const response = await axios.post("/api/coll/delete", {name})
+            console.log(response)
+        } catch (e) {
+            console.error("E deleting coll ---->", e)
+        }
+    }
     const [modalShow, setModalShow] = useState(false);
 
-    const {data, error, isLoading} = useGetCollectionsQuery({}, {pollingInterval: 5000,})
+    // const {data, error, isLoading} = useGetCollectionsQuery({}, {pollingInterval: 5000,})
+    const {data, error, isLoading} = useGetCollectionsQuery()
 
     if (error) {
         return <p>Error: {error.message}</p>;

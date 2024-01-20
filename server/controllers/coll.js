@@ -25,3 +25,15 @@ exports.getColls = async (req,res) => {
     const response = await User.findByPk(searchUserId.id,{include: [Collections]})
     res.json(response.Collections)
 }
+
+exports.deleteColl = async (req,res) => {
+    const {name} = req.body
+    try {
+        const response = await Collections.destroy({where: {name,}})
+        console.log(response)
+        if(response > 0) return res.status(200)
+    } catch (e) {
+        console.error("Error deleting coll", e)
+        res.status(500).send("Internal Server Error")
+    }
+}

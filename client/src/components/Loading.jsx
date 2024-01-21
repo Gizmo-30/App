@@ -1,12 +1,8 @@
-import {Spinner} from "react-bootstrap";
+import {Container, Spinner} from "react-bootstrap";
 import React from "react";
 
 const Loading = () => {
-    return (
-        <div className="w-100 h-100 d-flex justify-content-center align-items-center">
-            <Spinner animation="border" role="loading"/>
-        </div>
-    )
+    return <Spinner animation="border" role="loading" className="position-absolute" style={{"bottom": "10px", "right": "10px"}}/>
 }
 
 export default Loading

@@ -22,6 +22,7 @@ const Dashboard = () => {
     if(loading) {
         return <Loading />
     }
+
     return (
         <section className="my-3">
             {user.role === 'admin'? <Admins/>: <Users user={user}/>}

@@ -5,7 +5,7 @@ import validation from "../../methods/validation";
 import Status from "../auth/Status";
 import Button from "react-bootstrap/Button";
 import React, {useState} from "react";
-import {setError} from "../../state/slices/status";
+import {setError, setSuccess} from "../../state/slices/status";
 import {useDispatch, useSelector} from "react-redux";
 import {useForm} from "react-hook-form";
 import {findInputError, isFormInvalid} from "../../methods/findInputError";
@@ -14,6 +14,8 @@ import axios from "axios";
 const EditCollection = (props) => {
     const [name, setName] = useState(props.name)
     const [description, setDescription] = useState(props.description)
+
+    const status = useSelector((state) => state.status)
 
 
     const dispatch = useDispatch()
@@ -30,9 +32,15 @@ const EditCollection = (props) => {
     const onSubmit = handleSubmit( async (data) => {
         try {
             const response = await axios.post("/api/coll/edit", {data, initialName: props.name})
-            console.log(response)
+            dispatch(setSuccess("Collection updated"))
+            setTimeout(() => onclose(), 3000)
         } catch (e) {
             console.error("Error changing collection", e)
+            try {
+                dispatch(setError(e.response.data))
+            } catch (e) {
+                dispatch(setSuccess("something went wrong :("))
+            }
         }
     })
     const onclose = () => {

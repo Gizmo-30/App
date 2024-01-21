@@ -13,24 +13,21 @@ import {useDispatch, useSelector} from "react-redux";
 import {setError, setSuccess} from "../../state/slices/status";
 import {setMessage} from "../../state/slices/message";
 import EditCollection from "./EditCollection";
+import ConfirmAction from "./ConfirmAction";
 const Collections = ({user}) => {
     const status = useSelector((state) => state.status)
     const dispatch = useDispatch()
 
     const [modalShow, setModalShow] = useState(false);
     const [modalEditShow, setEditModalShow] = useState(false);
+    const [modalConfirmShow, setModalConfirmShow] = useState({status: false, data: null});
+
     const [collection, setCollection] = useState({});
     const {data, error, isLoading} = useGetCollectionsQuery({}, {pollingInterval: 5000,})
 
     async function handleDelete(e) {
         const name = e.target.parentElement.getAttribute('id')
-        try {
-            const response = await axios.post("/api/coll/delete", {name})
-            dispatch(setMessage(response.data))
-        } catch (e) {
-            console.error("E deleting coll ---->", e)
-            dispatch(setMessage("Something went wrong :("))
-        }
+        setModalConfirmShow({status: true, data: name})
     }
     async function handleEdit(e) {
         const name = e.target.parentElement.getAttribute('id')
@@ -64,6 +61,12 @@ const Collections = ({user}) => {
               type={collection.type}
           />
 
+          <ConfirmAction
+              show={modalConfirmShow.status}
+              onHide={() => setModalConfirmShow({status: false, data: null})}
+              name={modalConfirmShow.data}
+          />
+
           <Row className="d-flex align-items-center">
               <Col>
                 <h1>Collections</h1>
@@ -74,19 +77,22 @@ const Collections = ({user}) => {
               </Col>
           </Row>
           <hr/>
-          <Row className="d-flex align-items-center">
-              <Col className="d-flex justify-content-end">
-                  <ButtonGroup aria-label="Basic example">
-                      <Button variant="outline-primary" onClick={() => setModalShow(true)}><MdAdd /></Button>
-                      <Button variant="outline-warning"><MdEdit /></Button>
-                      <Button variant="outline-danger"><MdDelete /></Button>
-                  </ButtonGroup>
-              </Col>
-          </Row>
           <Row >
+              <Col xs={12} md={4} lg={4} className="my-2">
+                  <Card className="d-flex w-100 h-100 ">
+                      <Card.Body className="d-flex flex-column align-items-center justify-content-center row-gap-2">
+                          <Row>
+                              <Col>
+                                  <Card.Title> Add new Collection</Card.Title>
+                              </Col>
+                          </Row>
+                          <Button variant="outline-primary" className="w-50" onClick={() => setModalShow(true)}><MdAdd /></Button>
+                      </Card.Body>
+                  </Card>
+              </Col>
               {data.map((elem, i) => (
                   <Col key={i} xs={12} md={4} lg={4} className="my-2">
-                      <Card>
+                      <Card  className="d-flex w-100 h-100">
                           <Card.Body>
                               <Row>
                                   <Col>

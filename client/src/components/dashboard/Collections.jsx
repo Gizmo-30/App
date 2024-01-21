@@ -12,9 +12,16 @@ import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
 import {setError, setSuccess} from "../../state/slices/status";
 import {setMessage} from "../../state/slices/message";
+import EditCollection from "./EditCollection";
 const Collections = ({user}) => {
     const status = useSelector((state) => state.status)
     const dispatch = useDispatch()
+
+    const [modalShow, setModalShow] = useState(false);
+    const [modalEditShow, setEditModalShow] = useState(false);
+    const [collection, setCollection] = useState({});
+    const {data, error, isLoading} = useGetCollectionsQuery({}, {pollingInterval: 5000,})
+
     async function handleDelete(e) {
         const name = e.target.parentElement.getAttribute('id')
         try {
@@ -25,9 +32,16 @@ const Collections = ({user}) => {
             dispatch(setMessage("Something went wrong :("))
         }
     }
-    const [modalShow, setModalShow] = useState(false);
-
-    const {data, error, isLoading} = useGetCollectionsQuery({}, {pollingInterval: 5000,})
+    async function handleEdit(e) {
+        const name = e.target.parentElement.getAttribute('id')
+        setEditModalShow(true)
+        try {
+            const response = await axios.post('/api/coll/get/one', {name})
+            setCollection(response.data)
+        } catch (e) {
+            console.error("Error getting collection")
+        }
+    }
 
     if (error) {
         return <p>Error: {error.message}</p>;
@@ -38,10 +52,16 @@ const Collections = ({user}) => {
 
   return (
       <section>
-
           <CreateCollections
               show={modalShow}
               onHide={() => setModalShow(false)}
+          />
+          <EditCollection
+              show={modalEditShow}
+              onHide={() => setEditModalShow(false)}
+              name={collection.name}
+              description={collection.description}
+              type={collection.type}
           />
 
           <Row className="d-flex align-items-center">
@@ -79,7 +99,7 @@ const Collections = ({user}) => {
                                           </Dropdown.Toggle>
 
                                           <Dropdown.Menu id={elem.name}>
-                                              <Dropdown.Item href="#/action-1">edit</Dropdown.Item>
+                                              <Dropdown.Item onClick={(e) => handleEdit(e)}>edit</Dropdown.Item>
                                               <Dropdown.Item onClick={(e) => handleDelete(e)}>delete</Dropdown.Item>
                                           </Dropdown.Menu>
                                       </Dropdown>

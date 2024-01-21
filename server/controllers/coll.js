@@ -37,3 +37,33 @@ exports.deleteColl = async (req,res) => {
         res.status(500).send("Internal Server Error")
     }
 }
+
+exports.getColl = async (req,res) => {
+    const {name} = req.body
+    try {
+        const response = await Collections.findOne({where: {name,}})
+        res.status(200).send(response)
+    } catch (e) {
+        console.error("Error getting coll", e)
+        res.status(500).send("Internal Server Error")
+    }
+}
+
+exports.editColl = async (req,res) => {
+    const {data, initialName} = req.body
+
+    const searchResult = await Collections.findOne({where: {name: data.name}})
+    if(searchResult) return res.status(500).send("name already in use")
+
+    try {
+        const response = await Collections.update({
+            name: data.name,
+            description: data.description,
+            type: data.type,
+        },{where: {name: initialName}})
+        res.status(200).send(response)
+    } catch (e) {
+        console.error(e)
+        res.status(500).send("Internal server error")
+    }
+}

@@ -5,7 +5,7 @@ const Empty = () => {
         <Alert variant="info">
             <Alert.Heading>No Collection found</Alert.Heading>
             <p>
-                Lets create new Collection :)
+                Lets create new Collection :)w
             </p>
         </Alert>
     )

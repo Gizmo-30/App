@@ -25,10 +25,10 @@ function App() {
           <Header />
           <Routes>
               <Route element={<Container />}>
-                  <Route path="/" element={<Main />}></Route>
 
                   {/* check authentication*/}
                   <Route element={<CheckAuth />}>
+                      <Route path="/" element={<Navigate to="/dashboard" />}></Route>
                       <Route path="/dashboard" element={<Dashboard />}></Route>
                   </Route>
                   <Route path="*" element={<Missing />}></Route>

@@ -16,14 +16,13 @@ import Edit from "./Edit";
 import ConfirmAction from "./ConfirmAction";
 import ServerError from "../ServerError";
 import List from "./List";
+import {setPassword, setUsername} from "../../../state/slices/user";
 const Collections = ({user}) => {
-    const status = useSelector((state) => state.status)
     const dispatch = useDispatch()
 
     const [modalShow, setModalShow] = useState(false);
     const [modalEditShow, setEditModalShow] = useState(false);
     const [modalConfirmShow, setModalConfirmShow] = useState({status: false, data: null});
-    const [serverError, setServerError] = useState(false);
 
     const [collection, setCollection] = useState({});
     const {data, error, isLoading} = useGetCollectionsQuery({}, {pollingInterval: 5000,})
@@ -43,12 +42,11 @@ const Collections = ({user}) => {
         }
     }
 
-    // if (error) {
-    //     return <ServerError />
-    // }
-    // if (isLoading) {
-    //     return <Loading />
-    // }
+    async function onSignOut() {
+        await localStorage.removeItem("user")
+        dispatch(setUsername(""))
+        dispatch(setPassword(""))
+    }
 
   return (
       <section>
@@ -77,7 +75,7 @@ const Collections = ({user}) => {
               </Col>
               <Col className="d-flex justify-content-end column-gap-2 ">
                   <p>signed in as <strong className="text-capitalize">{user.username}</strong></p>
-                  <NavLink to="/" onClick={() => localStorage.removeItem("user")}>sign out</NavLink>
+                  <NavLink to="/" onClick={onSignOut}>sign out</NavLink>
               </Col>
           </Row>
           <hr/>

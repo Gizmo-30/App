@@ -14,7 +14,8 @@ const PORT = process.env.PORT || 4000;
 //
 //
 const app = express()
-app.use(cors())
+app.use(cors({ origin: 'https://collections-client-react.vercel.app' }));
+// app.use(cors())
 app.use(bodyParser.json());
 // db.sequelize.sync()
 auth.get('/', (req, res) => {

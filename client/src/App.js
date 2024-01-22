@@ -22,24 +22,27 @@ axios.defaults.baseURL = baseURL;
 function App() {
   return (
       <BrowserRouter>
-          <Header />
-          <Routes>
-              <Route element={<Container />}>
+          <div className="vh-100 d-flex flex-column">
+              <Header />
+
+              <Routes>
+                  <Route path="/" element={<Main />}></Route>
+                  <Route path="*" element={<Missing />}></Route>
+                  <Route element={<Container />}>
+                  </Route>
 
                   {/* check authentication*/}
                   <Route element={<CheckAuth />}>
-                      <Route path="/" element={<Navigate to="/dashboard" />}></Route>
                       <Route path="/dashboard" element={<Dashboard />}></Route>
                   </Route>
-                  <Route path="*" element={<Missing />}></Route>
-              </Route>
 
-              {/*authentication*/}
-              <Route path="/" element={<Auth />}>
-                  <Route path="/login" element={<LogIn />}></Route>
-                  <Route path="/registration" element={<Registration />}></Route>
-              </Route>
-          </Routes>
+                  {/*authentication*/}
+                  <Route path="/" element={<Auth />}>
+                      <Route path="/login" element={<LogIn />}></Route>
+                      <Route path="/registration" element={<Registration />}></Route>
+                  </Route>
+              </Routes>
+          </div>
       </BrowserRouter>
   );
 }

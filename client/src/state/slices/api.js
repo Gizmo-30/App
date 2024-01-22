@@ -6,7 +6,7 @@ export const api = createApi({
     reducerPath: 'api',
     // baseQuery: fetchBaseQuery({baseUrl: 'http://localhost:3001'}),
     baseQuery: fetchBaseQuery({baseUrl: 'https://collections-server.vercel.app'}),
-    refetchOnFocus: true,
+    // refetchOnFocus: true,
     refetchOnReconnect: true,
     endpoints: (builder) => ({
         getUsers: builder.query({

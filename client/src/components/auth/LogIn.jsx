@@ -42,16 +42,12 @@ const LogIn = () => {
                 localStorage.setItem("user", JSON.stringify(response.data))
             }
             const role = response.data.role
-            dispatch(setRole(role))
 
+            dispatch(setRole(role))
             navigate("/dashboard")
         } catch (e) {
             console.error('Error posting user data ------>', e)
-            try {
-                dispatch(setError(e.response.data))
-            } catch (e) {
-                dispatch(setError("Something went wrong :("))
-            }
+            dispatch(setError(e.response.data))
             setReset(true)
         }finally {
             setLoading(false)

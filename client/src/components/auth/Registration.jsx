@@ -33,7 +33,7 @@ const Registration = () => {
     const onSubmit = methods.handleSubmit( async (data) => {
         try {
             setLoading(true)
-            const response =await axios.post('/api/auth/signup', data)
+            const response = await axios.post('/api/auth/signup', data)
 
             dispatch(setRole("user"))
             navigate("/dashboard")

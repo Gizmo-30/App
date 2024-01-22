@@ -30,8 +30,8 @@ function App() {
                   {/* check authentication*/}
                   <Route element={<CheckAuth />}>
                       <Route path="/dashboard" element={<Dashboard />}></Route>
-                      <Route path="*" element={<Missing />}></Route>
                   </Route>
+                  <Route path="*" element={<Missing />}></Route>
               </Route>
 
               {/*authentication*/}

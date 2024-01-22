@@ -1,23 +1,20 @@
-import React, {useRef, useState} from "react";
-import {MdAdd, MdDelete, MdEdit} from "react-icons/md";
-import {Button, ButtonGroup, Card, Col, Container, Row, Form, Overlay, Dropdown, Alert} from "react-bootstrap";
+import React, {useState} from "react";
+import {Col, Row} from "react-bootstrap";
 import Create from "./Create";
-import {useGetCollectionsQuery} from "../../../state/slices/api";
+import {useGetCollectionsAllQuery, useGetCollectionsQuery} from "../../../state/slices/api";
 import Loading from "../Loading";
 import {NavLink} from "react-router-dom";
-import {BsThreeDotsVertical} from "react-icons/bs";
 import "../../../App.css";
-import {current} from "@reduxjs/toolkit";
 import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
-import {setError, setSuccess} from "../../../state/slices/status";
-import {setMessage} from "../../../state/slices/message";
 import Edit from "./Edit";
 import ConfirmAction from "./ConfirmAction";
 import ServerError from "../ServerError";
 import List from "./List";
 import {setPassword, setUsername} from "../../../state/slices/user";
+
 const Collections = ({user}) => {
+    const auth = useSelector((state) => state.auth)
     const dispatch = useDispatch()
 
     const [modalShow, setModalShow] = useState(false);
@@ -25,8 +22,10 @@ const Collections = ({user}) => {
     const [modalConfirmShow, setModalConfirmShow] = useState({status: false, data: null});
 
     const [collection, setCollection] = useState({});
-    const {data, error, isLoading} = useGetCollectionsQuery({}, {pollingInterval: 5000,})
 
+    const fetchData = auth ? useGetCollectionsQuery : useGetCollectionsAllQuery
+
+    const {data, error, isLoading} = fetchData({}, {pollingInterval: 5000,})
     async function handleDelete(e) {
         const name = e.target.parentElement.getAttribute('id')
         setModalConfirmShow({status: true, data: name})
@@ -74,8 +73,14 @@ const Collections = ({user}) => {
                 <h1>Collections</h1>
               </Col>
               <Col className="d-flex justify-content-end column-gap-2 ">
-                  <p>signed in as <strong className="text-capitalize">{user.username}</strong></p>
-                  <NavLink to="/" onClick={onSignOut}>sign out</NavLink>
+                  <p>
+                      {auth ? 'signed in as '  : 'not signed in'}
+                      <strong className="text-capitalize">{user.username}</strong>
+                  </p>
+                  {auth
+                      ? <NavLink to="/" onClick={onSignOut}>sign out</NavLink>
+                      : <NavLink to="/login" >sign in</NavLink>
+                  }
               </Col>
           </Row>
           <hr/>

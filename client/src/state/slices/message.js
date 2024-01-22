@@ -1,8 +1,8 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {message: ""}
-export const status = createSlice({
-    name: 'error',
+export const message = createSlice({
+    name: 'message',
     initialState,
     reducers: {
         setMessage: (state, action) => {
@@ -11,5 +11,5 @@ export const status = createSlice({
     }
 })
 
-export const {setMessage} = status.actions
-export default status.reducer
+export const {setMessage} = message.actions
+export default message.reducer

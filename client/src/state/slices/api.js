@@ -27,18 +27,17 @@ export const api = createApi({
         }),
         getCollections: builder.query({
             query: () => ({
-                url: '/api/coll/get/all',
+                url: '/api/coll/get/all/user',
                 method: 'Get',
                 headers: authHeader(),
             })
         }),
-        sendUsers: builder.mutation({
-            query: (body) => ({
-                url: '/login/',
-                method: 'POST',
-                body,
-            }),
-        })
+        getCollectionsAll: builder.query({
+            query: () => ({
+                url: '/api/coll/get/all',
+                method: 'Get',
+            })
+        }),
     })
 })
-export const { useGetUsersQuery, useSendUsersQuery, useGetUserQuery, useGetCollectionsQuery} = api;
+export const { useGetUsersQuery, useSendUsersQuery, useGetUserQuery, useGetCollectionsQuery, useGetCollectionsAllQuery} = api;

@@ -9,7 +9,8 @@ const Header = () => {
         <headerd className="Header">
             <Navbar expand="lg" bg="dark" data-bs-theme="dark" className="bg-body-tertiary">
                 <Container>
-                    <Navbar.Brand href="/">ColAp</Navbar.Brand>
+                    {/*<Navbar.Brand href="/" onClick={(e) => e.preventDefault()}>ColAp</Navbar.Brand>*/}
+                    <NavLink to="/" className="navbar-brand">ColAp</NavLink>
                     <Navbar.Toggle aria-controls="navbarScroll" />
                     <Navbar.Collapse id="navbarScroll">
                         <Nav
@@ -17,8 +18,8 @@ const Header = () => {
                             style={{ maxHeight: '100px' }}
                             navbarScroll
                         >
-                            <NavLink to="/dashboard">Collections</NavLink>
-                            <Nav.Link href="#action2">Link</Nav.Link>
+                            <Nav.Link href="/dashboard" onClick={(e) => e.preventDefault()}>Collections</Nav.Link>
+                            <Nav.Link href="/users" onClick={(e) => e.preventDefault()}>Users</Nav.Link>
                             <NavDropdown title="Link" id="navbarScrollingDropdown">
                                 <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
                                 <NavDropdown.Item href="#action4">

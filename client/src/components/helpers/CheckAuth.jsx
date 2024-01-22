@@ -1,10 +1,15 @@
 import {Navigate, Outlet, useLocation} from "react-router-dom";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import React, {useEffect, useState} from "react";
 import {Spinner} from "react-bootstrap";
+import Loading from "../dashboard/Loading";
+import Dashboard from "../dashboard/Dashboard";
+import {setAuth} from "../../state/slices/authenticated";
 
 const CheckAuth = () => {
-    const userInfo = useSelector((state) => state.userInfo)
+    const auth = useSelector((state) => state.auth)
+    console.log(auth)
+    const dispatch = useDispatch()
     const [user, setUser] = useState({})
     const [loading, setLoading] = useState(true)
     useEffect(() => {
@@ -17,17 +22,13 @@ const CheckAuth = () => {
 
     const location = useLocation()
     if(loading) {
-        return(
-            <div className="vw-100 vh-100 d-flex justify-content-center align-items-center">
-                <Spinner animation="border" role="loading"/>
-            </div>
-        )
+        return <Loading />
     }
-    return (
-        user?.accessToken
-            ? <Outlet />
-            : <Navigate to="/login" state={{from: location}} replace/>
-    )
+
+    if(user?.accessToken) {
+        dispatch(setAuth(true))
+    }
+    return <Dashboard />
 }
 
 export default CheckAuth

@@ -18,12 +18,27 @@ exports.createColl = async (req,res) => {
 }
 
 
-exports.getColls = async (req,res) => {
+exports.getCollsByUser = async (req,res) => {
     const tokenData = req.tokenData
     const searchUserId = await User.findOne({attributes: ["id"], where: {username: tokenData.username}})
 
     const response = await User.findByPk(searchUserId.id,{include: [Collections]})
     res.json(response.Collections)
+}
+
+exports.getColls = async (req,res) => {
+    try{
+        const response = await Collections.findAll({
+            include: {
+                model: User,
+                foreignKey: 'UserId',
+            }
+        })
+        res.json(response)
+    } catch (e) {
+        console.error(e)
+        res.status(500)
+    }
 }
 
 exports.deleteColl = async (req,res) => {

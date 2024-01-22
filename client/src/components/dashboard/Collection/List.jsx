@@ -4,10 +4,10 @@ import ServerError from "../ServerError";
 import {BsThreeDotsVertical} from "react-icons/bs";
 import React from "react";
 
-const CollectionsList = (props) => {
+const List = (props) => {
     return (
         <div>
-            <Row className="justify-content-end mx-1">
+            <Row className="justify-content-end mx-2">
                 <Button variant="outline-primary" className="w-25" onClick={() => props.setModalShow(true)}>Add new collection<MdAdd /></Button>
             </Row>
             <Row >
@@ -44,4 +44,4 @@ const CollectionsList = (props) => {
     )
 }
 
-export default CollectionsList
+export default List

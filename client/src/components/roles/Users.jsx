@@ -1,5 +1,5 @@
 import {useSelector} from "react-redux";
-import Collections from "../dashboard/Collections";
+import Collections from "../dashboard/Collection/Collections";
 
 const Users = ({user}) => {
     const userInfo = useSelector((state) => state.userInfo)

@@ -1,21 +1,25 @@
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
+import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import {useForm} from "react-hook-form";
-import {findInputError, isFormInvalid} from "../../methods/findInputError";
-import React from "react";
-import validation from "../../methods/validation";
-import Errors from "../Errors";
-import axios from "axios";
+import Errors from "../../Errors";
+import validation from "../../../methods/validation";
+import Status from "../../auth/Status";
+import Button from "react-bootstrap/Button";
+import React, {useEffect, useState} from "react";
+import {setError, setSuccess} from "../../../state/slices/status";
 import {useDispatch, useSelector} from "react-redux";
-import authHeader from "../../methods/authHeader";
-import {Alert, Col, Row} from "react-bootstrap";
-import {setError, setSuccess} from "../../state/slices/status";
-import Status from "../auth/Status";
+import {useForm} from "react-hook-form";
+import {findInputError, isFormInvalid} from "../../../methods/findInputError";
+import axios from "axios";
 
-function CreateCollections(props) {
-    const userInfo = useSelector((state) => state.userInfo)
-    const status = useSelector((state) => state.status)
+const Edit = (props) => {
+    const [name, setName] = useState(props.name)
+    const [description, setDescription] = useState(props.description)
+
+    useEffect(() => {
+        setName(props.name);
+        setDescription(props.description);
+    }, [props.name, props.description]);
+
     const dispatch = useDispatch()
     const {
         register,
@@ -29,27 +33,25 @@ function CreateCollections(props) {
 
     const onSubmit = handleSubmit( async (data) => {
         try {
-            const response = await axios.post('/api/coll/create', data, {headers: authHeader()})
-            dispatch(setSuccess("Collection created successfully"))
+            const response = await axios.post("/api/coll/edit", {data, initialName: props.name})
+            dispatch(setSuccess("Collection updated"))
             setTimeout(() => onclose(), 3000)
         } catch (e) {
-            console.error("E creating coll ----->", e)
+            console.error("Error changing collection", e)
             try {
-                if(e.response.status) {
-                    dispatch(setError(e.response.data))
-                }
+                dispatch(setError(e.response.data))
             } catch (e) {
-                dispatch(setError("Something went wrong :("))
+                dispatch(setSuccess("something went wrong :("))
             }
         }
     })
-
     const onclose = () => {
         props.onHide()
-        reset()
         dispatch(setError(""))
+        reset()
+        setDescription(props.description)
+        setName(props.name)
     }
-
     return (
         <Modal
             {...props}
@@ -59,7 +61,7 @@ function CreateCollections(props) {
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Create new collection
+                    Edit collection
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -69,20 +71,29 @@ function CreateCollections(props) {
                             Name
                             <Errors isInvalid={isInvalid} inputError={inputError}/>
                         </Form.Label>
-                        <Form.Control type="text" {...register('name', validation.collection.name)} />
+                        <Form.Control type="text"
+                                      {...register('name', validation.collection.name)}
+                                      value={name}
+                                      onChange={(e) => setName(e.target.value)}
+                        />
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label className="d-flex justify-content-between ">
                             Description
                             <Errors isInvalid={isInvalid} inputError={inputError}/>
                         </Form.Label>
-                        <Form.Control as="textarea" {...register('description', validation.collection.desc)} rows={2} />
+                        <Form.Control as="textarea"
+                                      {...register('description', validation.collection.desc)}
+                                      rows={2}
+                                      value={description}
+                                      onChange={(e) => setDescription(e.target.value)}
+                        />
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label>Category</Form.Label>
                         <Form.Select aria-label="Default select example" className="mb-3" {...register('type')}>
-                            <option value="book">books</option>
-                            <option value="movie">movies</option>
+                            <option value="book" selected={props.type === "book"}>books</option>
+                            <option value="movie" selected={props.type === "movie"}>movies</option>
                         </Form.Select>
                     </Form.Group>
                 </Form>
@@ -90,13 +101,12 @@ function CreateCollections(props) {
             <Modal.Footer className=" align-items-center">
                 <Status style={{"marginRight": "auto"}}/>
                 <div className="d-flex column-gap-3 justify-content-end">
-                    <Button variant="success" onClick={onSubmit} className="modal-button">  Create  </Button>
+                    <Button variant="success" onClick={onSubmit} className="modal-button">  Edit  </Button>
                     <Button onClick={onclose} className="modal-button"> Close </Button>
                 </div>
             </Modal.Footer>
         </Modal>
-    );
+    )
 }
 
-export default CreateCollections
-
+export default Edit

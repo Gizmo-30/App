@@ -6,7 +6,7 @@ import Users from "../roles/Users";
 import React, {useEffect, useState} from "react";
 import {Spinner} from "react-bootstrap";
 import Header from "../Header";
-import Loading from "../Loading";
+import Loading from "./Loading";
 import Message from "./Message";
 
 const Dashboard = () => {

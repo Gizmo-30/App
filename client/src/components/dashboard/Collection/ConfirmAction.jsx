@@ -1,7 +1,7 @@
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
-import {setMessage} from "../../state/slices/message";
+import {setMessage} from "../../../state/slices/message";
 import {useDispatch} from "react-redux";
 
 const ConfirmAction = ({show, onHide, name}) => {

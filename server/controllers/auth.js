@@ -15,7 +15,7 @@ exports.login = async (req,res) => {
     let match = await bcrypt.compare(password, searchResult.password)
     if (!match) return res.status(401).send('Invalid password')
 
-    const token = await jwt.sign({username: username, role: searchResult.role}, privateKey, {expiresIn: '24h'})
+    const token = await jwt.sign({username: username, role: searchResult.role}, privateKey, {expiresIn: '2h'})
     res.status(200).json({accessToken: token, username: searchResult.username, role: searchResult.role});
 }
 

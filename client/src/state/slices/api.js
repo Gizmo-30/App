@@ -4,7 +4,8 @@ import authHeader from "../../methods/authHeader";
 export const api = createApi({
     tagTypes: ['users'],
     reducerPath: 'api',
-    baseQuery: fetchBaseQuery({baseUrl: 'http://localhost:3001'}),
+    // baseQuery: fetchBaseQuery({baseUrl: 'http://localhost:3001'}),
+    baseQuery: fetchBaseQuery({baseUrl: 'https://collections-server.vercel.app'}),
     refetchOnFocus: true,
     refetchOnReconnect: true,
     endpoints: (builder) => ({

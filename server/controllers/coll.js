@@ -82,3 +82,21 @@ exports.editColl = async (req,res) => {
         res.status(500).send("Internal server error")
     }
 }
+exports.getCollByType = async (req,res) => {
+    const {type, auth, username} = req.query
+    try {
+        if(username) {
+            const searchResult = await User.findOne({attributes: ["id"], where: {username,}})
+            const condition = type === 'all'? {where: {Userid: searchResult.id}}: {where: {type, Userid: searchResult.id}}
+
+            const response = await Collections.findAll(condition)
+            return res.status(200).send(response)
+        }
+        const condition = type === 'all'? {}: {where: {type}}
+        const response = await Collections.findAll(condition)
+        res.status(200).send(response)
+    } catch (e) {
+        console.error(e)
+        res.status(500)
+    }
+}

@@ -11,18 +11,25 @@ import Message from "./Message";
 import NavPanel from "../NavPanel";
 import Menu from "./Collection/Menu";
 import List from "./Collection/List";
+import {useGetCollTypeQuery} from "../../state/slices/api";
 
 const Dashboard = () => {
+    const auth = useSelector((state) => state.auth)
+    const type = useLocation().search.slice(6)
+
     const [user, setUser] = useState({})
     const [loading, setLoading] = useState(true)
+
     useEffect(() => {
         setLoading(true)
         const user = JSON.parse(localStorage.getItem("user"))
         setUser(user || {})
         setLoading(false)
     }, []);
+    const username = user.username || ""
+    const { data, error, isLoading } = useGetCollTypeQuery({type, auth, username,});
 
-    if(loading) {
+    if(loading || isLoading) {
         return <Loading />
     }
 
@@ -36,7 +43,7 @@ const Dashboard = () => {
                         <Menu />
                     </Col>
                     <Col>
-                        <List />
+                        <List data={data}/>
                     </Col>
                 </Row>
             </Container>

@@ -5,16 +5,22 @@ import {BsThreeDotsVertical} from "react-icons/bs";
 import React, {useEffect, useState} from "react";
 import Empty from "../Empty";
 import {useSelector} from "react-redux";
-import {NavLink, Route, Routes} from "react-router-dom";
+import {NavLink, Route, Routes, useLocation} from "react-router-dom";
+import axios from "axios";
+import { useGetCollTypeQuery} from "../../../state/slices/api";
+import Loading from "../Loading";
 
 const List = (props) => {
     const auth = useSelector((state) => state.auth)
     const [empty, setEmpty] = useState(false)
-    // useEffect(() => {
-    //     if (!props.data.length) {
-    //         setEmpty(true)
-    //     } else setEmpty(false)
-    // }, [props.data]);
+
+
+    useEffect(() => {
+        if (!props.data.length) {
+            setEmpty(true)
+        } else setEmpty(false)
+    }, [props.data]);
+
     return (
         <div>
             {auth
@@ -25,48 +31,47 @@ const List = (props) => {
             }
             <Row >
                 {empty && <Empty/>}
-                {/*{props.data.map((elem, i) => (*/}
-                {/*    <Col key={i} xs={12} md={4} lg={4} className="my-2">*/}
-                {/*        <Card  className="d-flex w-100 h-100 shadow-sm" >*/}
-                {/*            <Card.Body>*/}
-                {/*                <Row>*/}
-                {/*                    <Col>*/}
-                {/*                        <Card.Title>{elem.name}</Card.Title>*/}
-                {/*                    </Col>*/}
-                {/*                    {auth*/}
-                {/*                        && <Col className="d-flex justify-content-end position-relative">*/}
-                {/*                                <Dropdown align="end" >*/}
-                {/*                                    <Dropdown.Toggle variant="light" id="dropdown-basic" className="custom-dropdown-toggle bg-transparent border-0">*/}
-                {/*                                        <BsThreeDotsVertical  />*/}
-                {/*                                    </Dropdown.Toggle>*/}
+                {props.data.map((elem, i) => (
+                    <Col key={i} xs={12} md={4} lg={4} className="my-2">
+                        <Card  className="d-flex w-100 h-100 shadow-sm" >
+                            <Card.Body>
+                                <Row>
+                                    <Col>
+                                        <Card.Title>{elem.name}</Card.Title>
+                                    </Col>
+                                    {auth
+                                        && <Col className="d-flex justify-content-end position-relative">
+                                                <Dropdown align="end" >
+                                                    <Dropdown.Toggle variant="light" id="dropdown-basic" className="custom-dropdown-toggle bg-transparent border-0">
+                                                        <BsThreeDotsVertical  />
+                                                    </Dropdown.Toggle>
 
-                {/*                                    <Dropdown.Menu id={elem.name}>*/}
-                {/*                                        <Dropdown.Item onClick={(e) => props.handleEdit(e)}>edit</Dropdown.Item>*/}
-                {/*                                        <Dropdown.Item onClick={(e) => props.handleDelete(e)}>delete</Dropdown.Item>*/}
-                {/*                                    </Dropdown.Menu>*/}
-                {/*                                </Dropdown>*/}
-                {/*                            </Col>*/}
-                {/*                    }*/}
-                {/*                </Row>*/}
-                {/*                <Card.Subtitle className="mb-2 text-muted">{elem.type}</Card.Subtitle>*/}
-                {/*                <Card.Text>{elem.description}</Card.Text>*/}
-                {/*                <Row>*/}
-                {/*                    <Col>*/}
-                {/*                        <NavLink to="/items">See items</NavLink>*/}
-                {/*                    </Col>*/}
-                {/*                    {*/}
-                {/*                        !auth &&*/}
-                {/*                            <Col className="d-flex justify-content-end column-gap-2 text-capitalize">*/}
-                {/*                                by <strong> {elem.User.username}</strong>*/}
-                {/*                            </Col>*/}
-                {/*                    }*/}
+                                                    <Dropdown.Menu id={elem.name}>
+                                                        <Dropdown.Item onClick={(e) => props.handleEdit(e)}>edit</Dropdown.Item>
+                                                        <Dropdown.Item onClick={(e) => props.handleDelete(e)}>delete</Dropdown.Item>
+                                                    </Dropdown.Menu>
+                                                </Dropdown>
+                                            </Col>
+                                    }
+                                </Row>
+                                <Card.Subtitle className="mb-2 text-muted">{elem.type}</Card.Subtitle>
+                                <Card.Text>{elem.description}</Card.Text>
+                                <Row>
+                                    <Col>
+                                        <NavLink to="/items">See items</NavLink>
+                                    </Col>
+                                    {
+                                        !auth &&
+                                            <Col className="d-flex justify-content-end column-gap-2 text-capitalize">
+                                                {/*by <strong> {elem.User.username}</strong>*/}
+                                            </Col>
+                                    }
 
-                {/*                </Row>*/}
-                {/*            </Card.Body>*/}
-                {/*        </Card>*/}
-                {/*    </Col>*/}
-                {/*))}*/}
-                List
+                                </Row>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                ))}
             </Row>
         </div>
     )

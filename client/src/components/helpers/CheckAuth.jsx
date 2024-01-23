@@ -8,7 +8,6 @@ import {setAuth} from "../../state/slices/authenticated";
 
 const CheckAuth = () => {
     const auth = useSelector((state) => state.auth)
-    console.log(auth)
     const dispatch = useDispatch()
     const [user, setUser] = useState({})
     const [loading, setLoading] = useState(true)

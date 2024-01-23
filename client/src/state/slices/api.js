@@ -38,6 +38,13 @@ export const api = createApi({
                 method: 'Get',
             })
         }),
+        getCollType: builder.query({
+            query: ({type, auth, username}) => ({
+                url: `/api/coll/get?type=${type}&auth=${auth}&username=${username}`,
+                method: 'Get',
+            }),
+            refetchOnMountOrArgChange: true,
+        })
     })
 })
-export const { useGetUsersQuery, useSendUsersQuery, useGetUserQuery, useGetCollectionsQuery, useGetCollectionsAllQuery} = api;
+export const { useGetUsersQuery, useSendUsersQuery, useGetUserQuery, useGetCollectionsQuery, useGetCollectionsAllQuery, useGetCollTypeQuery} = api;

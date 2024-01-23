@@ -12,9 +12,9 @@ import NavPanel from "../NavPanel";
 import Menu from "./Collection/Menu";
 import List from "./Collection/List";
 import {useGetCollTypeQuery} from "../../state/slices/api";
+import ServerError from "./ServerError";
 
 const Dashboard = () => {
-    const auth = useSelector((state) => state.auth)
     const type = useLocation().search.slice(6)
 
     const [user, setUser] = useState({})
@@ -26,10 +26,11 @@ const Dashboard = () => {
         setUser(user || {})
         setLoading(false)
     }, []);
-    const username = user.username || ""
-    const { data, error, isLoading } = useGetCollTypeQuery({type, auth, username,});
 
-    if(loading || isLoading) {
+    const username = user.username || ""
+    const { data, error, isLoading } = useGetCollTypeQuery({type, username,});
+
+    if(loading) {
         return <Loading />
     }
 
@@ -43,7 +44,8 @@ const Dashboard = () => {
                         <Menu />
                     </Col>
                     <Col>
-                        <List data={data}/>
+                        {isLoading ? <Loading/>: <List data={data}/>}
+                        {error && <ServerError/>}
                     </Col>
                 </Row>
             </Container>

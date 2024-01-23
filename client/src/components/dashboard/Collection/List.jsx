@@ -9,7 +9,6 @@ import {useSelector} from "react-redux";
 const List = (props) => {
     const auth = useSelector((state) => state.auth)
     const [empty, setEmpty] = useState(false)
-
     useEffect(() => {
         if (!props.data.length) {
             setEmpty(true)
@@ -17,14 +16,17 @@ const List = (props) => {
     }, [props.data]);
     return (
         <div>
-            <Row className="justify-content-end my-3">
-                {auth && <Button variant="outline-primary" className="w-25" onClick={() => props.setModalShow(true)}>Add new collection<MdAdd /></Button>}
-            </Row>
+            {auth
+                &&
+                <Row className="justify-content-end my-3">
+                    <Button variant="outline-primary" className="w-25" onClick={() => props.setModalShow(true)}>Add new collection<MdAdd /></Button>
+                </Row>
+            }
             <Row >
                 {empty && <Empty/>}
                 {props.data.map((elem, i) => (
                     <Col key={i} xs={12} md={4} lg={4} className="my-2">
-                        <Card  className="d-flex w-100 h-100">
+                        <Card  className="d-flex w-100 h-100 shadow-sm" >
                             <Card.Body>
                                 <Row>
                                     <Col>
@@ -47,7 +49,19 @@ const List = (props) => {
                                 </Row>
                                 <Card.Subtitle className="mb-2 text-muted">{elem.type}</Card.Subtitle>
                                 <Card.Text>{elem.description}</Card.Text>
-                                <Card.Link href="#">See items</Card.Link>
+                                <Row>
+                                    <Col>
+                                        <Card.Link href="#">See items</Card.Link>
+                                    </Col>
+                                    {
+                                        !auth &&
+                                            <Col className="d-flex justify-content-end column-gap-2 text-capitalize">
+                                                by <strong> {elem.User.username}</strong>
+                                            </Col>
+                                    }
+                                    
+
+                                </Row>
                             </Card.Body>
                         </Card>
                     </Col>

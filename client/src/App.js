@@ -12,6 +12,7 @@ import CheckAuth from "./components/helpers/CheckAuth";
 import Main from "./components/Main";
 import Container from "./components/ContainerLayout";
 import Header from "./components/Header";
+import {GlobalContextProvider} from "./state/GlobalContext";
 
 const baseURL = process.env.NODE_ENV === 'development'
     ? "http://localhost:3001"
@@ -21,29 +22,31 @@ axios.defaults.baseURL = baseURL;
 
 function App() {
   return (
-      <BrowserRouter>
-          <div className="vh-100 d-flex flex-column">
-              <Header />
+      <GlobalContextProvider>
+          <BrowserRouter>
+              <div className="vh-100 d-flex flex-column">
+                  <Header />
 
-              <Routes>
-                  <Route path="/" element={<Main />}></Route>
-                  <Route path="*" element={<Missing />}></Route>
-                  <Route element={<Container />}>
-                  </Route>
+                  <Routes>
+                      <Route path="/" element={<Main />}></Route>
+                      <Route path="*" element={<Missing />}></Route>
+                      <Route element={<Container />}>
+                      </Route>
 
-                  {/* check authentication*/}
-                  <Route element={<CheckAuth />}>
-                      <Route path="/dashboard" element={<Dashboard />}></Route>
-                  </Route>
+                      {/* check authentication*/}
+                      <Route element={<CheckAuth />}>
+                          <Route path="/dashboard" element={<Dashboard />}></Route>
+                      </Route>
 
-                  {/*authentication*/}
-                  <Route path="/" element={<Auth />}>
-                      <Route path="/login" element={<LogIn />}></Route>
-                      <Route path="/registration" element={<Registration />}></Route>
-                  </Route>
-              </Routes>
-          </div>
-      </BrowserRouter>
+                      {/*authentication*/}
+                      <Route path="/" element={<Auth />}>
+                          <Route path="/login" element={<LogIn />}></Route>
+                          <Route path="/registration" element={<Registration />}></Route>
+                      </Route>
+                  </Routes>
+              </div>
+          </BrowserRouter>
+      </GlobalContextProvider>
   );
 }
 

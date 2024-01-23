@@ -12,6 +12,7 @@ import ConfirmAction from "./ConfirmAction";
 import ServerError from "../ServerError";
 import List from "./List";
 import {setPassword, setUsername} from "../../../state/slices/user";
+import Menu from "./Menu";
 
 const Collections = ({user}) => {
     const auth = useSelector((state) => state.auth)
@@ -84,9 +85,16 @@ const Collections = ({user}) => {
               </Col>
           </Row>
           <hr/>
-          {isLoading && <Loading />}
-          {error && <ServerError />}
-          {!isLoading && !error && <List data={data} setModalShow={setModalShow} handleEdit={handleEdit} handleDelete={handleDelete}/>}
+          <Row>
+              <Col>
+                <Menu />
+              </Col>
+              <Col lg={9}>
+                  {isLoading && <Loading />}
+                  {error && <ServerError />}
+                  {!isLoading && !error && <List data={data} setModalShow={setModalShow} handleEdit={handleEdit} handleDelete={handleDelete}/>}
+              </Col>
+          </Row>
       </section>
   )
 }

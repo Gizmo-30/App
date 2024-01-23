@@ -7,7 +7,7 @@ import {NavLink} from "react-router-dom";
 const Header = () => {
     return (
         <headerd className="Header">
-            <Navbar expand="lg" bg="dark" data-bs-theme="dark" className="bg-body-tertiary">
+            <Navbar expand="lg" data-bs-theme="secondary" className="bg-body-tertiary">
                 <Container>
                     {/*<Navbar.Brand href="/" onClick={(e) => e.preventDefault()}>ColAp</Navbar.Brand>*/}
                     <NavLink to="/" className="navbar-brand">ColAp</NavLink>
@@ -30,7 +30,7 @@ const Header = () => {
                                     Something else here
                                 </NavDropdown.Item>
                             </NavDropdown>
-                            <Nav.Link href="#" disabled>
+                            <Nav.Link href="#" disabled={false}>
                                 Link
                             </Nav.Link>
                         </Nav>

@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import {NavLink} from "react-router-dom";
 
-const Header = () => {
+const NavPanel = () => {
     return (
         <headerd className="Header">
             <Navbar expand="lg" data-bs-theme="secondary" className="bg-body-tertiary">
@@ -50,4 +50,4 @@ const Header = () => {
     )
 }
 
-export default Header
+export default NavPanel

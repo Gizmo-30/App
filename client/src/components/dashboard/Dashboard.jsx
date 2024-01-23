@@ -4,10 +4,13 @@ import {NavLink, useLocation} from "react-router-dom";
 import Admins from "../roles/Admins";
 import Users from "../roles/Users";
 import React, {useEffect, useState} from "react";
-import {Container, Spinner} from "react-bootstrap";
-import Header from "../Header";
+import {Col, Container, Row, Spinner} from "react-bootstrap";
+import Header from "../dashboard/Collection/Header";
 import Loading from "./Loading";
 import Message from "./Message";
+import NavPanel from "../NavPanel";
+import Menu from "./Collection/Menu";
+import List from "./Collection/List";
 
 const Dashboard = () => {
     const [user, setUser] = useState({})
@@ -24,10 +27,21 @@ const Dashboard = () => {
     }
 
     return (
-        <Container className="my-3">
-            {user.role === 'admin'? <Admins/>: <Users user={user}/>}
+        <>
+            <NavPanel />
+            <Header />
+            <Container>
+                <Row>
+                    <Col sm={3}>
+                        <Menu />
+                    </Col>
+                    <Col>
+                        <List />
+                    </Col>
+                </Row>
+            </Container>
             <Message />
-        </Container>
+        </>
     )
 }
 

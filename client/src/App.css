@@ -11,7 +11,7 @@
 }
 
 .header-bg {
-    background: url("../public/images/bg-4.jpg") center/cover no-repeat;
+    background: url("../public/images/bg-4.webp") center/cover no-repeat;
     position: relative;
 }
 .header-bg:after {

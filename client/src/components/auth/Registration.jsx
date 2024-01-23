@@ -52,7 +52,7 @@ const Registration = () => {
 
     return (
         <FormProvider {...methods}>
-            <Form style={{width: '450px'}} className="border border-primary px-4 py-5 rounded-4" onSubmit={onSubmit}>
+            <Form style={{width: '450px'}} className="border border-primary px-4 py-3 rounded-4" onSubmit={onSubmit}>
                 <Input type="text"
                        label="username"
                        id="username"

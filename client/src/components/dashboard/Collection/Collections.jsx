@@ -3,7 +3,7 @@ import {Col, Row} from "react-bootstrap";
 import Create from "./Create";
 import {useGetCollectionsAllQuery, useGetCollectionsQuery} from "../../../state/slices/api";
 import Loading from "../Loading";
-import {NavLink} from "react-router-dom";
+import {BrowserRouter, NavLink, Route, Routes} from "react-router-dom";
 import "../../../App.css";
 import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
@@ -13,6 +13,8 @@ import ServerError from "../ServerError";
 import List from "./List";
 import {setPassword, setUsername} from "../../../state/slices/user";
 import Menu from "./Menu";
+import Items from "../Item/Items";
+import Main from "../../Main";
 
 const Collections = ({user}) => {
     const auth = useSelector((state) => state.auth)
@@ -42,11 +44,6 @@ const Collections = ({user}) => {
         }
     }
 
-    async function onSignOut() {
-        await localStorage.removeItem("user")
-        dispatch(setUsername(""))
-        dispatch(setPassword(""))
-    }
 
   return (
       <section>
@@ -69,25 +66,9 @@ const Collections = ({user}) => {
           />
 
 
-          <Row className="d-flex align-items-center">
-              <Col>
-                <h1>Collections</h1>
-              </Col>
-              <Col className="d-flex justify-content-end column-gap-2 ">
-                  <p>
-                      {auth ? 'signed in as '  : 'not signed in'}
-                      <strong className="text-capitalize">{user.username}</strong>
-                  </p>
-                  {auth
-                      ? <NavLink to="/" onClick={onSignOut}>sign out</NavLink>
-                      : <NavLink to="/login" >sign in</NavLink>
-                  }
-              </Col>
-          </Row>
-          <hr/>
           <Row>
               <Col>
-                <Menu />
+                  <Menu />
               </Col>
               <Col lg={9}>
                   {isLoading && <Loading />}

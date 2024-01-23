@@ -28,7 +28,7 @@ const CheckAuth = () => {
     if(user?.accessToken) {
         dispatch(setAuth(true))
     }
-    return <Dashboard />
+    return <Outlet />
 }
 
 export default CheckAuth

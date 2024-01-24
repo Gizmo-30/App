@@ -18,7 +18,6 @@ const NavPanel = () => {
                             style={{ maxHeight: '100px' }}
                             navbarScroll
                         >
-                            <Nav.Link href="/dashboard" onClick={(e) => e.preventDefault()}>Collections</Nav.Link>
                         </Nav>
                         <Form className="d-flex">
                             <Form.Control

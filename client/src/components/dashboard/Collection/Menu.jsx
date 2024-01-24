@@ -3,7 +3,6 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {ListGroup, Tab} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import Button from "react-bootstrap/Button";
-import {MdAdd} from "react-icons/md";
 import {setCreate} from "../../../state/slices/modals";
 
 const Menu = () => {
@@ -14,7 +13,7 @@ const Menu = () => {
 
     return (
         <Tab.Container >
-            <Button variant="outline-primary" className="w-100 my-2" onClick={() => dispatch(setCreate(true))}>Add new collection<MdAdd /></Button>
+            <Button variant="primary" className="w-100 my-2" onClick={() => dispatch(setCreate(true))}>Add new collection</Button>
             <ListGroup className="shadow-sm w-100" defaultActiveKey="all">
                 {
                     types.map((e,i) => (

@@ -1,25 +1,18 @@
 import {useDispatch, useSelector} from "react-redux";
-import {setSuccess} from "../../state/slices/status";
-import {NavLink, Outlet, useLocation, useNavigate} from "react-router-dom";
-import Admins from "../roles/Admins";
-import Users from "../roles/Users";
-import React, {useEffect, useState} from "react";
+import {Outlet, useLoaderData} from "react-router-dom";
+import React from "react";
 import {Col, Container, Row, Spinner} from "react-bootstrap";
-import Header from "../dashboard/Collection/Header";
-import Loading from "../helpers/Loading";
+import Header from "../helpers/Header";
 import Message from "../helpers/Message";
 import NavPanel from "../helpers/NavPanel";
 import Menu from "./Collection/Menu";
-import List from "./Collection/List";
-import {useGetCollTypeQuery} from "../../state/slices/api";
-import ServerError from "../helpers/ServerError";
 import Create from "./Collection/Create";
-import Button from "react-bootstrap/Button";
 import {setConfirm, setCreate, setEdit,} from "../../state/slices/modals";
 import Edit from "./Collection/Edit";
-import ConfirmAction from "./Collection/ConfirmAction";
+import ConfirmAction from "../helpers/ConfirmAction";
 
 const Dashboard = () => {
+    const user = useLoaderData()
     const {modals, editing} = useSelector((state) => state)
     const dispatch = useDispatch()
     return (
@@ -31,7 +24,7 @@ const Dashboard = () => {
             />
             <ConfirmAction show={modals.confirm.state} name={modals.confirm.data} onHide={() => dispatch(setConfirm({state: false, data: null}))} />
             <NavPanel />
-            <Header />
+            <Header user={user}/>
             <Container>
                 <Row>
                     <Col sm={3}>

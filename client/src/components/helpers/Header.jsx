@@ -1,17 +1,21 @@
 import {Col, Container, Row} from "react-bootstrap";
-import {NavLink} from "react-router-dom";
+import {NavLink, useLoaderData, useNavigate} from "react-router-dom";
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {setPassword, setUsername} from "../../../state/slices/user";
+import {setAuth} from "../../state/slices/authenticated";
+import {setPassword, setUsername} from "../../state/slices/user";
 
-const Header = () => {
+const Header = ({user}) => {
     const auth = useSelector((state) => state.auth)
     const dispatch = useDispatch()
-
+    const navigate = useNavigate()
     async function onSignOut() {
         await localStorage.removeItem("user")
+        dispatch(setAuth(false))
         dispatch(setUsername(""))
         dispatch(setPassword(""))
+        navigate('/login')
+
     }
 
     return (
@@ -23,7 +27,7 @@ const Header = () => {
                 <Col className="d-flex justify-content-end column-gap-2 ">
                     <p>
                         {auth ? 'signed in as '  : 'not signed in'}
-                        {/*<strong className="text-capitalize">{user.username}</strong>*/}
+                        <strong className="text-capitalize">{user.username}</strong>
                     </p>
                     {auth
                         ? <NavLink to="/" onClick={onSignOut}>sign out</NavLink>

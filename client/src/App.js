@@ -26,6 +26,7 @@ const router = createBrowserRouter([
         path: '/',
         element: <Dashboard /> ,
         errorElement: <Missing />,
+        loader: userloader,
         children: [
             {
                 path: '/',
@@ -36,6 +37,7 @@ const router = createBrowserRouter([
                         path: ':type',
                         element: <List />,
                         loader: userloader,
+                        errorElement: <Missing />
                     },
                     {
                         path: "item",

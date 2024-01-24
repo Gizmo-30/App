@@ -1,18 +1,19 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {BrowserRouter, createBrowserRouter, Navigate, Route, RouterProvider, Routes} from "react-router-dom";
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import Registration from "./components/auth/Registration";
 import LogIn from "./components/auth/LogIn";
 
 import axios from "axios";
 import Dashboard from "./components/dashboard/Dashboard";
-import Auth from "./components/layouts/Auth";
-import CheckAuth, {loader as checkAuth} from "./components/layouts/CheckAuth";
+import Auth from "./components/routes/Auth";
+import CheckAuth from "./components/routes/CheckAuth";
 import {GlobalContextProvider} from "./state/GlobalContext";
-import List, {loader as list} from "./components/dashboard/Collection/List";
 import Items from "./components/dashboard/Item/Items";
-import {userloader} from "./methods/functions";
+import {userloader} from "./methods/loaders";
 import './App.css'
+import Missing from "./components/helpers/Missing";
+import List from "./components/dashboard/Collection/List";
 
 const baseURL = process.env.NODE_ENV === 'development'
     ? "http://localhost:3001"
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
     {
         path: '/',
         element: <Dashboard /> ,
+        errorElement: <Missing />,
         children: [
             {
                 path: '/',

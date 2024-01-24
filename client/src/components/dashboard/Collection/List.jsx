@@ -1,13 +1,13 @@
 import {Button, Card, Col, Dropdown, Row} from "react-bootstrap";
 import {MdAdd} from "react-icons/md";
-import ServerError from "../ServerError";
+import ServerError from "../../helpers/ServerError";
 import {BsThreeDotsVertical} from "react-icons/bs";
 import React, {useEffect, useState} from "react";
-import Empty from "../Empty";
+import Empty from "../../helpers/Empty";
 import {useDispatch, useSelector} from "react-redux";
 import {NavLink, Route, Routes, useLoaderData, useLocation, useParams} from "react-router-dom";
 import { useGetCollTypeQuery} from "../../../state/slices/api";
-import Loading from "../Loading";
+import Loading from "../../helpers/Loading";
 import {setConfirm, setDelete, setEdit} from "../../../state/slices/modals";
 import axios from "axios";
 import {setMessage} from "../../../state/slices/message";
@@ -22,7 +22,7 @@ const List = () => {
 
     const username = user.username || ""
     const sort = type === '' ? 'all': type
-    const { data, error, isLoading } = useGetCollTypeQuery({type, username,});
+    const { data, error, isLoading } = useGetCollTypeQuery({type, username,}, {pollingInterval: 5000,});
 
     if(isLoading) {
         return <Loading />
@@ -76,7 +76,7 @@ const List = () => {
                                 <Card.Text>{elem.description}</Card.Text>
                                 <Row>
                                     <Col>
-                                        <NavLink to="/items">See items</NavLink>
+                                        <NavLink to="/item">See items</NavLink>
                                     </Col>
                                     {
                                         !auth &&

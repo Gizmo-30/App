@@ -9,19 +9,3 @@
 .modal-button {
     width: 150px !important;
 }
-
-.header-bg {
-    background: url("../public/images/bg-4.webp") center/cover no-repeat;
-    position: relative;
-}
-.header-bg:after {
-    content: "";
-    background: rgba(0, 0, 0, 0.5);
-    width: 100%;
-    height: 100%;
-    position: absolute;
-}
-
-.dashboard-bg {
-    background: rgb(50, 50, 50);
-}

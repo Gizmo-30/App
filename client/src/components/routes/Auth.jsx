@@ -1,5 +1,5 @@
 import { Outlet} from "react-router-dom";
-import NavPanel from "../NavPanel";
+import NavPanel from "../helpers/NavPanel";
 import {Row} from "react-bootstrap";
 
 const Auth = () => {

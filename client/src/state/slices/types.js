@@ -1,6 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 
-const initialState = ['all', 'book', 'movie']
+const initialState = ['', 'book', 'movie']
 export const types = createSlice({
     name: 'types',
     initialState,

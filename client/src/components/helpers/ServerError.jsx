@@ -1,6 +1,6 @@
 import {Alert} from "react-bootstrap";
 
-const ServerError = (props) => {
+const ServerError = () => {
     return (
         <Alert variant="danger">
             <Alert.Heading>Oops! Something Went Wrong</Alert.Heading>

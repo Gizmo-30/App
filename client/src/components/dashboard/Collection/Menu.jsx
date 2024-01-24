@@ -11,6 +11,10 @@ const Menu = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
+    const onNavigate = (e) => {
+        const url = e === '' ? '' : `?type=${e}`
+        navigate(url)
+    }
     return (
         <Tab.Container >
             <Button variant="primary" className="w-100 my-2" onClick={() => dispatch(setCreate(true))}>Add new collection</Button>
@@ -20,10 +24,10 @@ const Menu = () => {
                         <ListGroup.Item
                             key={i}
                             action
-                            active={`/${e}` === location.pathname}
-                            onClick={() => navigate(e)}
+                            active={`?type=${e}` === location.search || e === '' && location.search === ''}
+                            onClick={() => onNavigate(e)}
                         >
-                            {e}
+                            {e === ''? 'all': e }
                         </ListGroup.Item>
                     ))
                 }

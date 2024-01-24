@@ -14,6 +14,7 @@ import {userloader} from "./methods/loaders";
 import './App.css'
 import Missing from "./components/helpers/Missing";
 import List from "./components/dashboard/Collection/List";
+import Details from "./components/dashboard/Collection/Details";
 
 const baseURL = process.env.NODE_ENV === 'development'
     ? "http://localhost:3001"
@@ -34,7 +35,7 @@ const router = createBrowserRouter([
                 loader: userloader,
                 children: [
                     {
-                        path: ':type',
+                        path: '/',
                         element: <List />,
                         loader: userloader,
                         errorElement: <Missing />
@@ -42,7 +43,12 @@ const router = createBrowserRouter([
                     {
                         path: "item",
                         element: <Items />
-                    }
+                    },
+                    {
+                        path: "details",
+                        element: <Details />
+                    },
+
                 ]
             }
         ]

@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import {setSuccess} from "../../state/slices/status";
-import {NavLink, useLocation} from "react-router-dom";
+import {NavLink, Outlet, useLocation} from "react-router-dom";
 import Admins from "../roles/Admins";
 import Users from "../roles/Users";
 import React, {useEffect, useState} from "react";
@@ -15,25 +15,6 @@ import {useGetCollTypeQuery} from "../../state/slices/api";
 import ServerError from "./ServerError";
 
 const Dashboard = () => {
-    const type = useLocation().search.slice(6)
-
-    const [user, setUser] = useState({})
-    const [loading, setLoading] = useState(true)
-
-    useEffect(() => {
-        setLoading(true)
-        const user = JSON.parse(localStorage.getItem("user"))
-        setUser(user || {})
-        setLoading(false)
-    }, []);
-
-    const username = user.username || ""
-    const { data, error, isLoading } = useGetCollTypeQuery({type, username,});
-
-    if(loading) {
-        return <Loading />
-    }
-
     return (
         <>
             <NavPanel />
@@ -44,8 +25,8 @@ const Dashboard = () => {
                         <Menu />
                     </Col>
                     <Col>
-                        {isLoading ? <Loading/>: <List data={data}/>}
-                        {error && <ServerError/>}
+                        <Outlet/>
+                        {/*{error && <ServerError/>}*/}
                     </Col>
                 </Row>
             </Container>

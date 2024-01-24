@@ -7,6 +7,7 @@ import {store} from "./state/store";
 import {ApiProvider} from "@reduxjs/toolkit/query/react";
 import {api} from "./state/slices/api"
 
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
       <React.StrictMode>

@@ -93,7 +93,7 @@ exports.getCollByType = async (req,res) => {
             return res.status(200).send(response)
         }
         const condition = type === 'all'? {}: {where: {type}}
-        const response = await Collections.findAll(condition)
+        const response = await Collections.findAll({...condition, include: [User]})
         res.status(200).send(response)
     } catch (e) {
         console.error(e)

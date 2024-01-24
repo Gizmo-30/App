@@ -7,6 +7,7 @@ import message from "./slices/message";
 import auth from "./slices/authenticated";
 import types from "./slices/types";
 import modals from "./slices/modals";
+import editData from "./slices/edit";
 
 export const store = configureStore({
     reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
         auth: auth,
         types: types,
         modals: modals,
+        editing: editData,
         [api.reducerPath]: api.reducer,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false}).concat(api.middleware),

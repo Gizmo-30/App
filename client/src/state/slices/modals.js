@@ -1,15 +1,21 @@
 import {createSlice} from "@reduxjs/toolkit";
 
-const initialState = false
+const initialState = {create: false, edit: false, confirm: {state: false, data: null}}
 export const modals = createSlice({
     name: 'modals',
     initialState,
     reducers: {
-        setModalShow: (state, action) => {
-            return action.payload
+        setCreate: (state, action) => {
+            state.create = action.payload
+        },
+        setEdit: (state, action) => {
+            state.edit = action.payload
+        },
+        setConfirm: (state, action) => {
+            state.confirm =  action.payload
         },
     }
 })
 
-export const {setModalShow} = modals.actions
+export const {setCreate, setEdit, setConfirm} = modals.actions
 export default modals.reducer

@@ -4,7 +4,7 @@ import {ListGroup, Tab} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import Button from "react-bootstrap/Button";
 import {MdAdd} from "react-icons/md";
-import {setModalShow} from "../../../state/slices/modals";
+import {setCreate} from "../../../state/slices/modals";
 
 const Menu = () => {
     const types = useSelector((state) => state.types)
@@ -14,7 +14,7 @@ const Menu = () => {
 
     return (
         <Tab.Container >
-            <Button variant="outline-primary" className="w-100 my-2" onClick={() => dispatch(setModalShow(true))}>Add new collection<MdAdd /></Button>
+            <Button variant="outline-primary" className="w-100 my-2" onClick={() => dispatch(setCreate(true))}>Add new collection<MdAdd /></Button>
             <ListGroup className="shadow-sm w-100" defaultActiveKey="all">
                 {
                     types.map((e,i) => (

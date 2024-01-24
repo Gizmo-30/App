@@ -11,14 +11,14 @@ import {useForm} from "react-hook-form";
 import {findInputError, isFormInvalid} from "../../../methods/findInputError";
 import axios from "axios";
 
-const Edit = (props) => {
-    const [name, setName] = useState(props.name)
-    const [description, setDescription] = useState(props.description)
+const Edit = ({show, onHide, data}) => {
+    const [name, setName] = useState(data.name)
+    const [description, setDescription] = useState(data.description)
 
     useEffect(() => {
-        setName(props.name);
-        setDescription(props.description);
-    }, [props.name, props.description]);
+        setName(data.name);
+        setDescription(data.description);
+    }, [data.name, data.description]);
 
     const dispatch = useDispatch()
     const {
@@ -33,7 +33,7 @@ const Edit = (props) => {
 
     const onSubmit = handleSubmit( async (data) => {
         try {
-            const response = await axios.post("/api/coll/edit", {data, initialName: props.name})
+            const response = await axios.post("/api/coll/edit", {data, initialName: data.name})
             dispatch(setSuccess("Collection updated"))
             setTimeout(() => onclose(), 3000)
         } catch (e) {
@@ -45,21 +45,21 @@ const Edit = (props) => {
             }
         }
     })
-    const onclose = () => {
-        props.onHide()
+    function onclose() {
+        onHide()
         dispatch(setError(""))
         reset()
-        setDescription(props.description)
-        setName(props.name)
+        setDescription(data.description)
+        setName(data.name)
     }
     return (
         <Modal
-            {...props}
+            show={show}
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
         >
-            <Modal.Header closeButton>
+            <Modal.Header >
                 <Modal.Title id="contained-modal-title-vcenter">
                     Edit collection
                 </Modal.Title>
@@ -92,8 +92,8 @@ const Edit = (props) => {
                     <Form.Group className="mb-3">
                         <Form.Label>Category</Form.Label>
                         <Form.Select aria-label="Default select example" className="mb-3" {...register('type')}>
-                            <option value="book" selected={props.type === "book"}>books</option>
-                            <option value="movie" selected={props.type === "movie"}>movies</option>
+                            <option value="book" selected={data.type === "book"}>books</option>
+                            <option value="movie" selected={data.type === "movie"}>movies</option>
                         </Form.Select>
                     </Form.Group>
                 </Form>

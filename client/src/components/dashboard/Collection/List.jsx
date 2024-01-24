@@ -4,13 +4,18 @@ import ServerError from "../ServerError";
 import {BsThreeDotsVertical} from "react-icons/bs";
 import React, {useEffect, useState} from "react";
 import Empty from "../Empty";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {NavLink, Route, Routes, useLoaderData, useLocation, useParams} from "react-router-dom";
 import { useGetCollTypeQuery} from "../../../state/slices/api";
 import Loading from "../Loading";
+import {setConfirm, setDelete, setEdit} from "../../../state/slices/modals";
+import axios from "axios";
+import {setMessage} from "../../../state/slices/message";
+import {setEditData} from "../../../state/slices/edit";
 
 const List = () => {
-    const auth = useSelector((state) => state.auth)
+    const {auth, editing} = useSelector((state) => state)
+    const dispatch = useDispatch()
     const [empty, setEmpty] = useState(false)
     const user = useLoaderData()
     const {type} = useParams()
@@ -23,14 +28,24 @@ const List = () => {
         return <Loading />
     }
 
+    async function handleEdit(e) {
+        const name = e.target.parentElement.getAttribute('id')
+        dispatch(setEdit(true))
+        try {
+            const response = await axios.get(`/api/coll/get?name=${name}`)
+            dispatch(setEditData(response.data))
+        } catch (e) {
+            console.error("Error getting collection")
+            dispatch(setMessage("Internal server error"))
+        }
+    }
+    async function handleDelete(e) {
+        const name = e.target.parentElement.getAttribute('id')
+        dispatch(setConfirm({state: true, data: name}))
+    }
+
     return (
         <div>
-            {auth
-                &&
-                <Row className="justify-content-end my-3">
-                    {/*<Button variant="outline-primary" className="w-25" onClick={() => props.setModalShow(true)}>Add new collection<MdAdd /></Button>*/}
-                </Row>
-            }
             <Row >
                 {error && <ServerError/>}
                 {!data.length && <Empty/>}
@@ -50,8 +65,8 @@ const List = () => {
                                                     </Dropdown.Toggle>
 
                                                     <Dropdown.Menu id={elem.name}>
-                                                        {/*<Dropdown.Item onClick={(e) => props.handleEdit(e)}>edit</Dropdown.Item>*/}
-                                                        {/*<Dropdown.Item onClick={(e) => props.handleDelete(e)}>delete</Dropdown.Item>*/}
+                                                        <Dropdown.Item onClick={(e) => handleEdit(e)}>edit</Dropdown.Item>
+                                                        <Dropdown.Item onClick={(e) => handleDelete(e)}>delete</Dropdown.Item>
                                                     </Dropdown.Menu>
                                                 </Dropdown>
                                             </Col>

@@ -101,3 +101,16 @@ exports.getCollByType = async (req,res) => {
         res.status(500)
     }
 }
+
+exports.getCollToEdit = async (req, res, next) => {
+    const {name} = req.query
+    if(!name) return next()
+
+    try {
+        const response = await Collections.findOne({where: {name,}})
+        res.status(200).send(response)
+    } catch (e) {
+        console.error("Error getting coll", e)
+        res.status(500).send("Internal Server Error")
+    }
+}

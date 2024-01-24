@@ -15,15 +15,21 @@ import {useGetCollTypeQuery} from "../../state/slices/api";
 import ServerError from "./ServerError";
 import Create from "./Collection/Create";
 import Button from "react-bootstrap/Button";
-import {setModalShow} from "../../state/slices/modals";
+import {setConfirm, setCreate, setEdit,} from "../../state/slices/modals";
+import Edit from "./Collection/Edit";
+import ConfirmAction from "./Collection/ConfirmAction";
 
 const Dashboard = () => {
-    const modal = useSelector((state) => state.modals)
+    const {modals, editing} = useSelector((state) => state)
     const dispatch = useDispatch()
-    console.log(modal)
     return (
         <>
-            <Create show={modal} onHide={() => dispatch(setModalShow(false))}/>
+            <Create show={modals.create} onHide={() => dispatch(setCreate(false))}/>
+            <Edit show={modals.edit}
+                  onHide={() => dispatch(setEdit(false))}
+                  data={editing}
+            />
+            <ConfirmAction show={modals.confirm.state} name={modals.confirm.data} onHide={() => dispatch(setConfirm({state: false, data: null}))} />
             <NavPanel />
             <Header />
             <Container>

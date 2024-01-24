@@ -12,6 +12,7 @@ import {GlobalContextProvider} from "./state/GlobalContext";
 import List, {loader as list} from "./components/dashboard/Collection/List";
 import Items from "./components/dashboard/Item/Items";
 import {userloader} from "./methods/functions";
+import './App.css'
 
 const baseURL = process.env.NODE_ENV === 'development'
     ? "http://localhost:3001"

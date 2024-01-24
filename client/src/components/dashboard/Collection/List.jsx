@@ -6,7 +6,6 @@ import React, {useEffect, useState} from "react";
 import Empty from "../Empty";
 import {useSelector} from "react-redux";
 import {NavLink, Route, Routes, useLoaderData, useLocation, useParams} from "react-router-dom";
-import axios from "axios";
 import { useGetCollTypeQuery} from "../../../state/slices/api";
 import Loading from "../Loading";
 
@@ -17,6 +16,7 @@ const List = () => {
     const {type} = useParams()
 
     const username = user.username || ""
+    const sort = type === '' ? 'all': type
     const { data, error, isLoading } = useGetCollTypeQuery({type, username,});
 
     if(isLoading) {
@@ -32,6 +32,7 @@ const List = () => {
                 </Row>
             }
             <Row >
+                {error && <ServerError/>}
                 {!data.length && <Empty/>}
                 {data.map((elem, i) => (
                     <Col key={i} xs={12} md={4} lg={4} className="my-2">

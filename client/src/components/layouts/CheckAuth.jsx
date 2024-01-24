@@ -5,7 +5,7 @@ import {Spinner} from "react-bootstrap";
 import Loading from "../dashboard/Loading";
 import Dashboard from "../dashboard/Dashboard";
 import {setAuth} from "../../state/slices/authenticated";
-import {getLocaluser} from "../functions";
+import {getLocaluser} from "../../methods/functions";
 
 export const loader = () => {
     return getLocaluser()

@@ -7,19 +7,11 @@ import LogIn from "./components/auth/LogIn";
 import axios from "axios";
 import Dashboard from "./components/dashboard/Dashboard";
 import Auth from "./components/layouts/Auth";
-import Missing from "./components/helpers/Missing";
-import CheckAuth, {loader as checkAuth} from "./components/helpers/CheckAuth";
-import Main from "./components/Main";
-import NavPanel from "./components/NavPanel";
+import CheckAuth, {loader as checkAuth} from "./components/layouts/CheckAuth";
 import {GlobalContextProvider} from "./state/GlobalContext";
-import Header from "./components/dashboard/Collection/Header";
-import Menu from "./components/dashboard/Collection/Menu";
-import {Col, Container, Row} from "react-bootstrap";
 import List, {loader as list} from "./components/dashboard/Collection/List";
-import ErrorPage from "./ErrorPage";
 import Items from "./components/dashboard/Item/Items";
-import Root from "./routes/root";
-import {userloader} from "./components/functions";
+import {userloader} from "./methods/functions";
 
 const baseURL = process.env.NODE_ENV === 'development'
     ? "http://localhost:3001"
@@ -30,7 +22,7 @@ axios.defaults.baseURL = baseURL;
 const router = createBrowserRouter([
     {
         path: '/',
-        element: <Dashboard />,
+        element: <Dashboard /> ,
         children: [
             {
                 path: '/',
@@ -48,7 +40,20 @@ const router = createBrowserRouter([
                     }
                 ]
             }
-
+        ]
+    },
+    {
+        path: "/",
+        element: <Auth />,
+        children: [
+            {
+                path: 'login',
+                element: <LogIn />
+            },
+            {
+                path: 'registration',
+                element: <Registration />
+            }
         ]
     }
 ])

@@ -1,6 +1,6 @@
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import Errors from "../../Errors";
+import Errors from "../../auth/Errors";
 import validation from "../../../methods/validation";
 import Status from "../../auth/Status";
 import Button from "react-bootstrap/Button";

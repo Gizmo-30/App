@@ -5,7 +5,7 @@ import {useForm} from "react-hook-form";
 import {findInputError, isFormInvalid} from "../../../methods/findInputError";
 import React from "react";
 import validation from "../../../methods/validation";
-import Errors from "../../Errors";
+import Errors from "../../auth/Errors";
 import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
 import authHeader from "../../../methods/authHeader";

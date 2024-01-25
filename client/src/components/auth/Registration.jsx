@@ -36,7 +36,7 @@ const Registration = () => {
             const response = await axios.post('/api/auth/signup', data)
 
             dispatch(setRole("user"))
-            navigate("/dashboard")
+            navigate("/login")
         } catch (e) {
             console.error('Error posting user data ------>', e)
             try {

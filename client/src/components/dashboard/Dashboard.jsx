@@ -25,7 +25,7 @@ const Dashboard = () => {
             <ConfirmAction show={modals.confirm.state} name={modals.confirm.data} onHide={() => dispatch(setConfirm({state: false, data: null}))} />
             <NavPanel />
             <Header user={user}/>
-            <Container>
+            <Container >
                 <Row>
                     <Col sm={3}>
                         <Menu />

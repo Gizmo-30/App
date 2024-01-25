@@ -56,7 +56,7 @@ exports.deleteColl = async (req,res) => {
 exports.getColl = async (req,res) => {
     const {name} = req.body
     try {
-        const response = await Collections.findOne({where: {name,}})
+        const response = await Collections.findOne({where: {name,}, include: [User]})
         res.status(200).send(response)
     } catch (e) {
         console.error("Error getting coll", e)
@@ -66,6 +66,8 @@ exports.getColl = async (req,res) => {
 
 exports.editColl = async (req,res) => {
     const {data, initialName} = req.body
+
+    console.log(data,initialName)
 
     const searchResult = await Collections.findOne({where: {name: data.name}})
     if(searchResult) return res.status(500).send("name already in use")

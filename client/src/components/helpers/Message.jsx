@@ -10,7 +10,7 @@ const Message = () => {
     setTimeout(() => dispatch(setMessage("")), 5000)
 
     if (message.message) {
-        return <Alert variant="primary" className="position-absolute bottom-0 end-0 mx-3">{message.message}</Alert>
+        return <Alert variant="primary" className="position-absolute bottom-0 start-0 mx-3">{message.message}</Alert>
     } else return null
 }
 

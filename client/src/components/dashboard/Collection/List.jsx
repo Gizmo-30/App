@@ -30,19 +30,17 @@ const List = () => {
         return <Loading />
     }
 
-    async function handleEdit(e) {
-        const name = e.target.parentElement.getAttribute('id')
+    async function handleEdit(name) {
         dispatch(setEdit(true))
         try {
-            const response = await axios.get(`/api/coll/get?username=${name}`)
+            const response = await axios.post('/api/coll/get/one', {name})
             dispatch(setEditData(response.data))
         } catch (e) {
             console.error("Error getting collection")
             dispatch(setMessage("Internal server error"))
         }
     }
-    async function handleDelete(e) {
-        const name = e.target.parentElement.getAttribute('id')
+    async function handleDelete(name) {
         dispatch(setConfirm({state: true, data: name}))
     }
 
@@ -69,8 +67,8 @@ const List = () => {
                                                             <BsThreeDotsVertical  />
                                                         </Dropdown.Toggle>
                                                         <Dropdown.Menu>
-                                                            <Dropdown.Item onClick={(e) => handleEdit(e)}>edit</Dropdown.Item>
-                                                            <Dropdown.Item onClick={(e) => handleDelete(e)}>delete</Dropdown.Item>
+                                                            <Dropdown.Item onClick={() => handleEdit(elem.name)}>edit</Dropdown.Item>
+                                                            <Dropdown.Item onClick={() => handleDelete(elem.name)}>delete</Dropdown.Item>
                                                         </Dropdown.Menu>
                                                     </Dropdown>
                                                 }

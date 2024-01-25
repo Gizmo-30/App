@@ -23,17 +23,18 @@ const Dashboard = () => {
                   data={editing}
             />
             <ConfirmAction show={modals.confirm.state} name={modals.confirm.data} onHide={() => dispatch(setConfirm({state: false, data: null}))} />
-            <NavPanel />
+            <NavPanel role={user.role}/>
             <Header user={user}/>
             <Container >
-                <Row>
-                    <Col sm={3}>
-                        <Menu />
-                    </Col>
-                    <Col>
-                        <Outlet/>
-                    </Col>
-                </Row>
+                <Outlet />
+                {/*<Row>*/}
+                {/*    <Col sm={3}>*/}
+                {/*        <Menu />*/}
+                {/*    </Col>*/}
+                {/*    <Col>*/}
+                {/*        <Outlet/>*/}
+                {/*    </Col>*/}
+                {/*</Row>*/}
             </Container>
             <Message />
         </>

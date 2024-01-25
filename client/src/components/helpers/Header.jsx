@@ -1,5 +1,5 @@
-import {Col, Container, Row} from "react-bootstrap";
-import {NavLink, useLoaderData, useNavigate} from "react-router-dom";
+import {Breadcrumb, Col, Container, Row} from "react-bootstrap";
+import {NavLink, useLoaderData, useLocation, useNavigate} from "react-router-dom";
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {setAuth} from "../../state/slices/authenticated";
@@ -9,6 +9,7 @@ const Header = ({user}) => {
     const auth = useSelector((state) => state.auth)
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const location = useLocation()
     async function onSignOut() {
         await localStorage.removeItem("user")
         dispatch(setAuth(false))
@@ -22,7 +23,11 @@ const Header = ({user}) => {
         <Container>
             <Row className="d-flex align-items-center my-4">
                 <Col>
-                    <h4>Filter</h4>
+                    <Breadcrumb>
+                        <Breadcrumb.Item active={'/' === location.pathname} href="/">Collections</Breadcrumb.Item>
+                        {user.role === 'admin' && <Breadcrumb.Item active={'/users' === location.pathname} href="/users">Users</Breadcrumb.Item>}
+                        <Breadcrumb.Item active={'/items' === location.pathname} href="/items">Items</Breadcrumb.Item>
+                    </Breadcrumb>
                 </Col>
                 <Col className="d-flex justify-content-end column-gap-2 ">
                     <p>

@@ -1,6 +1,4 @@
-import {useLocation} from "react-router-dom";
 import axios from "axios";
-import {useGetCollTypeQuery} from "../state/slices/api";
 
 export const getLocaluser = () => JSON.parse(localStorage.getItem("user")) || {}
 

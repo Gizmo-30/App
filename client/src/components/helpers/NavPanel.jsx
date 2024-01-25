@@ -4,13 +4,17 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import {NavLink} from "react-router-dom";
 
-const NavPanel = () => {
+const NavPanel = ({role}) => {
     return (
         <headerd className="Header">
             <Navbar expand="lg" data-bs-theme="secondary" className="bg-body-tertiary">
                 <Container>
                     {/*<Navbar.Brand href="/" onClick={(e) => e.preventDefault()}>ColAp</Navbar.Brand>*/}
                     <NavLink to="/" className="navbar-brand">ColAp</NavLink>
+                    {
+                        role === 'admin' &&
+                        <NavLink to="/users" className="nav-link">users</NavLink>
+                    }
                     <Navbar.Toggle aria-controls="navbarScroll" />
                     <Navbar.Collapse id="navbarScroll">
                         <Nav

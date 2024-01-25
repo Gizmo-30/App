@@ -4,11 +4,13 @@ import {setEdit} from "../../../state/slices/modals";
 import axios from "axios";
 import {setEditData} from "../../../state/slices/edit";
 import {setMessage} from "../../../state/slices/message";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import Button from "react-bootstrap/Button";
 
 const Details = () => {
     const data = useLoaderData()
+    const auth = useSelector((state) => state.auth)
+    console.log(auth)
     const dispatch = useDispatch()
 
     return (
@@ -26,6 +28,13 @@ const Details = () => {
                     <span className="fst-italic">type: </span>
                     <Card.Text>{data.type}</Card.Text>
                 </ListGroup.Item>
+                {
+                    auth ||
+                    <ListGroup.Item>
+                        <span className="fst-italic">creator: </span>
+                        <Card.Text>{data.User.username}</Card.Text>
+                    </ListGroup.Item>
+                }
                 <ListGroup.Item>
                     <span className="fst-italic">createdAt: </span>
                     {data.createdAt}

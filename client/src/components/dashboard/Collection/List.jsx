@@ -34,7 +34,7 @@ const List = () => {
         const name = e.target.parentElement.getAttribute('id')
         dispatch(setEdit(true))
         try {
-            const response = await axios.get(`/api/coll/get?name=${name}`)
+            const response = await axios.get(`/api/coll/get?username=${name}`)
             dispatch(setEditData(response.data))
         } catch (e) {
             console.error("Error getting collection")
@@ -62,7 +62,7 @@ const List = () => {
                                                 <Card.Subtitle className="text-muted">{elem.type}</Card.Subtitle>
                                             </Col>
                                             <Col className="d-flex justify-content-end align-items-center">
-                                                <Link to={`/details?name=${elem.name}`}><CgDetailsMore /></Link>
+                                                <Link to={`/details/${elem.name}`}><CgDetailsMore /></Link>
                                                 {auth
                                                     && <Dropdown align="end" >
                                                         <Dropdown.Toggle variant="light" id="dropdown-basic" className="custom-dropdown-toggle bg-transparent border-0">

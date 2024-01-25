@@ -13,31 +13,6 @@ export const api = createApi({
     refetchOnFocus: true,
     refetchOnReconnect: true,
     endpoints: (builder) => ({
-        getUsers: builder.query({
-            query: () => ({
-                url: '/users/',
-                method: 'Get',
-            })
-        }),
-        getUser: builder.query({
-            query: () => ({
-                url: '/login',
-                method: 'Get',
-            })
-        }),
-        getCollections: builder.query({
-            query: () => ({
-                url: '/api/coll/get/all/user',
-                method: 'Get',
-                headers: authHeader(),
-            })
-        }),
-        getCollectionsAll: builder.query({
-            query: () => ({
-                url: '/api/coll/get/all',
-                method: 'Get',
-            })
-        }),
         getCollType: builder.query({
             query: ({type, username}) => ({
                 url: `/api/coll/get?type=${type}&username=${username}`,
@@ -47,4 +22,4 @@ export const api = createApi({
         })
     })
 })
-export const { useGetUsersQuery, useSendUsersQuery, useGetUserQuery, useGetCollectionsQuery, useGetCollectionsAllQuery, useGetCollTypeQuery} = api;
+export const { useGetCollTypeQuery} = api;

@@ -12,8 +12,8 @@ const Menu = () => {
     const dispatch = useDispatch()
 
     const onNavigate = (e) => {
-        const url = e === '' ? '' : `?type=${e}`
-        navigate(url)
+        const url = e === '' ? '/' : `/?type=${e}`
+        navigate(url, { replace: true })
     }
     return (
         <Tab.Container >

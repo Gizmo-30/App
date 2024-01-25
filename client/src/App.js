@@ -10,7 +10,7 @@ import Auth from "./components/routes/Auth";
 import CheckAuth from "./components/routes/CheckAuth";
 import {GlobalContextProvider} from "./state/GlobalContext";
 import Items from "./components/dashboard/Item/Items";
-import {userloader} from "./methods/loaders";
+import {getCollectionDetails, getLocaluser} from "./methods/loaders";
 import './App.css'
 import Missing from "./components/helpers/Missing";
 import List from "./components/dashboard/Collection/List";
@@ -27,26 +27,26 @@ const router = createBrowserRouter([
         path: '/',
         element: <Dashboard /> ,
         errorElement: <Missing />,
-        loader: userloader,
+        loader: getLocaluser,
         children: [
             {
                 path: '/',
                 element: <CheckAuth />,
-                loader: userloader,
+                loader: getLocaluser,
                 children: [
                     {
                         path: '/',
                         element: <List />,
-                        loader: userloader,
-                        errorElement: <Missing />
+                        loader: getLocaluser
                     },
                     {
                         path: "item",
                         element: <Items />
                     },
                     {
-                        path: "details",
-                        element: <Details />
+                        path: "details/:name",
+                        element: <Details />,
+                        loader: getCollectionDetails,
                     },
 
                 ]

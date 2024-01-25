@@ -84,7 +84,6 @@ exports.editColl = async (req,res) => {
 }
 exports.getCollByType = async (req,res) => {
     const {type, username} = req.query
-    console.log(type)
     try {
         if(username) {
             const searchResult = await User.findOne({attributes: ["id"], where: {username,}})

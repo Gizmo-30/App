@@ -1,12 +1,12 @@
-import {useLocation} from "react-router-dom";
+import {useLoaderData, useLocation, useParams, useSearchParams} from "react-router-dom";
 
 const Details = () => {
-    const location = useLocation()
-    const name = new URLSearchParams(location.search).get('name');
-    console.log(name)
+    // const data = useLoaderData()
+    // console.log(data)
     return (
         <section>
-            <h2><span>name:</span> {name}</h2>
+            safdadsf
+            {/*<h2><span>name:</span> {name}</h2>*/}
         </section>
     )
 }

@@ -5,6 +5,7 @@ const coll = express.Router()
 
 coll.post('/api/coll/create', verifyToken, createColl)
 coll.get('/api/coll/get/all/user', verifyToken, getCollsByUser)
+
 coll.get('/api/coll/get/all', getColls)
 coll.get('/api/coll/get',getCollToEdit, getCollByType)
 coll.post('/api/coll/delete', deleteColl)

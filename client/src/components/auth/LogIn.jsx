@@ -44,7 +44,7 @@ const LogIn = () => {
             const role = response.data.role
 
             dispatch(setRole(role))
-            navigate("/dashboard")
+            navigate("/")
         } catch (e) {
             console.error('Error posting user data ------>', e)
             dispatch(setError(e.response.data))

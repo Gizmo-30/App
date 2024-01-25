@@ -9,9 +9,8 @@ import Button from "react-bootstrap/Button";
 
 const Details = () => {
     const data = useLoaderData()
+    console.log('Details page data',data)
     const auth = useSelector((state) => state.auth)
-    console.log(auth)
-    const dispatch = useDispatch()
 
     return (
         <Card>

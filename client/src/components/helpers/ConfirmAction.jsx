@@ -13,6 +13,7 @@ const ConfirmAction = ({show, onHide, name}) => {
         if(name.action) {
             try {
                 const response = await axios.post(`/api/users/change?action=${name.action}`, name.checked)
+                console.log(response)
                 dispatch(setMessage(response.data))
             }catch (e) {
                 console.error(e)

@@ -13,7 +13,7 @@ exports.changeStatus = async (req,res) => {
                     return [update]
                 })
             )
-            res.status(200).send('status updated')
+            if(response > 0) return res.status(200).send('status updated')
         } catch (e) {
             console.error(e)
             res.status(500).send('internal server error')

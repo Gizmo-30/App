@@ -3,7 +3,8 @@ import {NavLink, useLoaderData, useLocation, useNavigate} from "react-router-dom
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {setAuth} from "../../state/slices/authenticated";
-import {setPassword, setUsername} from "../../state/slices/user";
+import {setConfirmPassword, setEmail, setPassword, setUsername} from "../../state/slices/user";
+import {setConfirm} from "../../state/slices/modals";
 
 const Header = ({user}) => {
     const auth = useSelector((state) => state.auth)
@@ -15,6 +16,8 @@ const Header = ({user}) => {
         dispatch(setAuth(false))
         dispatch(setUsername(""))
         dispatch(setPassword(""))
+        dispatch(setEmail(""))
+        dispatch(setConfirmPassword(""))
         navigate('/login')
 
     }
@@ -24,9 +27,17 @@ const Header = ({user}) => {
             <Row className="d-flex align-items-center my-4">
                 <Col>
                     <Breadcrumb>
-                        <Breadcrumb.Item active={'/' === location.pathname} href="/">Collections</Breadcrumb.Item>
-                        {user.role === 'admin' && <Breadcrumb.Item active={'/users' === location.pathname} href="/users">Users</Breadcrumb.Item>}
-                        <Breadcrumb.Item active={'/items' === location.pathname} href="/items">Items</Breadcrumb.Item>
+                        <Breadcrumb.Item active={'/' === location.pathname}>
+                            <NavLink to="/" className="link">Collections</NavLink>
+                        </Breadcrumb.Item>
+                        {user.role === 'admin' &&
+                            <Breadcrumb.Item active={'/users' === location.pathname}>
+                                <NavLink to="/users" className="link">Users</NavLink>
+                            </Breadcrumb.Item>
+                        }
+                        <Breadcrumb.Item active={'/items' === location.pathname}>
+                            <NavLink to="/items" className="link">Items</NavLink>
+                        </Breadcrumb.Item>
                     </Breadcrumb>
                 </Col>
                 <Col className="d-flex justify-content-end column-gap-2 ">

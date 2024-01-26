@@ -39,6 +39,7 @@ const router = createBrowserRouter([
                     {
                         path: '/users',
                         element: <Users />,
+                        loader: getLocaluser,
                     },
                     {
                         path: '/',

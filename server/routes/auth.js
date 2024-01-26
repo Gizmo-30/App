@@ -3,17 +3,9 @@ const { Op } = require('sequelize');
 const auth = express.Router()
 const {User} = require("../models");
 const bcrypt = require("bcrypt");
-const {login, registration, verifyToken} = require("../controllers/auth");
+const {login, registration, verifyToken, users} = require("../controllers/auth");
 
-auth.get('/users', async (req, res) => {
-    try{
-        const data = await User.findAll()
-        res.json(data)
-    } catch(error) {
-        res.status(500).json({error: "Error fetching data"})
-        console.error("Error fetching data ----> ", error)
-    }
-})
+auth.get('/api/auth/users', users)
 
 auth.post('/api/auth/signin', login)
 

@@ -45,7 +45,6 @@ exports.deleteColl = async (req,res) => {
     const {name} = req.body
     try {
         const response = await Collections.destroy({where: {name,}})
-        console.log(response)
         if(response > 0) return res.status(200).send('Collection deleted')
     } catch (e) {
         console.error("Error deleting coll", e)

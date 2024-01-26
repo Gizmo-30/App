@@ -19,7 +19,11 @@ export const api = createApi({
                 method: 'Get',
             }),
             refetchOnMountOrArgChange: true,
+        }),
+        getAllUsers: builder.query({
+            query: () => '/api/auth/users',
+            refetchOnMountOrArgChange: true,
         })
     })
 })
-export const { useGetCollTypeQuery} = api;
+export const { useGetCollTypeQuery, useGetAllUsersQuery} = api;

@@ -9,3 +9,15 @@
 .modal-button {
     width: 150px !important;
 }
+
+
+.link.active {
+    color: blue;
+}
+
+.link {
+    color: black;
+}
+tr.active {
+    background: forestgreen !important;
+}

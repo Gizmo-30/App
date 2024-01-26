@@ -22,7 +22,7 @@ const List = () => {
     const type = location === '' ? 'all': location
 
 
-    const username = user.username || ""
+    const username = (user.username && user.role !== 'admin') ? user.username: ""
     const sort = type === '' ? 'all': type
     const { data, error, isLoading } = useGetCollTypeQuery({type, username,}, {pollingInterval: 5000,});
 
@@ -46,7 +46,6 @@ const List = () => {
 
     return (
             <Row className="d-felx flex-column row-gap-1">
-                {/*{data && !data.length && <Empty/>}*/}
                 {error
                     ? <ServerError/>
                     : !data.length

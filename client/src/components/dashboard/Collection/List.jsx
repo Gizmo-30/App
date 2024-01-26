@@ -12,6 +12,7 @@ import {setConfirm, setEdit} from "../../../state/slices/modals";
 import axios from "axios";
 import {setMessage} from "../../../state/slices/message";
 import {setEditData} from "../../../state/slices/edit";
+import Message from "../../helpers/Message";
 
 const List = () => {
     const {auth, editing} = useSelector((state) => state)
@@ -45,7 +46,7 @@ const List = () => {
     }
 
     return (
-            <Row className="d-felx flex-column row-gap-1">
+            <Row className="d-felx flex-column row-gap-1 position-relative">
                 {error
                     ? <ServerError/>
                     : !data.length
@@ -76,7 +77,9 @@ const List = () => {
                                     </Card.Body>
                                 </Card>
                             ))}
-
+                <Col>
+                    <Message class={`position-absolute bottom-0 start-0 mx-3`}/>
+                </Col>
             </Row>
     )
 

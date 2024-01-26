@@ -9,7 +9,6 @@ const ConfirmAction = ({show, onHide, name}) => {
     const dispatch = useDispatch()
     const onsubmit = async () => {
         onHide()
-        console.log(name)
         if(name.action) {
             try {
                 const response = await axios.post(`/api/users/change?action=${name.action}`, name.checked)

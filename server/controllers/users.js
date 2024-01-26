@@ -13,7 +13,11 @@ exports.changeStatus = async (req,res) => {
                     return [update]
                 })
             )
-            if(response > 0) return res.status(200).send('status updated')
+            if (response.every((update) => update > 0)) {
+                return res.status(200).send('status updated');
+            } else {
+                return res.status(500).send('failed to update status for some users');
+            }
         } catch (e) {
             console.error(e)
             res.status(500).send('internal server error')
@@ -27,7 +31,11 @@ exports.changeStatus = async (req,res) => {
                     return [update]
                 })
             )
-            if(response > 0) return res.status(200).send('user deleted')
+            if (response.every((deletedRows) => deletedRows > 0)) {
+                return res.status(200).send('users deleted');
+            } else {
+                return res.status(500).send('failed to delete some users');
+            }
         } catch (e) {
             console.error(e)
             res.status(500).send('internal server error')

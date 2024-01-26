@@ -13,6 +13,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {setMessage} from "../../state/slices/message";
 import {GrUserAdmin} from "react-icons/gr";
 import {RiAdminLine} from "react-icons/ri";
+import Message from "../helpers/Message";
 
 const Users = () => {
     const modals = useSelector((state) => state.modals)
@@ -63,38 +64,43 @@ const Users = () => {
     if(isLoading) return <Loading />
     if(error) return <ServerError />
     return (
-        <div className="w-100">
+        <div className="w-100 position-relative">
             <ConfirmAction show={modals.confirm.state} name={modals.confirm.data} onHide={() => dispatch(setConfirm({state: false, data: null}))} />
 
 
-            <ButtonGroup className="opacity-75 mb-4"
-                // onClick={() => setModal(true)}
+            <ButtonGroup className="mb-4 shadow-lg"
+                         style={{
+                             position: 'sticky',
+                             top: '20px',
+                             zIndex: 1000,
+                         }}
+
             >
-                <Button variant="outline-danger" className="position-relative"
+                <Button variant="danger" className="position-relative"
                     onClick={(e) => handleChange(e.target.id)}  id="block"
                 >
                     Block user
                 </Button>
-                <Button className="position-relative" variant="outline-success">
+                <Button className="position-relative" variant="success">
                     <Button className="position-absolute top-0 start-0 w-100 h-100 opacity-0" id="active"
                         onClick={(e) => handleChange(e.target.id)}
                     ></Button>
                     <TbLockOpen />
                 </Button>
-                <Button className="position-relative" variant="outline-warning" >
+                <Button className="position-relative" variant="warning" >
                     <Button className="position-absolute top-0 start-0 w-100 h-100 opacity-0" id="delete"
                         onClick={(e) => handleChange(e.target.id)}
                     ></Button>
                     <MdDelete />
                 </Button>
-                <Button className="position-relative" variant="outline-info" >
+                <Button className="position-relative" variant="info" >
                     <Button className="position-absolute top-0 start-0 w-100 h-100 opacity-0" id="admin"
                         onClick={(e) => handleChange(e.target.id)}
                     ></Button>
                     make admin
                     <GrUserAdmin className="mx-3"/>
                 </Button>
-                <Button className="position-relative" variant="outline-info" >
+                <Button className="position-relative" variant="info" >
                     <Button className="position-absolute top-0 start-0 w-100 h-100 opacity-0" id="user"
                         onClick={(e) => handleChange(e.target.id)}
                     ></Button>
@@ -111,9 +117,10 @@ const Users = () => {
                         <th>Username</th>
                         <th>Role</th>
                         <th>Email</th>
-                        <th>Password</th>
-                        <th>registered</th>
                         <th>status</th>
+                        <th>registered</th>
+                        <th>updated</th>
+                        <th>Password</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -125,15 +132,17 @@ const Users = () => {
                                 <td>{e.username}</td>
                                 <td>{e.role}</td>
                                 <td>{e.email}</td>
-                                <td>{e.password}</td>
-                                <td>{e.createdAt}</td>
                                 <td>{e.status}</td>
+                                <td>{e.createdAt}</td>
+                                <td>{e.updatedAt}</td>
+                                <td>{e.password}</td>
                             </tr>
                         )
                     })}
                     </tbody>
                 </Table>
             </div>
+            <Message class={`position-absolute bottom-0 end-0 mx-3`}/>
         </div>
     )
 }

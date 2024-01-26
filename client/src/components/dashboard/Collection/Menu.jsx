@@ -16,7 +16,7 @@ const Menu = () => {
         navigate(url, { replace: true })
     }
     return (
-        <Tab.Container >
+        <Tab.Container>
             <Button variant="primary" className="w-100 my-2" onClick={() => dispatch(setCreate(true))}>Add new collection</Button>
             <ListGroup className="shadow-sm w-100" defaultActiveKey="all">
                 {

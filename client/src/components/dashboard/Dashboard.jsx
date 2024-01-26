@@ -3,13 +3,13 @@ import {Outlet, useLoaderData} from "react-router-dom";
 import React from "react";
 import {Col, Container, Row, Spinner} from "react-bootstrap";
 import Header from "../helpers/Header";
-import Message from "../helpers/Message";
 import NavPanel from "../helpers/NavPanel";
 import Menu from "./Collection/Menu";
 import Create from "./Collection/Create";
 import {setConfirm, setCreate, setEdit,} from "../../state/slices/modals";
 import Edit from "./Collection/Edit";
 import ConfirmAction from "../helpers/ConfirmAction";
+import Message from "../helpers/Message";
 
 const Dashboard = () => {
     const user = useLoaderData()
@@ -27,16 +27,7 @@ const Dashboard = () => {
             <Header user={user}/>
             <Container >
                 <Outlet />
-                {/*<Row>*/}
-                {/*    <Col sm={3}>*/}
-                {/*        <Menu />*/}
-                {/*    </Col>*/}
-                {/*    <Col>*/}
-                {/*        <Outlet/>*/}
-                {/*    </Col>*/}
-                {/*</Row>*/}
             </Container>
-            <Message />
         </>
     )
 }

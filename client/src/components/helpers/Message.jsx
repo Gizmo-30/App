@@ -4,13 +4,13 @@ import React from "react";
 import {setError} from "../../state/slices/status";
 import {setMessage} from "../../state/slices/message";
 
-const Message = () => {
+const Message = (props) => {
     const message = useSelector((state) => state.message)
     const dispatch = useDispatch()
     setTimeout(() => dispatch(setMessage("")), 5000)
 
     if (message.message) {
-        return <Alert variant="primary" className="position-absolute bottom-0 start-0 mx-3">{message.message}</Alert>
+        return <Alert variant="primary" className={props.class}>{message.message}</Alert>
     } else return null
 }
 
